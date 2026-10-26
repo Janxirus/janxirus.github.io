@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Janxirus: Minecraft mods, resource packs, desktop apps and Roblox scripting. Commissions open.">
+<meta property="og:title" content="Janxirus Portfolio">
+<meta property="og:description" content="Shardlight mods and client, MediaVault, Roblox. Commissions open.">
+<meta property="og:image" content="https://janxirus.github.io/themes-grid.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Janxirus Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: single dark "forge glass" column; pixel display type used only for names, glass panels set off project cards */
+:root{
+  --bg:#07070c; --bg2:#0e0e18; --glass:rgba(40,36,80,.35); --line:#24223a;
+  --fg:#f4f4fb; --muted:#9d9cb8; --blue:#4f8cff; --purple:#9b6bff; --ember:#9b6bff; --ember-soft:#8fb4ff; --ok:#6fe0b0;
+  --display:"Pixelify Sans","Courier New",monospace;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;
+  background-image:radial-gradient(ellipse 80% 50% at 75% -10%,rgba(155,107,255,.22),transparent 70%),
+  radial-gradient(ellipse 60% 40% at 0% 100%,rgba(79,140,255,.12),transparent 70%);background-attachment:fixed}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+a{color:var(--ember-soft)}
+:focus-visible{outline:2px solid var(--ember-soft);outline-offset:3px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-block:22px}
+.mark{font-family:var(--display);font-size:20px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.shard{width:14px;height:14px;background:linear-gradient(135deg,var(--blue),var(--purple));clip-path:polygon(50% 0,100% 40%,60% 100%,0 55%);box-shadow:0 0 12px var(--ember)}
+nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;font-size:14px}
+nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--fg)}
+.status{font-family:var(--mono);font-size:12px;color:var(--ok);display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:4px 10px;border-radius:2px}
+.status::before{content:"";width:7px;height:7px;background:var(--ok);border-radius:50%}
+.hero{padding-block:56px 48px;display:grid;gap:22px}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,8vw,76px);line-height:1;margin:0;text-wrap:balance}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(155,107,255,.35))}
+.hero p{max-width:58ch;color:var(--muted);font-size:18px;margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px}
+.tags span{border:1px solid var(--line);padding:3px 9px;color:var(--fg);background:rgba(255,255,255,.02)}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font:600 15px var(--body);padding:12px 20px;border:1px solid transparent;background:linear-gradient(90deg,var(--blue),var(--purple));color:#fff;cursor:pointer;text-decoration:none;border-radius:2px}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn:hover{filter:brightness(1.1)}
+section{padding-block:40px}
+h2{font-family:var(--display);font-weight:500;font-size:28px;margin:0 0 6px}
+.lead{color:var(--muted);margin:0 0 26px;max-width:60ch}
+.label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ember-soft)}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.card{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px);display:flex;flex-direction:column;min-width:0}
+.card.feature{grid-column:1/-1}
+.shot{aspect-ratio:16/9;max-width:100%;background:
+  repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 8px,transparent 8px 16px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 8px,transparent 8px 16px),var(--bg2);
+  display:grid;place-items:center;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted)}
+.card.feature .shot{aspect-ratio:21/9}
+.shot.img{display:block;aspect-ratio:1360/860;overflow:hidden;background:var(--bg2)}
+.card.feature .shot.img{aspect-ratio:1360/700}
+.shot.img img{width:100%;height:100%;object-fit:cover;object-position:left top;display:block}
+.shot.svg img{object-position:center}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.sub{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:6px}
+.sub div{background:var(--bg2);padding:12px 14px;display:grid;gap:2px;min-width:0}
+.sub b{font-weight:600;font-size:14px}.sub span{color:var(--muted);font-size:13px}
+.group{margin-top:34px;margin-bottom:12px;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;border-bottom:1px solid var(--line);padding-bottom:8px}
+.card-body{padding:18px 20px 20px;display:grid;gap:8px;min-width:0}
+.card h3{font-family:var(--display);font-weight:500;font-size:22px;margin:0}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.meta{font-family:var(--mono);font-size:12px;color:var(--fg);display:flex;flex-wrap:wrap;gap:6px 14px}
+.meta b{color:var(--ember-soft);font-weight:600}
+.services{border-top:1px solid var(--line)}
+.svc{display:grid;grid-template-columns:1fr auto;gap:4px 24px;padding-block:18px;border-bottom:1px solid var(--line);align-items:baseline}
+.svc h3{margin:0;font-size:17px;font-weight:600}
+.svc p{margin:0;color:var(--muted);font-size:14px;grid-column:1}
+.price{font-family:var(--mono);font-size:15px;color:var(--ember-soft);white-space:nowrap;grid-row:1}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:20px;list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;gap:4px}
+.steps li::before{content:counter(s);font-family:var(--display);font-size:26px;color:var(--purple)}
+.steps b{font-weight:600}.steps span{color:var(--muted);font-size:14px}
+.contact{background:var(--glass);border:1px solid var(--line);padding:28px 24px;display:grid;gap:16px}
+.handles{display:grid;gap:10px}
+.handle{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:14px}
+.handle .k{width:80px;color:var(--muted)}
+.handle code{user-select:all;color:var(--fg)}
+.copy{font:12px var(--mono);background:transparent;border:1px solid var(--line);color:var(--muted);padding:3px 9px;cursor:pointer}
+.copy:hover{color:var(--fg);border-color:var(--muted)}
+footer{color:var(--muted);font-size:13px;padding-top:30px}
+@media (max-width:560px){nav ul{display:none}.svc{grid-template-columns:1fr}.price{grid-row:auto}}
+@media (prefers-reduced-motion:no-preference){.shard{animation:pulse 3s ease-in-out infinite}@keyframes pulse{50%{box-shadow:0 0 22px var(--ember)}}}
+</style>
+
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <div class="mark"><span class="shard" aria-hidden="true"></span>Janxirus</div>
+  <ul><li><a href="#work">Work</a></li><li><a href="#services">Services</a></li><li><a href="#contact">Contact</a></li></ul>
+  <span class="status">Open for commissions</span>
+</nav>
+
+<header class="hero">
+  <span class="label">Developer &amp; designer · Sweden</span>
+  <h1>Mods, apps and game UI that feel <em>crafted</em>.</h1>
+  <p>I design and build Minecraft mods and resource packs, desktop and mobile apps, and Roblox games. You get the visual design and the working code from one person, built to stay fast.</p>
+  <div class="tags"><span>Java</span><span>Fabric</span><span>JavaFX</span><span>Python</span><span>Luau</span><span>Gradle</span><span>Pixel art</span><span>UI/UX</span></div>
+  <div class="cta"><a class="btn" href="#contact">Request a quote</a><a class="btn ghost" href="#work">See my work</a></div>
+</header>
+
+<section id="work">
+  <span class="label">Selected work</span>
+  <h2>Projects</h2>
+  <p class="lead">Everything here I designed and built myself.</p>
+
+  <div class="group">Minecraft</div>
+  <div class="projects">
+    <article class="card feature">
+      <div class="shot img"><img src="client-shardlight.jpg" alt="Shardlight Client screen for picking Shardlight mods and one of 15 themes per project"></div>
+      <div class="card-body">
+        <h3>Shardlight Client</h3>
+        <p>A standalone Minecraft: Java Edition launcher. Every setup lives in its own project with its own version, loader, mods and Java. It searches Modrinth and CurseForge, checks dependencies and conflicts before installing, explains crashes in plain words, and backs up worlds. Frame rate comes first: one click switches between six performance presets.</p>
+        <div class="meta"><span><b>JavaFX</b> desktop app</span><span><b>~590</b> automated tests</span><span>Windows · macOS · Linux</span><span>v0.1.0 preview</span></div>
+        <span class="cap"><a href="https://github.com/Janxirus/Shardlight_Client">Source on GitHub</a></span>
+      </div>
+    </article>
+    <article class="card feature">
+      <div class="shot img"><img src="shardlight-ingame.jpg" alt="Shardlight UI in game: themed inventory, HUD, compass strip and round minimap"></div>
+      <div class="card-body">
+        <h3>Shardlight mod family</h3>
+        <p>Four client-side Fabric mods for Minecraft 26.3 that each work alone, and together share one theme, one HUD layout editor and one compass.</p>
+        <div class="sub">
+          <div><b>Shardlight UI · v3.6.0</b><span>Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, switchable profiles.</span></div>
+          <div><b>Shardlight Map · v1.2.0</b><span>Minimap and world map with cave layers, radar, waypoints with groups and icons, and map sharing.</span></div>
+          <div><b>Shardlight Companion · v1.0.0</b><span>Notes pinned to places, self-checking to-do lists, photo mode, measuring tape, shape planner, timers.</span></div>
+          <div><b>Shardlight Party · v1.2.0</b><span>Friends list and party panel. Links players through rate-limited private messages, so no server plugin is needed.</span></div>
+        </div>
+        <div class="meta" style="margin-top:6px"><span><b>Fabric</b> · Mixins</span><span>MC <b>26.3</b></span><span>Modrinth · CurseForge</span></div>
+      </div>
+    </article>
+    <article class="card feature">
+      <div class="shot img" style="aspect-ratio:2076/1518"><img src="themes-grid.png" alt="Inventory screen from all 15 Shardlight theme packs side by side" style="object-fit:contain"></div>
+      <div class="card-body">
+        <h3>15 theme packs</h3>
+        <p>Resource and sound packs that restyle every screen, from Ember and Blood Moon to Cyberpunk and Voidborn. Each theme has its own frame, background art and icons. Themes can follow the dimension you're in.</p>
+        <div class="meta"><span><b>15</b> themes</span><span>Textures · sounds</span></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="shot img"><img src="client-project-performance.jpg" alt="Shardlight Client performance presets screen"></div>
+      <div class="card-body">
+        <h3>Performance presets</h3>
+        <p>From Ultra Performance to Ultra Quality. Each preset previews exactly which settings it will change before applying.</p>
+        <div class="meta"><span><b>6</b> presets</span><span>Part of Shardlight Client</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="group">Apps</div>
+  <div class="projects">
+    <article class="card feature">
+      <div class="shot img svg"><img src="mediavault-library.svg" alt="Feature sketch of the MediaVault library view"></div>
+      <div class="card-body">
+        <h3>MediaVault</h3>
+        <p>A Windows app that brings videos, photos and audio from folders and external drives into one local library. It has an embedded player, Quick Sort, duplicate and similar-photo detection, side-by-side comparison, storage cleanup, and optional local AI. No cloud account needed.</p>
+        <div class="meta"><span><b>Python</b> desktop app</span><span>v<b>1.9.7</b></span><span>Windows installer</span><span>FFmpeg bundled</span></div>
+        <span class="cap">Feature sketch, not a screenshot</span>
+      </div>
+    </article>
+    <article class="card">
+      <div class="shot img"><img src="client-home.jpg" alt="Shardlight Client home screen"></div>
+      <div class="card-body">
+        <h3>Launcher UI design</h3>
+        <p>The Shardlight Client interface: projects, play time and shortcuts on one calm home screen.</p>
+        <div class="meta"><span>UI/UX</span><span>JavaFX + CSS</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="group">Roblox</div>
+  <div class="projects">
+    <article class="card">
+      <div class="shot">[ screenshot: tycoon plot ]</div>
+      <div class="card-body">
+        <h3>Anime Tycoon</h3>
+        <p>Roblox tycoon with a hand-built anime map, 5 plots per server, staged buy-button progression, rebirths and Robux boosts.</p>
+        <div class="meta"><span><b>Luau</b></span><span><b>5</b>-player servers</span><span>Monetization</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="services">
+  <span class="label">What I offer</span>
+  <h2>Services</h2>
+  <p class="lead">Starting prices. Every job gets a fixed quote before work begins.</p>
+  <div class="services">
+    <div class="svc"><h3>Custom GUI / resource pack</h3><span class="price">from €60</span><p>Inventory, menus, HUD, icons and sounds in your server's style.</p></div>
+    <div class="svc"><h3>Fabric mod or server plugin feature</h3><span class="price">from €50</span><p>Commands, mechanics, custom screens, bug fixes, version ports.</p></div>
+    <div class="svc"><h3>Roblox scripting</h3><span class="price">from €50</span><p>Tycoon systems, shops, rebirths, data saving, UI.</p></div>
+    <div class="svc"><h3>Desktop tool or app</h3><span class="price">quote</span><p>Launchers, utilities and media tools in Java or Python, with installers.</p></div>
+    <div class="svc"><h3>Full UI overhaul</h3><span class="price">quote</span><p>Design plus implementation for a whole server, game or app.</p></div>
+  </div>
+</section>
+
+<section>
+  <span class="label">How it works</span>
+  <h2>Process</h2>
+  <ol class="steps">
+    <li><b>Brief</b><span>Tell me what you need and send references.</span></li>
+    <li><b>Quote</b><span>Fixed price and delivery date, 50% upfront.</span></li>
+    <li><b>Preview</b><span>You see work in progress and request changes.</span></li>
+    <li><b>Delivery</b><span>Final files, source and setup notes.</span></li>
+  </ol>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <span class="label">Contact</span>
+    <h2>Have a project?</h2>
+    <p class="lead" style="margin:0">Message me on GitHub or Discord with what you need, your game version and a deadline. More contact options are coming soon.</p>
+    <div class="handles">
+      <div class="handle"><span class="k">GitHub</span><a href="https://github.com/Janxirus"><code>github.com/Janxirus</code></a></div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Janxirus · Based in Sweden · Replies within 24h</footer>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.t);const t=el.textContent;
+  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)};
+  try{navigator.clipboard.writeText(t).then(done,()=>sel(el))}catch(e){sel(el)}
+}));
+function sel(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+</script>
+
+</body>
+</html>
