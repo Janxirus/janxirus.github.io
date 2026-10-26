@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://janxirus.github.io/og.png">
 <meta name="theme-color" content="#07070c">
-<link rel="icon" type="image/png" href="logo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
 <link rel="apple-touch-icon" href="logo-256.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>Janxirus Portfolio</title>
@@ -45,7 +45,7 @@ img{max-width:100%}
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(7,7,12,.72);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
 .mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:20px;text-decoration:none;color:var(--fg)}
-.mark img{width:28px;height:28px}
+.mark img{width:26px;height:28px;image-rendering:pixelated;image-rendering:crisp-edges}
 nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px}
 nav ul a{color:var(--muted);text-decoration:none;position:relative}
 nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--purple);transform:scaleX(0);transform-origin:left;transition:transform .25s}
@@ -544,7 +544,7 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 
 <nav>
   <div class="wrap">
-    <a class="mark" href="#top"><img class="px" src="logo.png" alt="">Janxirus</a>
+    <a class="mark" href="#top"><img class="px" src="logo-nav.png" alt="" width="26" height="28">Janxirus</a>
     <ul>
       <li><a href="#shardlight">Shardlight</a></li>
       <li><a href="#client">Work</a></li>
