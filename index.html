@@ -179,6 +179,21 @@ section{padding-block:84px}
 .handles a:hover{border-color:var(--purple)}
 footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
+
+/* support */
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px}
+.tier{border:1px solid var(--line);background:var(--panel);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s;min-width:0}
+.tier:hover{transform:translateY(-5px);border-color:var(--tc);box-shadow:0 0 30px color-mix(in srgb,var(--tc) 25%,transparent)}
+.tier img{display:block;width:100%;aspect-ratio:920/400;image-rendering:pixelated}
+.tier .tb{padding:16px 20px 20px;display:grid;gap:8px}
+.tier .tp{font:600 18px var(--mono);color:var(--fg)}
+.tier .tp small{font-size:12px;color:var(--muted);font-weight:400}
+.tier ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px}
+.tier.hl{border-color:var(--tc)}
+.tier .badge{font:11px var(--mono);text-transform:uppercase;letter-spacing:.12em;background:var(--tc);color:#07070c;padding:4px 10px;text-align:center}
+.support-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:22px}
+.support-cta p{margin:0;color:var(--muted);font-size:14px}
+
 @media (max-width:860px){
   .hero .wrap,.client,.lab,.about{grid-template-columns:1fr}
   .stage{max-width:300px}
@@ -214,6 +229,7 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
       <li><a href="#work">Work</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#support">Support</a></li>
     </ul>
     <span class="status">Open for commissions</span>
   </div>
@@ -372,6 +388,23 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
   </div>
 </section>
 
+
+<section id="support">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Support my work</span>
+      <h2>Keep Shardlight free</h2>
+      <p>The mods will always be free. Members on Patreon get early access, a vote on what comes next and exclusive themes.</p>
+    </div>
+    <div class="tiers">
+      <a class="tier reveal" style="--tc:#ff7a3d;text-decoration:none;color:inherit" href="https://www.patreon.com/Janxirus/membership"><img src="tiers/tier-ember.png" alt="Ember tier" loading="lazy"><div class="tb"><div class="tp">35 kr <small>/ month</small></div><ul><li>Supporter role on Discord</li><li>Your name in the mod credits</li><li>Behind-the-scenes devlogs</li></ul></div></a>
+      <a class="tier hl reveal" style="--tc:#6eaaff;text-decoration:none;color:inherit" href="https://www.patreon.com/Janxirus/membership"><div class="badge">Most popular</div><img src="tiers/tier-shard.png" alt="Shard tier" loading="lazy"><div class="tb"><div class="tp">69 kr <small>/ month</small></div><ul><li>Everything in Ember</li><li>New themes 2 weeks early</li><li>Vote on the next theme</li></ul></div></a>
+      <a class="tier reveal" style="--tc:#b48cff;text-decoration:none;color:inherit" href="https://www.patreon.com/Janxirus/membership"><img src="tiers/tier-forge.png" alt="Forge tier" loading="lazy"><div class="tb"><div class="tp">129 kr <small>/ month</small></div><ul><li>Everything in Shard</li><li>An exclusive theme every quarter</li><li>Your suggestions first</li></ul></div></a>
+    </div>
+    <div class="support-cta reveal"><a class="btn" href="https://www.patreon.com/Janxirus">Join on Patreon</a><p>Prices are shown in your own currency on Patreon.</p></div>
+  </div>
+</section>
+
 <section id="contact" style="padding-top:20px">
   <div class="wrap">
     <div class="contact reveal">
@@ -381,6 +414,7 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
       <div class="handles">
         <a href="https://github.com/Janxirus">github.com/Janxirus</a>
         <a href="https://www.fiverr.com/janxirus">fiverr.com/janxirus</a>
+        <a href="https://www.patreon.com/Janxirus">patreon.com/Janxirus</a>
         <code id="mail" style="user-select:all">janxirus.dev@gmail.com</code>
       </div>
     </div>
