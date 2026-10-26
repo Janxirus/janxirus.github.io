@@ -398,13 +398,6 @@ nav{backdrop-filter:blur(8px)}
 /* hills divider */
 .hills{height:64px;background:url(fx/hills.png) repeat-x 0 100%/512px 64px;image-rendering:pixelated;animation:hills 40s linear infinite;opacity:.9;margin-bottom:-20px}
 @keyframes hills{to{background-position:-512px 100%}}
-/* pixel cursor (mouse only) */
-@media (pointer:fine){
-  body{cursor:url(fx/cursor.png) 1 1,auto}
-  a,button,summary,select,label,.chip,.vtab,.zoom,.stage .cube,[role=tab]{cursor:url(fx/cursor-pick.png) 4 4,pointer}
-  input,textarea{cursor:text}
-  .ba-box input{cursor:ew-resize}
-}
 /* dock */
 .dock{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:80;display:flex;gap:6px}
 .dock button{font:500 12px var(--body);color:var(--muted);background:rgba(13,12,24,.88);border:1px solid var(--hair2);border-radius:999px;padding:7px 12px;cursor:pointer;transition:color .2s,border-color .2s}
@@ -430,6 +423,17 @@ html.day .loader{background:#eef0fb}
 .ba-sel{display:flex;align-items:center;gap:10px;margin-top:12px;font:500 13px var(--body);color:var(--muted)}
 .ba-sel select{font:500 14px var(--body);color:var(--fg);background:rgba(7,7,12,.6);border:1px solid var(--hair2);border-radius:var(--r);padding:7px 10px}
 html.day .ba-sel select{background:#fff}
+
+/* cursor shadow + glint (mouse only) */
+#cur-sh,#cur-gl{position:fixed;left:0;top:0;pointer-events:none;z-index:150;will-change:transform}
+#cur-sh{width:16px;height:16px;margin:2px 0 0 1px;border-radius:50%;background:radial-gradient(circle,rgba(0,0,0,.35),rgba(0,0,0,0) 70%);filter:blur(2px)}
+#cur-gl{width:9px;height:9px;margin:-3px 0 0 -3px;opacity:0}
+#cur-gl::before,#cur-gl::after{content:"";position:absolute;background:#fff;box-shadow:0 0 6px rgba(196,166,255,.9)}
+#cur-gl::before{left:4px;top:0;width:1px;height:9px}#cur-gl::after{top:4px;left:0;width:9px;height:1px}
+#cur-gl.on{animation:glint .5s ease-out}
+@keyframes glint{0%{opacity:0;transform:var(--t) scale(.3) rotate(0)}40%{opacity:1}100%{opacity:0;transform:var(--t) scale(1.1) rotate(90deg)}}
+@media (hover:none),(pointer:coarse){#cur-sh,#cur-gl{display:none}}
+html.day #cur-sh{background:radial-gradient(circle,rgba(40,30,90,.25),rgba(0,0,0,0) 70%)}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -438,6 +442,7 @@ html.day .ba-sel select{background:#fff}
 <div class="loader" id="loader" aria-hidden="true"><div class="ld-in"><img class="px" src="cube.png" alt=""><b>Loading world</b><div class="ld-bar"><i id="ld-fill"></i></div><span id="ld-tip">Generating terrain…</span></div></div>
 <div class="dock" aria-label="Page settings"><button type="button" id="snd" aria-pressed="false" title="Sound effects">♪ <span>Sound off</span></button><button type="button" id="day" aria-pressed="false" title="Switch day and night">☾ <span>Night</span></button></div>
 <canvas id="bgfx" aria-hidden="true"></canvas>
+<div id="cur-sh" aria-hidden="true"></div><div id="cur-gl" aria-hidden="true"></div>
 <div class="progress" id="progress"></div>
 <div class="lb" id="lb" hidden><button class="lb-x" id="lb-x" aria-label="Close">×</button><img id="lb-img" alt=""></div>
 
@@ -950,6 +955,33 @@ if(ba){baR.addEventListener('input',()=>ba.style.setProperty('--p',baR.value+'%'
   function upd(){A.src='fx/vanilla-'+k+'.png';B.src='themes/'+sel.value+'-'+k+'.png';box.style.setProperty('--h',H[k]);B.alt='Shardlight '+sel.options[sel.selectedIndex].text+' '+k;A.alt='Vanilla Minecraft '+k}
   document.querySelectorAll('.ba-tabs button').forEach(b=>b.onclick=()=>{k=b.dataset.k;document.querySelectorAll('.ba-tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));upd()});
   sel.onchange=()=>{upd();sfx('tab')};upd();})();
+
+
+/* ===== cursor shadow + glint ===== */
+(function(){if(reduce||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  const sh=document.getElementById('cur-sh'),gl=document.getElementById('cur-gl');let x=-50,y=-50,sx=-50,sy=-50,last=0,run=false;
+  addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;if(!run){run=true;requestAnimationFrame(loop)}
+    const now=performance.now();if(now-last>1400&&Math.random()<.25){last=now;gl.style.setProperty('--t','translate('+(x+12)+'px,'+(y+14)+'px)');gl.style.transform='translate('+(x+12)+'px,'+(y+14)+'px)';gl.classList.remove('on');void gl.offsetWidth;gl.classList.add('on')}},{passive:true});
+  function loop(){sx+=(x-sx)*.35;sy+=(y-sy)*.35;sh.style.transform='translate('+(sx+3)+'px,'+(sy+5)+'px)';if(Math.abs(x-sx)+Math.abs(y-sy)>.3)requestAnimationFrame(loop);else run=false}
+  document.addEventListener('pointerleave',()=>{sh.style.transform='translate(-50px,-50px)'});
+})();
+
+/* ===== more sounds ===== */
+(function(){
+  const extra={hover:()=>tone(1200,.025,'sine',.012),theme:()=>{tone(523,.08,'triangle',.04);setTimeout(()=>tone(784,.1,'triangle',.035),70)},
+    tick:()=>tone(1500,.015,'square',.012),open:()=>tone(440,.09,'triangle',.04,660),close:()=>tone(660,.08,'triangle',.035,440),
+    key:()=>tone(1800+Math.random()*400,.012,'square',.01),whoosh:()=>{noise(.12,.035)},day:()=>{tone(392,.1,'sine',.04,784)},night:()=>{tone(784,.12,'sine',.04,392)},
+    zoom:()=>tone(300,.12,'sine',.04,900),done:()=>{tone(659,.07,'square',.03);setTimeout(()=>tone(988,.12,'square',.03),80)}};
+  const base=window.sfx;window.sfx=k=>extra[k]?(soundOn&&extra[k]()):base(k);
+  let hv=0;document.addEventListener('pointerover',e=>{const t=e.target.closest('a,button,.chip,.mod,.card,.pkg,.tier,summary,.stabs button');if(!t||t===hv)return;hv=t;sfx('hover')},{passive:true});
+  document.querySelectorAll('.faq details').forEach(d=>d.addEventListener('toggle',()=>sfx(d.open?'open':'close')));
+  const r=document.getElementById('ba-r');let lv=-1;if(r)r.addEventListener('input',()=>{const v=Math.round(r.value/5);if(v!==lv){lv=v;sfx('tick')}});
+  document.querySelectorAll('.brief input,.brief textarea').forEach(i=>i.addEventListener('keydown',()=>sfx('key')));
+  document.addEventListener('click',e=>{if(e.target.closest('img.zoom'))sfx('zoom');if(e.target.closest('.chip'))sfx('theme')});
+  const db=document.getElementById('day');if(db)db.addEventListener('click',()=>sfx(document.documentElement.classList.contains('day')?'day':'night'));
+  const secs=[...document.querySelectorAll('section[id]')];let cur=null;
+  if('IntersectionObserver' in window){const so=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting&&x.target!==cur){if(cur)sfx('whoosh');cur=x.target}}),{threshold:.35});secs.forEach(s=>so.observe(s))}
+})();
 
 /* ===== loader: short, once per visit ===== */
 (function(){const L=document.getElementById('loader');let seen=false;try{seen=sessionStorage.getItem('jx-loaded')==='1'}catch(e){}
