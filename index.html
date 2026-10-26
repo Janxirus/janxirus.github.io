@@ -453,6 +453,29 @@ html.day #cur-sh{background:radial-gradient(circle,rgba(40,30,90,.25),rgba(0,0,0
 .ba-top img{transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .35s}
 .ba-top img.swap{transform:scale(.94);filter:brightness(1.8) saturate(.4)}
 html.day .ba-box em{background:rgba(7,7,12,.75);color:#fff}
+
+/* cleaner theme list */
+.lab{grid-template-columns:210px 1fr;gap:18px}
+.chips{max-height:none;overflow:visible;gap:2px;padding:6px;border:1px solid var(--hair);background:var(--card);border-radius:var(--r);align-content:start}
+.chip{border:0;background:transparent;padding:8px 10px;border-radius:8px;font:500 14px var(--body);gap:10px;position:relative}
+.chip i{width:10px;height:10px;border-radius:3px;box-shadow:0 0 0 2px color-mix(in srgb,var(--c) 30%,transparent)}
+.chip:hover{transform:none;background:rgba(255,255,255,.04);color:var(--fg)}
+.chip[aria-pressed="true"]{background:color-mix(in srgb,var(--c) 16%,transparent);color:var(--fg)}
+.chip[aria-pressed="true"]::before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:3px;border-radius:3px;background:var(--c)}
+.viewer{padding:18px 20px}
+.vname{margin-top:10px;align-items:baseline}
+.vname b{font-size:20px}
+.vname span{font-size:13px}
+@media (max-width:860px){
+  .lab{grid-template-columns:minmax(0,1fr)}
+  .viewer{padding:14px}
+  .cmp{margin-left:0}
+  .chips{display:flex;overflow-x:auto;gap:6px;padding:6px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent)}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;white-space:nowrap}
+  .chip[aria-pressed="true"]::before{left:8px;right:8px;top:auto;bottom:2px;width:auto;height:2px}
+}
+html.day .chip:hover{background:rgba(23,20,46,.05)}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
