@@ -589,6 +589,26 @@ html[dir="rtl"] .feat li,html[dir="rtl"] .news ul,html[dir="rtl"] .tier ul{paddi
 html[dir="rtl"] .faq summary::after{margin-right:auto}
 html[dir="rtl"] .steps::before{display:none}
 .stat b,.pkg .amt,.est b,.tier .tp{unicode-bidi:isolate;direction:ltr}
+
+/* custom language menu */
+.lmenu{position:relative}
+nav .llist:not([hidden]){display:grid;gap:2px}
+nav .llist[hidden]{display:none}
+.lbtn{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--muted);font:600 13px var(--body);cursor:pointer;transition:background .2s,color .2s}
+.lbtn:hover,.lbtn[aria-expanded="true"]{background:rgba(255,255,255,.08);color:var(--fg)}
+.lbtn svg{width:15px;height:15px}.lbtn .chev{width:9px;height:9px;transition:transform .2s}
+.lbtn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.llist{position:absolute;top:calc(100% + 10px);inset-inline-end:-4px;min-width:170px;margin:0;padding:6px;list-style:none;background:rgba(18,16,34,.97);border:1px solid var(--hair2);border-radius:12px;box-shadow:0 18px 40px -12px rgba(0,0,0,.6);backdrop-filter:blur(10px);z-index:120;animation:lpop .16s ease-out;transform-origin:top right}
+@keyframes lpop{from{opacity:0;transform:translateY(-6px) scale(.97)}}
+.llist li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 12px;border-radius:8px;font:500 14px var(--body);color:var(--fg);cursor:pointer;outline:none}
+.llist li small{font:600 11px var(--body);letter-spacing:.08em;color:var(--muted)}
+.llist li:hover,.llist li:focus-visible{background:rgba(255,255,255,.07)}
+.llist li[aria-selected="true"]{background:linear-gradient(90deg,rgba(79,140,255,.22),rgba(155,107,255,.22))}
+.llist li[aria-selected="true"] small{color:var(--fg)}
+.llist li span[lang="ar"]{font-family:"Noto Sans Arabic",system-ui,sans-serif}
+html.day .llist{background:#fff;box-shadow:0 18px 40px -14px rgba(23,20,46,.3)}
+html.day .llist li:hover{background:rgba(23,20,46,.05)}
+html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,46,.06)}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -614,7 +634,15 @@ html[dir="rtl"] .steps::before{display:none}
     </ul>
     <div class="navr"><span class="status" id="booking">Open for commissions</span>
       <div class="ctrls" role="group" aria-label="Page settings">
-        <label class="lsel" title="Language"><span class="sr">Language</span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M1.5 8h13M8 1.5c2 2 2.8 4 2.8 6.5S10 12.5 8 14.5M8 1.5C6 3.5 5.2 5.5 5.2 8S6 12.5 8 14.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><select id="lang-sel" aria-label="Language"><option value="en">EN</option><option value="sv">SV</option><option value="ar">عربي</option></select></label>
+        <div class="lmenu" id="lmenu">
+          <button type="button" class="lbtn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-list" title="Language"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M1.5 8h13M8 1.5c2 2 2.8 4 2.8 6.5S10 12.5 8 14.5M8 1.5C6 3.5 5.2 5.5 5.2 8S6 12.5 8 14.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span id="lang-cur">EN</span><svg class="chev" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+          <ul class="llist" id="lang-list" role="listbox" aria-label="Language" hidden>
+            <li role="option" tabindex="-1" data-l="en" aria-selected="true"><span>English</span><small>EN</small></li>
+            <li role="option" tabindex="-1" data-l="sv" aria-selected="false"><span>Svenska</span><small>SV</small></li>
+            <li role="option" tabindex="-1" data-l="ar" aria-selected="false"><span lang="ar">العربية</span><small>AR</small></li>
+          </ul>
+          <select id="lang-sel" aria-hidden="true" tabindex="-1" hidden><option value="en">EN</option><option value="sv">SV</option><option value="ar">AR</option></select>
+        </div>
         <button type="button" class="ic" id="day" aria-pressed="false" title="Day / night">☾ <span>Night</span></button>
         <button type="button" class="ic" id="snd" aria-pressed="false" title="Sound effects">♪ <span>Sound off</span></button>
       </div></div>
@@ -1200,11 +1228,27 @@ window.locDur=function(t){const c=LC();return t.replace('weeks',c.weeks).replace
     [...document.getElementById('b-pkg').options].forEach((o,i)=>o.textContent=c.lvl[i]);
     document.getElementById('now-text').textContent=l==='en'?SITE.now:c.now;
     if(window.__booking)__booking();if(window.__est)__est();if(window.__labels)__labels();
-    sel.value=l;try{localStorage.setItem('jx-lang',l)}catch(e){}}
+    sel.value=l;if(window.__syncLang)__syncLang();try{localStorage.setItem('jx-lang',l)}catch(e){}}
   window.setLang=setLang;
   sel.addEventListener('change',()=>{setLang(sel.value);sfx('tab')});
   let l='en';try{l=localStorage.getItem('jx-lang')||(()=>{const n=(navigator.language||'').toLowerCase();return n.startsWith('sv')?'sv':n.startsWith('ar')?'ar':'en'})()}catch(e){}
   if(l!=='en')setLang(l);})();
+
+
+/* custom language menu */
+(function(){const btn=document.getElementById('lang-btn'),list=document.getElementById('lang-list'),sel=document.getElementById('lang-sel'),cur=document.getElementById('lang-cur');
+  const items=[...list.children];const CODE={en:'EN',sv:'SV',ar:'عربي'};
+  function sync(){const l=sel.value;cur.textContent=CODE[l]||'EN';items.forEach(i=>i.setAttribute('aria-selected',i.dataset.l===l))}
+  function open(){list.hidden=false;btn.setAttribute('aria-expanded','true');(items.find(i=>i.getAttribute('aria-selected')==='true')||items[0]).focus()}
+  function close(f){list.hidden=true;btn.setAttribute('aria-expanded','false');if(f)btn.focus()}
+  function pick(l){sel.value=l;sel.dispatchEvent(new Event('change'));sync();close(true)}
+  btn.addEventListener('click',()=>list.hidden?open():close());
+  items.forEach(i=>{i.addEventListener('click',()=>pick(i.dataset.l));i.addEventListener('keydown',e=>{const k=items.indexOf(i);
+    if(e.key==='ArrowDown'){e.preventDefault();items[(k+1)%items.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();items[(k+items.length-1)%items.length].focus()}
+    else if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(i.dataset.l)}else if(e.key==='Escape'||e.key==='Tab'){close(e.key==='Escape')}})});
+  document.addEventListener('pointerdown',e=>{if(!list.hidden&&!e.target.closest('#lmenu'))close()});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&!list.hidden)close(true)});
+  sel.addEventListener('change',sync);sync();window.__syncLang=sync;})();
 
 /* ===== loader: short, once per visit ===== */
 (function(){const L=document.getElementById('loader');let seen=false;try{seen=sessionStorage.getItem('jx-loaded')==='1'}catch(e){}
