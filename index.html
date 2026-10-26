@@ -529,6 +529,31 @@ html.day .frame{box-shadow:0 20px 50px -20px rgba(23,20,46,.35)}
 html.day .btn.ghost{background:#fff;color:#17142e}
 html.day .card.wide .body{background:#fff}
 html.day footer{border-top-color:rgba(23,20,46,.12)}
+
+/* wide screens: use the space */
+.wrap{max-width:1760px;padding-left:max(clamp(16px,3vw,56px),env(safe-area-inset-left,0px));padding-right:max(clamp(16px,3vw,56px),env(safe-area-inset-right,0px))}
+@media (min-width:1300px){
+  .hero{padding-block:96px 80px}
+  .hero .wrap{grid-template-columns:1.2fr 1fr;gap:64px}
+  .hero h1{font-size:clamp(68px,5.4vw,104px)}
+  .hero p{font-size:20px;max-width:56ch}
+  .stage{max-width:540px}
+  .lab{grid-template-columns:240px 1fr;gap:24px}
+  .screen{min-height:600px}
+  .screen .ba-box{width:min(600px,100%)}
+  .head h2{font-size:clamp(40px,3.4vw,60px)}
+  .head{max-width:72ch}
+  .mods{gap:20px}
+  .card.wide{grid-template-columns:1.7fr 1fr}
+  .pkgs,.tiers{gap:22px}
+  .client{gap:64px}
+  .contact{padding:64px 48px}
+  .brief{max-width:760px}
+}
+@media (min-width:1700px){
+  .hero h1{font-size:110px}
+  .screen .ba-box{width:min(660px,100%)}
+}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
