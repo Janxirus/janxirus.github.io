@@ -1160,7 +1160,7 @@ syncCmp();
 /* ===== site config: fill these in to switch features on ===== */
 const SITE={
   formspree:'mnpppgyq',      // Formspree form ID, e.g. 'xyzabcde' -> the brief is sent straight to your inbox
-  goatcounter:'',    // GoatCounter code, e.g. 'janxirus' -> privacy-friendly visitor stats
+  goatcounter:'janxirus',    // GoatCounter code, e.g. 'janxirus' -> privacy-friendly visitor stats
   discordServer:'',  // Discord server ID (enable the widget in Server Settings > Widget)
   now:'updating Shardlight to Minecraft 26.3', nowSv:'uppdaterar Shardlight till Minecraft 26.3'
 };
@@ -1179,7 +1179,7 @@ const SITE={
     try{const r=await fetch('https://formspree.io/f/'+SITE.formspree,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(body)});
       if(r.ok){send.textContent=ML[1];send.classList.add('ok');sfx('ach')}else throw 0}catch(e){send.disabled=false;send.textContent=ML[2]}}})();
 /* ===== stats + discord (only when configured) ===== */
-if(SITE.goatcounter&&location.protocol!=='file:'){const sc=document.createElement('script');sc.async=true;sc.src='//gc.zgo.at/count.js';sc.dataset.goatcounter='https://'+SITE.goatcounter+'.goatcounter.com/count';document.head.appendChild(sc)}
+if(SITE.goatcounter&&location.protocol!=='file:'){const sc=document.createElement('script');sc.async=true;sc.src='https://gc.zgo.at/count.js';sc.dataset.goatcounter='https://'+SITE.goatcounter+'.goatcounter.com/count';document.head.appendChild(sc)}
 if(SITE.discordServer&&location.protocol!=='file:'){const d=document.getElementById('discord');d.hidden=false;d.innerHTML='<iframe title="Shardlight Discord" src="https://discord.com/widget?id='+SITE.discordServer+'&theme=dark" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>'}
 document.getElementById('now-text').textContent=SITE.now;
 /* ===== language: EN / SV / AR ===== */

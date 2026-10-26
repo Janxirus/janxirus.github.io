@@ -40,5 +40,6 @@ function r(){W=c.width=innerWidth;H=c.height=innerHeight;S=Array.from({length:60
 r();addEventListener('resize',r);
 (function f(){x.clearRect(0,0,W,H);for(const p of S){p.y-=p.v;if(p.y<-10){p.y=H+10;p.x=Math.random()*W}x.globalAlpha=.5;x.fillStyle=p.c;x.fillRect(p.x|0,p.y|0,p.s,p.s)}if(!matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(f)})();
 </script>
+<script data-goatcounter="https://janxirus.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
