@@ -300,7 +300,7 @@ footer{border-top:1px solid var(--hair);margin-top:40px}
 /* spotlight + tilt */
 .fx{position:relative;transform-style:preserve-3d;will-change:transform}
 .fx::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%),rgba(155,107,255,.14),transparent 45%)}
-.fx:hover::after{opacity:1}
+.fx:hover::after{opacity:0}
 /* animated gradient border on highlighted */
 .pkg.mid,.tier.hl{border-color:transparent;background:linear-gradient(var(--bg2),var(--bg2)) padding-box,conic-gradient(from var(--a,0deg),var(--blue),var(--purple),#ff6ad5,var(--blue)) border-box;border:1px solid transparent;animation:spin 6s linear infinite}
 @property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
@@ -367,7 +367,6 @@ html.night #bgfx{filter:saturate(1.6) brightness(1.4)}
 </head>
 <body>
 <canvas id="bgfx" aria-hidden="true"></canvas>
-<div id="glow" aria-hidden="true"></div>
 <div class="progress" id="progress"></div>
 <div class="lb" id="lb" hidden><button class="lb-x" id="lb-x" aria-label="Close">×</button><img id="lb-img" alt=""></div>
 
@@ -685,8 +684,6 @@ addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true});
 /* v2 interactions */
 const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
 if(!reduce&&fine){
-  const glow=document.getElementById('glow');
-  addEventListener('pointermove',e=>{glow.style.transform='translate('+e.clientX+'px,'+e.clientY+'px)'},{passive:true});
   document.addEventListener('pointermove',e=>{
     const el=e.target.closest('.fx');if(!el)return;const r=el.getBoundingClientRect();
     const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
