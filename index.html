@@ -496,6 +496,38 @@ footer{display:flex;align-items:center;justify-content:space-between;gap:12px 22
 .totop.show{opacity:1;transform:none;pointer-events:auto}
 .totop:hover{border-color:var(--purple)}
 html.day .totop{background:rgba(255,255,255,.92)}
+
+/* day mode readability */
+html.day{--blue2:#2f5fd6;--purple2:#6b3fd8;--ok:#0f8a57;--muted:#4c4970;--accent:#7a4ae0}
+html.day .eyebrow{color:#2f5fd6}
+html.day a{color:#2f5fd6}
+html.day a.btn,html.day .btn{color:#fff}
+html.day a.btn.ghost,html.day .btn.ghost{color:#17142e}
+html.day nav ul a,html.day .flinks a{color:#3b3860}
+html.day nav ul a:hover,html.day .flinks a:hover{color:#17142e}
+html.day .mark{color:#17142e}
+html.day .handles a{color:#17142e}
+html.day .tier{color:inherit}
+html.day .status{background:#fff;border-color:rgba(15,138,87,.35)}
+html.day .hills{display:none}
+html.day .head p,html.day .hero p{color:#423f66}
+html.day .viewer .vtab,html.day .viewer .cmp{color:#d4d2ee;border-color:rgba(255,255,255,.2)}
+html.day .viewer .vtab[aria-selected="true"],html.day .viewer .cmp[aria-pressed="true"]{color:#fff}
+html.day .viewer .vname span{color:#bdbbe0}
+html.day .chips{background:#fff}
+html.day .chip{color:#3b3860}
+html.day .chip[aria-pressed="true"]{color:#17142e}
+html.day .mod,html.day .card,html.day .pkg,html.day .tier,html.day .faq details,html.day .chips,html.day .ba{box-shadow:0 1px 2px rgba(23,20,46,.05),0 8px 24px -12px rgba(23,20,46,.18)}
+html.day .stats{background:rgba(255,255,255,.5)}
+html.day .marquee{background:rgba(255,255,255,.35)}
+html.day .offer{background:rgba(155,107,255,.08)}
+html.day .offer p{color:#3b3860}
+html.day .steps li::before{background:#fff}
+html.day .stack span,html.day .tagrow span{border-color:rgba(23,20,46,.18);color:#2a2750}
+html.day .frame{box-shadow:0 20px 50px -20px rgba(23,20,46,.35)}
+html.day .btn.ghost{background:#fff;color:#17142e}
+html.day .card.wide .body{background:#fff}
+html.day footer{border-top-color:rgba(23,20,46,.12)}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -893,7 +925,7 @@ function stepB(t){
   if(t-lastT<30){requestAnimationFrame(stepB);return}lastT=t;
   bx.clearRect(0,0,BW,BH);
   bx.globalAlpha=1;bx.drawImage(bgCache,0,0);
-  for(const s of stars){s.t+=.03;bx.globalAlpha=.15+.35*Math.abs(Math.sin(s.t))*s.z;bx.fillStyle=s.z>.6?'#c4a6ff':'#8fb4ff';bx.fillRect(s.x|0,s.y|0,2,2)}
+  const dayM=document.documentElement.classList.contains('day');for(const s of stars){s.t+=.03;bx.globalAlpha=.15+.35*Math.abs(Math.sin(s.t))*s.z;bx.fillStyle=dayM?(s.z>.6?'#8a6ad8':'#6f8fd8'):(s.z>.6?'#c4a6ff':'#8fb4ff');bx.fillRect(s.x|0,s.y|0,2,2)}
   /* cubes: drift up, bob, parallax with scroll */
   for(let i=0;i<cubes.length;i++){const c=cubes[i];c.y-=c.vy;c.ph+=.01;
     const py=((c.y - sy*c.z*.25)%(BH+80)+BH+80)%(BH+80)-40;
