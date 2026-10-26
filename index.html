@@ -330,6 +330,14 @@ footer{border-top:1px solid var(--hair);margin-top:40px}
 .rot>span{grid-area:1/1;background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:translateY(.45em);filter:blur(6px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1),filter .55s}
 .rot>span.on{opacity:1;transform:none;filter:none}
 .rot>span.out{opacity:0;transform:translateY(-.45em);filter:blur(6px)}
+
+/* numbers: clean font for legibility */
+.stat b,.pkg .amt,.tier .tp,.price .from{font-family:var(--body)!important;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums lining-nums}
+.stat b{font-size:clamp(32px,4.6vw,46px)}
+.pkg .amt{font-size:32px}
+.steps li::before{font-family:var(--body);font-weight:700}
+/* pixel headings: crisper rendering */
+h1,h2,h3,.mark,.vname b{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-synthesis:none;text-rendering:geometricPrecision}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
