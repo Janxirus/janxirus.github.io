@@ -344,6 +344,23 @@ h1,h2,h3,.mark,.vname b{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothi
 .card.wide .img img{object-fit:cover;object-position:left top}
 .card.wide .body{align-content:center;padding:28px}
 @media (max-width:860px){.card.wide{grid-template-columns:1fr}.card.wide .img{border-right:0;border-bottom:1px solid var(--hair)}}
+
+/* easter eggs */
+.toasts{position:fixed;top:calc(74px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));z-index:90;display:grid;gap:10px;pointer-events:none}
+.toast{display:flex;gap:12px;align-items:center;min-width:260px;max-width:min(340px,calc(100vw - 32px));background:#16132b;border:2px solid #000;box-shadow:inset 0 0 0 2px #555077,0 10px 30px rgba(0,0,0,.5);padding:10px 14px;animation:tin .35s cubic-bezier(.2,.8,.2,1)}
+.toast img{width:32px;height:32px}
+.toast b{display:block;font:600 15px var(--display);color:#ffe066}
+.toast span{font:400 13px var(--body);color:#e8e6ff}
+.toast.out{transition:transform .4s,opacity .4s;transform:translateX(120%);opacity:0}
+@keyframes tin{from{transform:translateX(120%)}}
+.stage .cube.hit{animation:hit .25s ease, float 4s ease-in-out infinite}
+@keyframes hit{30%{transform:translate(-50%,-50%) scale(.9) rotate(-4deg)}}
+.stage .cube.spin{animation:spinc 1.2s cubic-bezier(.2,.8,.2,1)}
+@keyframes spinc{to{transform:translate(-50%,-50%) rotate(720deg) scale(1)}}
+html.night{--bg:#020208}
+html.night #bgfx{filter:saturate(1.6) brightness(1.4)}
+.secrets{font:500 12px var(--body);color:var(--muted);opacity:.7}
+.stage{pointer-events:none}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -581,7 +598,7 @@ h1,h2,h3,.mark,.vname b{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothi
         <code id="mail" style="user-select:all">janxirus.dev@gmail.com</code>
       </div>
     </div>
-    <footer><span>© 2026 Janxirus · Karlskrona, Sweden</span><span>Made with Java, pixels and too much coffee</span></footer>
+    <footer><span>© 2026 Janxirus · Karlskrona, Sweden</span><span>Made with Java, pixels and too much coffee · <span class="secrets" id="ach" title="There are hidden things on this page">0 / 5 secrets found</span></span></footer>
   </div>
 </section>
 
@@ -697,7 +714,7 @@ if(!reduce)stepS();
 
 /* background: voxel cubes + theme particles */
 const bg=document.getElementById('bgfx'),bx=bg.getContext('2d');
-let BW=0,BH=0,stars=[],cubes=[],parts=[];
+let BW=0,BH=0,stars=[],cubes=[],parts=[];const mouse={x:-9,y:-9};
 const FX={ /* theme -> particle style */
  "Ember":{k:"rise",c:["#ff7a3d","#ffb347","#ff5a2a"]},"Blood Moon":{k:"fall",c:["#e0334a","#8a1424"]},
  "Soul Fire":{k:"rise",c:["#3fd0e8","#9af0ff"]},"Ashen":{k:"fall",c:["#c9c4c0","#8d8884"]},
@@ -738,17 +755,21 @@ function stepB(t){
   /* cubes: drift up, bob, parallax with scroll */
   for(let i=0;i<cubes.length;i++){const c=cubes[i];c.y-=c.vy;c.ph+=.01;
     const py=((c.y - sy*c.z*.25)%(BH+80)+BH+80)%(BH+80)-40;
-    drawCube(c.x+Math.sin(c.ph)*6*c.z,py,c.s*.5,c.c,.10+c.z*.22);
+    c.ox=(c.ox||0)*.92;c.oy=(c.oy||0)*.92;
+    if(mouse.x>-1){const dx=c.sx-mouse.x,dy=c.sy-mouse.y,d2=dx*dx+dy*dy;if(d2<140*140&&d2>1){const d=Math.sqrt(d2),f=(140-d)/140*3;c.ox+=dx/d*f;c.oy+=dy/d*f}}
+    c.sx=c.x+Math.sin(c.ph)*6*c.z+c.ox;c.sy=py+c.oy;
+    drawCube(c.sx,c.sy,c.s*.5,c.c,c.hl?Math.min(.9,.10+c.z*.22+.5):.10+c.z*.22);c.hl=false;
     if(c.y<-60-BH*2)cubes[i]=newCube(false)}
   /* theme particles */
   if(parts.length<70&&Math.random()<.5)spawnPart();
   parts=parts.filter(p=>p.life>0&&p.y>-20&&p.y<BH+20);
   for(const p of parts){p.ph+=.04;
-    if(p.k==="sway"){p.x+=Math.sin(p.ph)*.6+p.vx;p.y+=p.vy}
+    if(p.k==="burst"){p.vy+=.12;p.x+=p.vx;p.y+=p.vy;p.life-=.02}
+    else if(p.k==="sway"){p.x+=Math.sin(p.ph)*.6+p.vx;p.y+=p.vy}
     else if(p.k==="twinkle"){p.life-=p.decay}
     else if(p.k==="glitch"){p.life-=p.decay;if(Math.random()<.05)p.x+=(Math.random()-.5)*20}
     else{p.x+=p.vx;p.y+=p.vy;p.life-=.0018}
-    const a=p.k==="twinkle"||p.k==="glitch"?Math.sin(p.life*Math.PI)*.7:Math.min(1,p.life)*.55;
+    const a=p.k==="burst"?Math.max(0,p.life):p.k==="twinkle"||p.k==="glitch"?Math.sin(p.life*Math.PI)*.7:Math.min(1,p.life)*.55;
     bx.globalAlpha=Math.max(0,a);bx.fillStyle=p.c;
     const X=Math.round(p.x/2)*2,Y=Math.round(p.y/2)*2;
     if(p.k==="twinkle"){bx.fillRect(X,Y-p.s,2,p.s*2+2);bx.fillRect(X-p.s,Y,p.s*2+2,2)}
@@ -758,7 +779,56 @@ function stepB(t){
   if(!reduce)requestAnimationFrame(stepB)}
 sizeB();addEventListener('resize',sizeB);
 if(reduce){stepB(1000)}else requestAnimationFrame(stepB);
-/* tag shown under the theme lab */
+
+/* ===== interactive background + easter eggs ===== */
+addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY},{passive:true});
+addEventListener('pointerleave',()=>{mouse.x=-9});
+function burst(x,y,cols,n){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=1.5+Math.random()*4;parts.push({k:'burst',x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,s:2+(Math.random()*3|0)*2,c:cols[Math.random()*cols.length|0],life:1,ph:0})}}
+const toastBox=document.createElement('div');toastBox.className='toasts';toastBox.setAttribute('aria-live','polite');document.body.appendChild(toastBox);
+const got=new Set();
+function achieve(id,title,text){if(got.has(id))return;got.add(id);
+  const t=document.createElement('div');t.className='toast';t.innerHTML='<img class="px" src="cube.png" alt=""><div><b>'+title+'</b><span>'+text+'</span></div>';
+  toastBox.appendChild(t);setTimeout(()=>t.classList.add('out'),4200);setTimeout(()=>t.remove(),4800);
+  try{const k=JSON.parse(localStorage.getItem('jx-ach')||'[]');if(!k.includes(id)){k.push(id);localStorage.setItem('jx-ach',JSON.stringify(k))}}catch(e){}
+  updAch()}
+function updAch(){let n=0;try{n=JSON.parse(localStorage.getItem('jx-ach')||'[]').length}catch(e){n=got.size}const el=document.getElementById('ach');if(el)el.textContent=Math.max(n,got.size)+' / 5 secrets found'}
+let mined=0;
+document.addEventListener('pointerdown',e=>{
+  if(e.target.closest('a,button,input,select,textarea,label,summary,img,.chip,.viewer,.frame,.brief,nav'))return;
+  const x=e.clientX,y=e.clientY;let hit=-1,best=40*40;
+  cubes.forEach((c,i)=>{const dx=c.sx-x,dy=(c.sy+c.s)-y,d=dx*dx+dy*dy;if(d<best){best=d;hit=i}});
+  if(hit>=0){const c=cubes[hit];burst(c.sx,c.sy,c.c,26);cubes[hit]=newCube(false);mined++;
+    if(mined===1)achieve('miner','Achievement unlocked','First block mined. Keep going!');
+    if(mined===10)achieve('miner10','Pixel Miner','You mined 10 floating blocks.');}
+  else{const f=FX[window.__bgTheme]||FX.Ember;burst(x,y,f.c,14)}
+});
+addEventListener('pointermove',()=>{for(const c of cubes){const dx=c.sx-mouse.x,dy=c.sy-mouse.y;if(dx*dx+dy*dy<40*40)c.hl=true}},{passive:true});
+/* secret 1: click the hero cube 5 times */
+const heroCube=document.querySelector('.stage .cube');let hc=0,hcT=0;
+if(heroCube){heroCube.style.pointerEvents='auto';heroCube.style.cursor='pointer';
+  heroCube.addEventListener('click',()=>{const now=Date.now();hc=now-hcT<900?hc+1:1;hcT=now;
+    heroCube.classList.remove('hit');void heroCube.offsetWidth;heroCube.classList.add('hit');
+    const r=heroCube.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,['#4f8cff','#9b6bff','#c4a6ff','#fff'],10);
+    if(hc>=5){hc=0;burst(r.left+r.width/2,r.top+r.height/2,['#4f8cff','#9b6bff','#c4a6ff','#ff6ad5','#fff'],80);heroCube.classList.add('spin');setTimeout(()=>heroCube.classList.remove('spin'),1200);achieve('block','Secret block','You broke the code block!')}})}
+/* secret 2: classic cheat code */
+const code=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];let ci=0;
+/* secret 3: type "shard" */
+let typed='';
+addEventListener('keydown',e=>{
+  if(e.target.closest&&e.target.closest('input,textarea,select'))return;
+  ci=(e.key===code[ci]||e.key.toLowerCase()===code[ci])?ci+1:(e.key===code[0]?1:0);
+  if(ci===code.length){ci=0;storm();achieve('konami','Shard storm','Old-school cheat code accepted.')}
+  typed=(typed+e.key.toLowerCase()).slice(-5);
+  if(typed==='shard'){let i=0;const iv=setInterval(()=>{if(typeof show==='function')show(i%15);i++;if(i>15)clearInterval(iv)},180);achieve('shard','Theme hopper','All 15 Shardlight themes at once.')}
+});
+function storm(){const all=Object.values(FX).flatMap(f=>f.c);let n=0;const iv=setInterval(()=>{for(let i=0;i<8;i++)parts.push({k:'burst',x:Math.random()*BW,y:-10,vx:(Math.random()-.5)*2,vy:Math.random()*2,s:4+(Math.random()*3|0)*2,c:all[Math.random()*all.length|0],life:1.6,ph:0});if(++n>60)clearInterval(iv)},50)}
+/* secret 4: logo in the nav, double-click */
+const mk=document.querySelector('.mark');if(mk)mk.addEventListener('dblclick',e=>{e.preventDefault();document.documentElement.classList.toggle('night');achieve('night','Night mode','The stars come out.')});
+/* secret 5 is in the console */
+console.log('%c JANXIRUS %c  Hi, fellow dev! Try the old-school cheat code on this page, or type "shard".','background:linear-gradient(90deg,#4f8cff,#9b6bff);color:#fff;font:700 14px monospace;padding:4px 8px','color:#9b6bff;font:13px monospace');
+window.janxirus=()=>{achieve('console','Dev mode','You found the console secret.');return 'Thanks for digging in. Hire me: janxirus.dev@gmail.com'};
+updAch();
+
 })();
 </script>
 
