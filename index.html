@@ -371,11 +371,72 @@ nav{backdrop-filter:blur(8px)}
 .pkg.mid:hover,.tier.hl:hover{animation-play-state:running}
 .marquee .track{will-change:transform}
 #bgfx{will-change:auto}
+
+/* loader */
+.loader{position:fixed;inset:0;z-index:200;background:#07070c;display:grid;place-items:center;transition:opacity .45s,visibility .45s}
+.loader.done{opacity:0;visibility:hidden}
+.loader{animation:ldsafe .4s 2.6s forwards}
+@keyframes ldsafe{to{opacity:0;visibility:hidden}}
+.ld-in{display:grid;justify-items:center;gap:14px;font-family:var(--display)}
+.ld-in img{width:84px;animation:float 2s ease-in-out infinite}
+.ld-in b{font-weight:600;font-size:22px;letter-spacing:.04em}
+.ld-bar{width:min(280px,70vw);height:14px;border:2px solid #000;box-shadow:inset 0 0 0 2px #3a3560;background:#0d0c18;padding:2px}
+.ld-bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--blue) 0 8px,var(--purple) 8px 16px);transition:width .2s steps(6)}
+.ld-in span{font:400 13px var(--body);color:var(--muted)}
+/* before/after */
+.ba{margin-top:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:26px;align-items:center;border:1px solid var(--hair);background:var(--card);border-radius:var(--r);padding:24px}
+.ba-head p{margin:10px 0 0;color:var(--muted);max-width:34ch}
+.ba-box{position:relative;width:440px;max-width:100%;aspect-ratio:176/var(--h,166);touch-action:pan-y;user-select:none}
+.ba-box>img,.ba-top img{position:absolute;inset:0;width:100%;height:100%}
+.ba-top{position:absolute;inset:0;clip-path:inset(0 0 0 var(--p))}
+.ba-box input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba-line{position:absolute;top:-6px;bottom:-6px;left:var(--p);width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 12px rgba(155,107,255,.8);pointer-events:none}
+.ba-line span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font:700 16px var(--body);border:2px solid #fff;border-radius:6px}
+.ba-box em{position:absolute;top:8px;font:600 11px var(--body);font-style:normal;text-transform:uppercase;letter-spacing:.12em;padding:3px 8px;background:rgba(7,7,12,.75);color:#fff;border-radius:4px;pointer-events:none}
+.ba-l{left:8px}.ba-rr{right:8px}
+@media (max-width:860px){.ba{grid-template-columns:minmax(0,1fr)}.ba-box{justify-self:center}}
+/* hills divider */
+.hills{height:64px;background:url(fx/hills.png) repeat-x 0 100%/512px 64px;image-rendering:pixelated;animation:hills 40s linear infinite;opacity:.9;margin-bottom:-20px}
+@keyframes hills{to{background-position:-512px 100%}}
+/* pixel cursor (mouse only) */
+@media (pointer:fine){
+  body{cursor:url(fx/cursor.png) 1 1,auto}
+  a,button,summary,select,label,.chip,.vtab,.zoom,.stage .cube,[role=tab]{cursor:url(fx/cursor-pick.png) 4 4,pointer}
+  input,textarea{cursor:text}
+  .ba-box input{cursor:ew-resize}
+}
+/* dock */
+.dock{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:80;display:flex;gap:6px}
+.dock button{font:500 12px var(--body);color:var(--muted);background:rgba(13,12,24,.88);border:1px solid var(--hair2);border-radius:999px;padding:7px 12px;cursor:pointer;transition:color .2s,border-color .2s}
+.dock button:hover,.dock button[aria-pressed="true"]{color:var(--fg);border-color:var(--purple)}
+@media (max-width:560px){.dock span{display:none}}
+/* day mode */
+html.day{--bg:#eef0fb;--bg2:#ffffff;--fg:#17142e;--muted:#55527a;--line:#d9dbef;--line2:#c9cbe6;--hair:rgba(23,20,46,.09);--hair2:rgba(23,20,46,.16);--card:rgba(255,255,255,.75);--panel:rgba(255,255,255,.8);color-scheme:light}
+html.day body{background:linear-gradient(180deg,#cfe0ff 0,#eef0fb 520px)}
+html.day nav{background:rgba(255,255,255,.75)}
+html.day .orbit,html.day .dock button,html.day .handles a,html.day .handles code,html.day .brief input,html.day .brief select,html.day .brief textarea,html.day .stack span,html.day .ba-box em{background:rgba(255,255,255,.9);color:var(--fg)}
+html.day .contact{background:radial-gradient(ellipse at 50% 0%,rgba(155,107,255,.18),transparent 65%),#fff}
+html.day .viewer{background:radial-gradient(ellipse at 50% 40%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 70%),#1a1730}
+html.day .viewer .vname b{color:#fff}
+html.day .frame,html.day .marquee span{color:var(--muted)}
+html.day .pkg.mid,html.day .tier.hl{background:linear-gradient(#fff,#fff) padding-box,conic-gradient(from var(--a,0deg),var(--blue),var(--purple),#ff6ad5,var(--blue)) border-box}
+html.day .toast{background:#fff;box-shadow:inset 0 0 0 2px #c9cbe6,0 10px 30px rgba(0,0,0,.2)}html.day .toast b{color:#a06b00}html.day .toast span{color:var(--fg)}
+html.day #bgfx{opacity:.55}
+html.day .loader{background:#eef0fb}
+
+.ba-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+.ba-tabs button{font:500 13px var(--body);padding:7px 12px;border:1px solid var(--hair2);background:transparent;color:var(--muted);border-radius:var(--r)}
+.ba-tabs button[aria-selected="true"]{color:#fff;border-color:transparent;background:linear-gradient(90deg,var(--blue),var(--purple))}
+.ba-sel{display:flex;align-items:center;gap:10px;margin-top:12px;font:500 13px var(--body);color:var(--muted)}
+.ba-sel select{font:500 14px var(--body);color:var(--fg);background:rgba(7,7,12,.6);border:1px solid var(--hair2);border-radius:var(--r);padding:7px 10px}
+html.day .ba-sel select{background:#fff}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
 <body>
+<div class="loader" id="loader" aria-hidden="true"><div class="ld-in"><img class="px" src="cube.png" alt=""><b>Loading world</b><div class="ld-bar"><i id="ld-fill"></i></div><span id="ld-tip">Generating terrain…</span></div></div>
+<div class="dock" aria-label="Page settings"><button type="button" id="snd" aria-pressed="false" title="Sound effects">♪ <span>Sound off</span></button><button type="button" id="day" aria-pressed="false" title="Switch day and night">☾ <span>Night</span></button></div>
 <canvas id="bgfx" aria-hidden="true"></canvas>
 <div class="progress" id="progress"></div>
 <div class="lb" id="lb" hidden><button class="lb-x" id="lb-x" aria-label="Close">×</button><img id="lb-img" alt=""></div>
@@ -444,6 +505,19 @@ nav{backdrop-filter:blur(8px)}
         <div class="vname"><b id="tname">Ember</b><span>texture from the real resource pack, shown at 2.5×</span></div>
       </div>
     </div>
+
+    <div class="ba reveal">
+      <div class="ba-head"><span class="eyebrow">Before / after</span><p>Drag the handle to compare vanilla Minecraft with Shardlight. Pick a screen and a theme.</p>
+        <div class="ba-tabs" role="tablist" aria-label="Screen to compare"><button role="tab" id="ba-inv" aria-selected="true" data-k="inv">Inventory</button><button role="tab" id="ba-chest" aria-selected="false" data-k="chest">Chest</button><button role="tab" id="ba-furnace" aria-selected="false" data-k="furnace">Furnace</button></div>
+        <label class="ba-sel" for="ba-theme">Theme <select id="ba-theme"></select></label></div>
+      <div class="ba-box" id="ba" style="--p:50%">
+        <img class="px" id="ba-a" src="fx/vanilla-inv.png" alt="Vanilla Minecraft inventory">
+        <div class="ba-top"><img class="px" id="ba-b" src="themes/ember-inv.png" alt="Shardlight Ember inventory"></div>
+        <input type="range" id="ba-r" min="0" max="100" value="50" aria-label="Compare before and after">
+        <div class="ba-line" aria-hidden="true"><span>⟷</span></div>
+        <em class="ba-l">Vanilla</em><em class="ba-rr">Shardlight</em>
+      </div>
+    </div>
     <div class="mods reveal stag">
       <div class="mod fx"><h3>Shardlight UI</h3><span class="v">v3.6.0</span><p>Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, profiles.</p></div>
       <div class="mod fx"><h3>Shardlight Map</h3><span class="v">v1.2.0</span><p>Minimap and world map with cave layers, radar, grouped waypoints and map sharing.</p></div>
@@ -453,6 +527,7 @@ nav{backdrop-filter:blur(8px)}
   </div>
 </section>
 
+<div class="hills" aria-hidden="true"></div>
 <section id="client">
   <div class="wrap client">
     <div class="reveal">
@@ -500,6 +575,7 @@ nav{backdrop-filter:blur(8px)}
   </div>
 </section>
 
+<div class="hills" aria-hidden="true"></div>
 <section id="services">
   <div class="wrap">
     <div class="head reveal">
@@ -561,6 +637,7 @@ nav{backdrop-filter:blur(8px)}
 </section>
 
 
+<div class="hills" aria-hidden="true"></div>
 <section id="support">
   <div class="wrap">
     <div class="head reveal">
@@ -838,6 +915,49 @@ const mk=document.querySelector('.mark');if(mk)mk.addEventListener('dblclick',e=
 console.log('%c JANXIRUS %c  Hi, fellow dev! Try the old-school cheat code on this page, or type "shard".','background:linear-gradient(90deg,#4f8cff,#9b6bff);color:#fff;font:700 14px monospace;padding:4px 8px','color:#9b6bff;font:13px monospace');
 window.janxirus=()=>{achieve('console','Dev mode','You found the console secret.');return 'Thanks for digging in. Hire me: janxirus.dev@gmail.com'};
 updAch();
+
+/* ===== sound effects (WebAudio, off by default) ===== */
+let AC=null,soundOn=false;
+try{soundOn=localStorage.getItem('jx-snd')==='1'}catch(e){}
+function tone(f,d,type,vol,slide){if(!soundOn)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type=type||'square';o.frequency.setValueAtTime(f,t);if(slide)o.frequency.exponentialRampToValueAtTime(slide,t+d);g.gain.setValueAtTime(vol||.05,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+d)}catch(e){}}
+function noise(d,vol){if(!soundOn)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const n=AC.sampleRate*d,b=AC.createBuffer(1,n,AC.sampleRate),c=b.getChannelData(0);for(let i=0;i<n;i++)c[i]=(Math.random()*2-1)*(1-i/n);const s=AC.createBufferSource(),g=AC.createGain(),f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=1800;s.buffer=b;g.gain.value=vol||.12;s.connect(f).connect(g).connect(AC.destination);s.start()}catch(e){}}
+window.sfx=k=>{if(k==='click')tone(660,.06,'square',.03);else if(k==='tab')tone(520,.05,'triangle',.05,780);else if(k==='break'){noise(.18,.14);tone(180,.12,'square',.03,90)}else if(k==='pop')tone(900,.07,'sine',.05,1400);else if(k==='ach'){tone(784,.12,'square',.04);setTimeout(()=>tone(1046,.18,'square',.04),110);setTimeout(()=>tone(1318,.25,'square',.035),230)}};
+const snd=document.getElementById('snd');
+function updSnd(){snd.setAttribute('aria-pressed',soundOn);snd.querySelector('span').textContent=soundOn?'Sound on':'Sound off'}
+snd.onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('jx-snd',soundOn?'1':'0')}catch(e){}updSnd();sfx('ach')};updSnd();
+document.addEventListener('click',e=>{const t=e.target.closest('.chip,[role=tab]');if(t)sfx('tab');else if(e.target.closest('a.btn,button.btn,.btn'))sfx('click')});
+/* hook sounds into the background + achievements */
+const _burst=burst;burst=function(x,y,c,n){_burst(x,y,c,n);sfx(n>=20?'break':'pop')};
+const _ach=achieve;achieve=function(id,t,x){const was=got.has(id);_ach(id,t,x);if(!was)sfx('ach')};
+
+/* ===== day / night ===== */
+const dayBtn=document.getElementById('day');
+function setDay(on){document.documentElement.classList.toggle('day',on);dayBtn.setAttribute('aria-pressed',on);dayBtn.innerHTML=(on?'☀ <span>Day</span>':'☾ <span>Night</span>');try{localStorage.setItem('jx-day',on?'1':'0')}catch(e){}}
+let dayOn=false;try{dayOn=localStorage.getItem('jx-day')==='1'}catch(e){}
+setDay(dayOn);dayBtn.onclick=()=>{dayOn=!dayOn;setDay(dayOn);sfx('tab')};
+
+/* ===== before / after ===== */
+const ba=document.getElementById('ba'),baR=document.getElementById('ba-r');
+if(ba){baR.addEventListener('input',()=>ba.style.setProperty('--p',baR.value+'%'));
+  if(!reduce){let t0=null;const io2=new IntersectionObserver(es=>{if(es[0].isIntersecting){io2.disconnect();let k=0;(function sweep(ts){t0=t0||ts;k=(ts-t0)/1600;if(k<1&&baR.dataset.touched!=='1'){const v=50+Math.sin(k*Math.PI*2)*30;ba.style.setProperty('--p',v+'%');baR.value=v;requestAnimationFrame(sweep)}else if(baR.dataset.touched!=='1'){ba.style.setProperty('--p','50%');baR.value=50}})(performance.now())}},{threshold:.6});io2.observe(ba)}
+  baR.addEventListener('pointerdown',()=>baR.dataset.touched='1')}
+
+
+/* before/after: screen + theme pickers */
+(function(){const A=document.getElementById('ba-a'),B=document.getElementById('ba-b'),box=document.getElementById('ba'),sel=document.getElementById('ba-theme');if(!A)return;
+  let k='inv';themes.forEach(([n])=>{const o=document.createElement('option');o.value=slug(n);o.textContent=n;sel.appendChild(o)});
+  const H={inv:166,chest:222,furnace:166};
+  function upd(){A.src='fx/vanilla-'+k+'.png';B.src='themes/'+sel.value+'-'+k+'.png';box.style.setProperty('--h',H[k]);B.alt='Shardlight '+sel.options[sel.selectedIndex].text+' '+k;A.alt='Vanilla Minecraft '+k}
+  document.querySelectorAll('.ba-tabs button').forEach(b=>b.onclick=()=>{k=b.dataset.k;document.querySelectorAll('.ba-tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));upd()});
+  sel.onchange=()=>{upd();sfx('tab')};upd();})();
+
+/* ===== loader: short, once per visit ===== */
+(function(){const L=document.getElementById('loader');let seen=false;try{seen=sessionStorage.getItem('jx-loaded')==='1'}catch(e){}
+  if(reduce||seen){L.remove();return}
+  const fill=document.getElementById('ld-fill'),tip=document.getElementById('ld-tip');const tips=['Generating terrain…','Placing blocks…','Loading themes…','Spawning cubes…'];
+  let p=0;const iv=setInterval(()=>{p=Math.min(100,p+18+Math.random()*14);fill.style.width=p+'%';tip.textContent=tips[Math.min(3,p/26|0)];if(p>=100){clearInterval(iv);setTimeout(()=>{L.classList.add('done');setTimeout(()=>L.remove(),500)},150)}},110);
+  try{sessionStorage.setItem('jx-loaded','1')}catch(e){}
+})();
 
 })();
 </script>
