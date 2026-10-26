@@ -559,6 +559,9 @@ html.day .news article{background:#fff;box-shadow:0 1px 2px rgba(23,20,46,.05),0
 .est b{font:700 22px var(--body);color:var(--fg)}
 .est em{font-style:normal;color:var(--muted);font-size:14px}
 .send,.copyb{width:100%}
+.send.ok{background:linear-gradient(90deg,#1aa36f,#3ad08f)}
+.copyb{background:transparent;border:1px solid var(--hair2);color:var(--fg);box-shadow:none}
+html.day .copyb{background:#fff;color:#17142e}
 .discord{margin:0 0 22px}
 .discord iframe{width:100%;max-width:420px;height:300px;border:0;border-radius:var(--r)}
 @media (max-width:560px){.brief .chk{padding-top:0}}
@@ -868,8 +871,9 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
         </div>
         <div class="row"><label class="chk" for="b-rush"><input type="checkbox" id="b-rush"> <span data-i18n="e2">Rush delivery (under 3 days)</span></label></div>
         <div class="est" id="est" aria-live="polite"><span data-i18n="e3">Estimate</span><b id="est-v">€150 and up</b><em id="est-d">5–7 days</em></div>
-        <button data-i18n="t79" class="btn copyb" id="b-copy" type="button">Copy my brief</button>
         <button class="btn send" id="b-send" type="button" hidden data-i18n="e4">Send to Janxirus</button>
+        <button data-i18n="t79" class="btn copyb" id="b-copy" type="button">Copy my brief</button>
+        
         <p data-i18n="t80" class="hint" id="b-hint">Copy the brief, then paste it in an email to janxirus.dev@gmail.com or a Fiverr message.</p>
         <pre class="out" id="b-out" hidden></pre>
       </form>
@@ -1155,7 +1159,7 @@ syncCmp();
 
 /* ===== site config: fill these in to switch features on ===== */
 const SITE={
-  formspree:'',      // Formspree form ID, e.g. 'xyzabcde' -> the brief is sent straight to your inbox
+  formspree:'mnpppgyq',      // Formspree form ID, e.g. 'xyzabcde' -> the brief is sent straight to your inbox
   goatcounter:'',    // GoatCounter code, e.g. 'janxirus' -> privacy-friendly visitor stats
   discordServer:'',  // Discord server ID (enable the widget in Server Settings > Widget)
   now:'updating Shardlight to Minecraft 26.3', nowSv:'uppdaterar Shardlight till Minecraft 26.3'
@@ -1171,9 +1175,9 @@ const SITE={
 (function(){const copy=document.getElementById('b-copy');const old=copy.onclick;copy.onclick=()=>{old&&old();const out=document.getElementById('b-out');out.textContent+='\n\nEstimate: '+document.getElementById('est-v').textContent+' · '+document.getElementById('est-d').textContent+' ('+document.getElementById('b-pkg').selectedOptions[0].text+(document.getElementById('b-rush').checked?', rush':'')+')'};
   if(!SITE.formspree||location.protocol==='file:')return;const send=document.getElementById('b-send');send.hidden=false;
   send.onclick=async()=>{const g=id=>document.getElementById(id).value;const body={project:document.getElementById('b-type').selectedOptions[0].text,version:g('b-ver'),deadline:g('b-date'),budget:g('b-budget'),package:document.getElementById('b-pkg').selectedOptions[0].text,rush:document.getElementById('b-rush').checked,estimate:document.getElementById('est-v').textContent,message:g('b-desc')};
-    send.disabled=true;send.textContent='Sending…';
+    const lg=document.documentElement.lang;const M={en:['Sending…','Sent! I\'ll reply within 24 hours','Couldn\'t send. Copy the brief and email it instead','Please describe what you need first'],sv:['Skickar…','Skickat! Jag svarar inom 24 timmar','Kunde inte skicka. Kopiera briefen och mejla den istället','Beskriv vad du behöver först'],ar:['جاري الإرسال…','وصل طلبك! أرد عليك خلال 24 ساعة','ما قدرت أرسل. انسخ الطلب وأرسله بالإيميل','اكتب وش تبي أول']}[lg]||null;const ML=M||['Sending…','Sent! I\'ll reply within 24 hours','Couldn\'t send. Copy the brief and email it instead','Please describe what you need first'];if(!g('b-desc').trim()){send.textContent=ML[3];document.getElementById('b-desc').focus();setTimeout(()=>{send.textContent=send.dataset.label||send.textContent},2200);return}send.dataset.label=send.textContent;send.disabled=true;send.textContent=ML[0];
     try{const r=await fetch('https://formspree.io/f/'+SITE.formspree,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(body)});
-      if(r.ok){send.textContent='Sent! I\'ll reply within 24 hours';sfx('ach')}else throw 0}catch(e){send.disabled=false;send.textContent='Couldn\'t send. Copy the brief and email it instead'}}})();
+      if(r.ok){send.textContent=ML[1];send.classList.add('ok');sfx('ach')}else throw 0}catch(e){send.disabled=false;send.textContent=ML[2]}}})();
 /* ===== stats + discord (only when configured) ===== */
 if(SITE.goatcounter&&location.protocol!=='file:'){const sc=document.createElement('script');sc.async=true;sc.src='//gc.zgo.at/count.js';sc.dataset.goatcounter='https://'+SITE.goatcounter+'.goatcounter.com/count';document.head.appendChild(sc)}
 if(SITE.discordServer&&location.protocol!=='file:'){const d=document.getElementById('discord');d.hidden=false;d.innerHTML='<iframe title="Shardlight Discord" src="https://discord.com/widget?id='+SITE.discordServer+'&theme=dark" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>'}
