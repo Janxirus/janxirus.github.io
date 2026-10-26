@@ -396,7 +396,10 @@ nav{backdrop-filter:blur(8px)}
 .ba-l{left:8px}.ba-rr{right:8px}
 @media (max-width:860px){.ba{grid-template-columns:minmax(0,1fr)}.ba-box{justify-self:center}}
 /* hills divider */
-.hills{height:64px;background:url(fx/hills.png) repeat-x 0 100%/512px 64px;image-rendering:pixelated;animation:hills 40s linear infinite;opacity:.9;margin-bottom:-20px}
+.hills{height:64px;background:url(fx/hills.png) repeat-x 0 100%/512px 64px;image-rendering:pixelated;animation:hills 40s linear infinite;opacity:.45;margin-block:-10px -30px;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 35%,#000 55%,transparent 100%),linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent 0,#000 35%,#000 55%,transparent 100%),linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);mask-composite:intersect}
+html.day .hills{opacity:.25}
 @keyframes hills{to{background-position:-512px 100%}}
 /* dock */
 .dock{position:fixed;left:max(14px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:80;display:flex;gap:6px}
