@@ -9,6 +9,7 @@
 <meta property="og:image" content="https://janxirus.github.io/themes-grid.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>Janxirus Portfolio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap">
 <style>
@@ -361,6 +362,15 @@ html.night{--bg:#020208}
 html.night #bgfx{filter:saturate(1.6) brightness(1.4)}
 .secrets{font:500 12px var(--body);color:var(--muted);opacity:.7}
 .stage{pointer-events:none}
+
+/* performance */
+.fx{will-change:auto}
+.orbit{backdrop-filter:none;background:rgba(13,12,24,.92)}
+nav{backdrop-filter:blur(8px)}
+.pkg.mid,.tier.hl{animation-play-state:paused}
+.pkg.mid:hover,.tier.hl:hover{animation-play-state:running}
+.marquee .track{will-change:transform}
+#bgfx{will-change:auto}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -684,13 +694,13 @@ addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true});
 /* v2 interactions */
 const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
 if(!reduce&&fine){
-  document.addEventListener('pointermove',e=>{
+  let tq=null,te=null;document.addEventListener('pointermove',e=>{te=e;if(tq)return;tq=requestAnimationFrame(()=>{tq=null;const e=te;
     const el=e.target.closest('.fx');if(!el)return;const r=el.getBoundingClientRect();
     const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
     el.style.setProperty('--mx',x*100+'%');el.style.setProperty('--my',y*100+'%');
     const big=r.width>500;const k=big?2:6;
     el.style.transform='perspective(900px) rotateX('+((.5-y)*k)+'deg) rotateY('+((x-.5)*k)+'deg) translateY(-4px)';
-  },{passive:true});
+  })},{passive:true});
   document.addEventListener('pointerout',e=>{const el=e.target.closest('.fx');if(el&&!el.contains(e.relatedTarget))el.style.transform=''},{passive:true});
   document.querySelectorAll('.btn').forEach(b=>{
     b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.25)+'px)'});
@@ -704,10 +714,11 @@ function sizeS(){const r=sc.getBoundingClientRect();sc.width=r.width;sc.height=r
 sizeS();addEventListener('resize',sizeS);
 const cols=['#4f8cff','#9b6bff','#c4a6ff','#8fb4ff'];
 function spawn(){const w=sc.width,h=sc.height;P.push({x:w*.2+Math.random()*w*.6,y:h*.85,vy:-(.3+Math.random()*.7),vx:(Math.random()-.5)*.3,s:3+Math.floor(Math.random()*3)*2,life:1,c:cols[Math.random()*4|0]})}
-function stepS(){sx.clearRect(0,0,sc.width,sc.height);if(Math.random()<.35)spawn();
+let heroVis=true,sRun=false;new IntersectionObserver(es=>{heroVis=es[0].isIntersecting;if(heroVis&&!sRun&&!reduce){sRun=true;requestAnimationFrame(stepS)}}).observe(sc);
+function stepS(){if(!heroVis){sRun=false;return}sRun=true;sx.clearRect(0,0,sc.width,sc.height);if(Math.random()<.35)spawn();
   P=P.filter(p=>p.life>0);for(const p of P){p.x+=p.vx;p.y+=p.vy;p.life-=.006;sx.globalAlpha=Math.max(0,p.life);sx.fillStyle=p.c;sx.fillRect(Math.round(p.x/2)*2,Math.round(p.y/2)*2,p.s,p.s)}
   sx.globalAlpha=1;requestAnimationFrame(stepS)}
-if(!reduce)stepS();
+
 
 /* background: voxel cubes + theme particles */
 const bg=document.getElementById('bgfx'),bx=bg.getContext('2d');
@@ -724,7 +735,9 @@ const FX={ /* theme -> particle style */
 window.__bgTheme="Ember";
 function shade(h,f){const n=parseInt(h.slice(1),16);let r=n>>16,g=n>>8&255,b2=n&255;r=Math.min(255,r*f|0);g=Math.min(255,g*f|0);b2=Math.min(255,b2*f|0);return 'rgb('+r+','+g+','+b2+')'}
 const CUBEC=[["#9b6bff","#c4a6ff","#6e3cd2"],["#4f8cff","#8fb4ff","#2f5fd0"],["#7a5cff","#b9a2ff","#4a2fb0"]];
+let bgCache=null;
 function sizeB(){BW=bg.width=innerWidth;BH=bg.height=innerHeight;
+  bgCache=document.createElement('canvas');bgCache.width=BW;bgCache.height=BH;{const cx=bgCache.getContext('2d');let g=cx.createRadialGradient(BW*.8,0,0,BW*.8,0,BW*.7);g.addColorStop(0,'rgba(110,60,210,.16)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,BW,BH);g=cx.createRadialGradient(0,BH,0,0,BH,BW*.6);g.addColorStop(0,'rgba(79,140,255,.10)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,BW,BH);}
   stars=Array.from({length:Math.round(BW*BH/22000)},()=>({x:Math.random()*BW,y:Math.random()*BH,t:Math.random()*6,z:Math.random()}));
   cubes=Array.from({length:Math.max(6,Math.round(BW/150))},()=>newCube(true));}
 function newCube(any){const z=.25+Math.random()*.75;return{x:Math.random()*BW,y:any?Math.random()*BH:BH+40,z,s:Math.round(3+z*5),vy:.08+z*.22,ph:Math.random()*6,c:CUBEC[Math.random()*3|0]}}
@@ -746,8 +759,7 @@ let lastT=0;
 function stepB(t){
   if(t-lastT<30){requestAnimationFrame(stepB);return}lastT=t;
   bx.clearRect(0,0,BW,BH);
-  let g=bx.createRadialGradient(BW*.8,0,0,BW*.8,0,BW*.7);g.addColorStop(0,'rgba(110,60,210,.16)');g.addColorStop(1,'rgba(0,0,0,0)');bx.globalAlpha=1;bx.fillStyle=g;bx.fillRect(0,0,BW,BH);
-  g=bx.createRadialGradient(0,BH,0,0,BH,BW*.6);g.addColorStop(0,'rgba(79,140,255,.10)');g.addColorStop(1,'rgba(0,0,0,0)');bx.fillStyle=g;bx.fillRect(0,0,BW,BH);
+  bx.globalAlpha=1;bx.drawImage(bgCache,0,0);
   for(const s of stars){s.t+=.03;bx.globalAlpha=.15+.35*Math.abs(Math.sin(s.t))*s.z;bx.fillStyle=s.z>.6?'#c4a6ff':'#8fb4ff';bx.fillRect(s.x|0,s.y|0,2,2)}
   /* cubes: drift up, bob, parallax with scroll */
   for(let i=0;i<cubes.length;i++){const c=cubes[i];c.y-=c.vy;c.ph+=.01;
@@ -755,10 +767,11 @@ function stepB(t){
     c.ox=(c.ox||0)*.92;c.oy=(c.oy||0)*.92;
     if(mouse.x>-1){const dx=c.sx-mouse.x,dy=c.sy-mouse.y,d2=dx*dx+dy*dy;if(d2<140*140&&d2>1){const d=Math.sqrt(d2),f=(140-d)/140*3;c.ox+=dx/d*f;c.oy+=dy/d*f}}
     c.sx=c.x+Math.sin(c.ph)*6*c.z+c.ox;c.sy=py+c.oy;
+    if(mouse.x>-1){const hx=c.sx-mouse.x,hy=c.sy-mouse.y;c.hl=hx*hx+hy*hy<1600}
     drawCube(c.sx,c.sy,c.s*.5,c.c,c.hl?Math.min(.9,.10+c.z*.22+.5):.10+c.z*.22);c.hl=false;
     if(c.y<-60-BH*2)cubes[i]=newCube(false)}
   /* theme particles */
-  if(parts.length<70&&Math.random()<.5)spawnPart();
+  if(parts.length<45&&Math.random()<.35)spawnPart();
   parts=parts.filter(p=>p.life>0&&p.y>-20&&p.y<BH+20);
   for(const p of parts){p.ph+=.04;
     if(p.k==="burst"){p.vy+=.12;p.x+=p.vx;p.y+=p.vy;p.life-=.02}
@@ -774,7 +787,7 @@ function stepB(t){
     else bx.fillRect(X,Y,p.s,p.s)}
   bx.globalAlpha=1;
   if(!reduce)requestAnimationFrame(stepB)}
-sizeB();addEventListener('resize',sizeB);
+let rzT;sizeB();addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(sizeB,150)});
 if(reduce){stepB(1000)}else requestAnimationFrame(stepB);
 
 /* ===== interactive background + easter eggs ===== */
@@ -799,7 +812,7 @@ document.addEventListener('pointerdown',e=>{
     if(mined===10)achieve('miner10','Pixel Miner','You mined 10 floating blocks.');}
   else{const f=FX[window.__bgTheme]||FX.Ember;burst(x,y,f.c,14)}
 });
-addEventListener('pointermove',()=>{for(const c of cubes){const dx=c.sx-mouse.x,dy=c.sy-mouse.y;if(dx*dx+dy*dy<40*40)c.hl=true}},{passive:true});
+
 /* secret 1: click the hero cube 5 times */
 const heroCube=document.querySelector('.stage .cube');let hc=0,hcT=0;
 if(heroCube){heroCube.style.pointerEvents='auto';heroCube.style.cursor='pointer';
