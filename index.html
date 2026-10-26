@@ -5,237 +5,465 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Janxirus: Minecraft mods, resource packs, desktop apps and Roblox scripting. Commissions open.">
 <meta property="og:title" content="Janxirus Portfolio">
-<meta property="og:description" content="Shardlight mods and client, MediaVault, Roblox. Commissions open.">
+<meta property="og:description" content="Shardlight mods and launcher, MediaVault, Roblox. Commissions open.">
 <meta property="og:image" content="https://janxirus.github.io/themes-grid.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="logo.png">
 <title>Janxirus Portfolio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: single dark "forge glass" column; pixel display type used only for names, glass panels set off project cards */
+/* Layout: dark arcade-night single column; full-bleed bands, pixel display type, one interactive theme lab as the centrepiece */
 :root{
-  --bg:#07070c; --bg2:#0e0e18; --glass:rgba(40,36,80,.35); --line:#24223a;
-  --fg:#f4f4fb; --muted:#9d9cb8; --blue:#4f8cff; --purple:#9b6bff; --ember:#9b6bff; --ember-soft:#8fb4ff; --ok:#6fe0b0;
+  --bg:#07070c; --bg2:#0d0c18; --panel:rgba(30,26,62,.45); --line:#24223a; --line2:#34305a;
+  --fg:#f4f4fb; --muted:#a3a2c0; --blue:#4f8cff; --blue2:#8fb4ff; --purple:#9b6bff; --purple2:#c4a6ff; --ok:#6fe0b0;
+  --accent:#9b6bff;
   --display:"Pixelify Sans","Courier New",monospace;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;
-  background-image:radial-gradient(ellipse 80% 50% at 75% -10%,rgba(155,107,255,.22),transparent 70%),
-  radial-gradient(ellipse 60% 40% at 0% 100%,rgba(79,140,255,.12),transparent 70%);background-attachment:fixed}
-.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
-a{color:var(--ember-soft)}
-:focus-visible{outline:2px solid var(--ember-soft);outline-offset:3px}
-nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-block:22px}
-.mark{font-family:var(--display);font-size:20px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
-.shard{width:14px;height:14px;background:linear-gradient(135deg,var(--blue),var(--purple));clip-path:polygon(50% 0,100% 40%,60% 100%,0 55%);box-shadow:0 0 12px var(--ember)}
-nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;font-size:14px}
-nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--fg)}
-.status{font-family:var(--mono);font-size:12px;color:var(--ok);display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:4px 10px;border-radius:2px}
-.status::before{content:"";width:7px;height:7px;background:var(--ok);border-radius:50%}
-.hero{padding-block:56px 48px;display:grid;gap:22px}
-.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,8vw,76px);line-height:1;margin:0;text-wrap:balance}
-.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(155,107,255,.35))}
-.hero p{max-width:58ch;color:var(--muted);font-size:18px;margin:0}
-.tags{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px}
-.tags span{border:1px solid var(--line);padding:3px 9px;color:var(--fg);background:rgba(255,255,255,.02)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:rgba(7,7,12,.85)}
+a{color:var(--blue2)}
+:focus-visible{outline:2px solid var(--blue2);outline-offset:3px}
+img{max-width:100%}
+.px{image-rendering:pixelated}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#bgfx{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.progress{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:3px;width:0;background:linear-gradient(90deg,var(--blue),var(--purple));z-index:70}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(7,7,12,.72);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:20px;text-decoration:none;color:var(--fg)}
+.mark img{width:28px;height:28px}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px}
+nav ul a{color:var(--muted);text-decoration:none;position:relative}
+nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--purple);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+nav ul a:hover{color:var(--fg)}nav ul a:hover::after{transform:scaleX(1)}
+.status{font-family:var(--mono);font-size:12px;color:var(--ok);display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);padding:5px 10px;border-radius:3px;white-space:nowrap}
+.status::before{content:"";width:7px;height:7px;background:var(--ok);border-radius:50%;box-shadow:0 0 0 0 var(--ok);animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(111,224,176,.6)}70%{box-shadow:0 0 0 8px rgba(111,224,176,0)}100%{box-shadow:0 0 0 0 rgba(111,224,176,0)}}
+
+/* hero */
+.hero{padding-block:72px 56px}
+.hero .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.eyebrow{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--blue2)}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,78px);line-height:1;margin:14px 0 18px;text-wrap:balance}
+.type{display:inline-block;background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;min-height:1em}
+.caret{display:inline-block;width:.5em;height:.85em;background:var(--purple);margin-left:4px;vertical-align:-.05em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero p{color:var(--muted);font-size:18px;max-width:52ch;margin:0 0 26px}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn{font:600 15px var(--body);padding:12px 20px;border:1px solid transparent;background:linear-gradient(90deg,var(--blue),var(--purple));color:#fff;cursor:pointer;text-decoration:none;border-radius:2px}
-.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
-.btn:hover{filter:brightness(1.1)}
-section{padding-block:40px}
-h2{font-family:var(--display);font-weight:500;font-size:28px;margin:0 0 6px}
-.lead{color:var(--muted);margin:0 0 26px;max-width:60ch}
-.label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ember-soft)}
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
-.card{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px);display:flex;flex-direction:column;min-width:0}
-.card.feature{grid-column:1/-1}
-.shot{aspect-ratio:16/9;max-width:100%;background:
-  repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 8px,transparent 8px 16px),
-  repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 8px,transparent 8px 16px),var(--bg2);
-  display:grid;place-items:center;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted)}
-.card.feature .shot{aspect-ratio:21/9}
-.shot.img{display:block;aspect-ratio:1360/860;overflow:hidden;background:var(--bg2)}
-.card.feature .shot.img{aspect-ratio:1360/700}
-.shot.img img{width:100%;height:100%;object-fit:cover;object-position:left top;display:block}
-.shot.svg img{object-position:center}
-.cap{font-family:var(--mono);font-size:11px;color:var(--muted)}
-.sub{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:6px}
-.sub div{background:var(--bg2);padding:12px 14px;display:grid;gap:2px;min-width:0}
-.sub b{font-weight:600;font-size:14px}.sub span{color:var(--muted);font-size:13px}
-.group{margin-top:34px;margin-bottom:12px;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;border-bottom:1px solid var(--line);padding-bottom:8px}
-.card-body{padding:18px 20px 20px;display:grid;gap:8px;min-width:0}
-.card h3{font-family:var(--display);font-weight:500;font-size:22px;margin:0}
+.btn{font:600 15px var(--body);padding:13px 22px;border:1px solid transparent;background:linear-gradient(90deg,var(--blue),var(--purple));color:#fff;text-decoration:none;border-radius:3px;cursor:pointer;transition:transform .15s, box-shadow .2s;box-shadow:0 4px 0 #2a1a6b}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 #2a1a6b,0 0 24px rgba(155,107,255,.4)}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #2a1a6b}
+.btn.ghost{background:transparent;border-color:var(--line2);color:var(--fg);box-shadow:none}
+.btn.ghost:hover{border-color:var(--purple)}
+.stage{position:relative;aspect-ratio:1;max-width:420px;width:100%;justify-self:center}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.stage .cube{position:absolute;left:50%;top:50%;width:62%;transform:translate(-50%,-50%);animation:float 4s ease-in-out infinite;filter:drop-shadow(0 18px 30px rgba(110,60,210,.45))}
+@keyframes float{50%{transform:translate(-50%,calc(-50% - 14px))}}
+.orbit{position:absolute;font-family:var(--mono);font-size:12px;padding:5px 10px;border:1px solid var(--line2);background:rgba(13,12,24,.85);border-radius:3px;white-space:nowrap;animation:bob 5s ease-in-out infinite}
+.orbit:nth-of-type(2){animation-delay:-1.6s}.orbit:nth-of-type(3){animation-delay:-3.2s}
+@keyframes bob{50%{transform:translateY(-8px)}}
+
+/* stats */
+.stats{border-block:1px solid var(--line);background:rgba(13,12,24,.6)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);padding-block:26px}
+.stat{text-align:center;padding:6px 10px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-family:var(--display);font-size:clamp(30px,5vw,44px);line-height:1.1;font-variant-numeric:tabular-nums;color:var(--fg)}
+.stat span{font-size:13px;color:var(--muted)}
+
+/* sections */
+section{padding-block:84px}
+.head{display:grid;gap:8px;margin-bottom:34px;max-width:62ch}
+.head h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:0;text-wrap:balance}
+.head p{margin:0;color:var(--muted);font-size:17px}
+.reveal{transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s}
+.reveal.pre{transform:translateY(28px);opacity:.15}
+
+/* theme lab */
+.lab{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:start}
+.chips{display:grid;gap:6px;max-height:520px;overflow:auto;padding-right:4px}
+.chip{display:flex;align-items:center;gap:10px;font:500 14px var(--body);color:var(--muted);background:transparent;border:1px solid var(--line);padding:9px 12px;border-radius:3px;cursor:pointer;text-align:left;transition:all .15s}
+.chip i{width:12px;height:12px;flex:none;background:var(--c);box-shadow:0 0 10px var(--c)}
+.chip:hover{color:var(--fg);border-color:var(--line2);transform:translateX(3px)}
+.chip[aria-pressed="true"]{color:var(--fg);border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
+.viewer{position:relative;border:1px solid var(--line2);background:radial-gradient(ellipse at 50% 40%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 70%),var(--bg2);border-radius:4px;padding:22px;min-width:0;transition:background .5s}
+.vtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.vtab{font:12px var(--mono);text-transform:uppercase;letter-spacing:.1em;padding:6px 12px;border:1px solid var(--line2);background:transparent;color:var(--muted);cursor:pointer;border-radius:2px}
+.vtab[aria-selected="true"]{color:var(--fg);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent)}
+.screen{display:grid;place-items:center;min-height:460px}
+.screen img{width:min(100%,440px);height:auto;transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .35s}
+.screen img.swap{transform:scale(.94);filter:brightness(1.8) saturate(.4)}
+.vname{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.vname b{font-family:var(--display);font-size:22px;color:var(--fg);font-weight:500}
+.mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin-top:22px}
+.mod{border:1px solid var(--line);background:var(--panel);padding:18px;border-radius:4px;transition:transform .2s,border-color .2s}
+.mod:hover{transform:translateY(-4px);border-color:var(--purple)}
+.mod h3{margin:0 0 4px;font-family:var(--display);font-weight:500;font-size:20px}
+.mod .v{font-family:var(--mono);font-size:12px;color:var(--blue2)}
+.mod p{margin:8px 0 0;color:var(--muted);font-size:14px}
+.shot{border:1px solid var(--line2);border-radius:4px;overflow:hidden;margin-top:22px;position:relative}
+.shot img{display:block;width:100%}
+.shot figcaption{position:absolute;left:12px;bottom:12px;font:12px var(--mono);background:rgba(7,7,12,.8);padding:5px 10px;border-radius:2px;color:var(--muted)}
+
+/* client */
+.client{display:grid;grid-template-columns:1fr 1.35fr;gap:36px;align-items:center}
+.feat{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
+.feat li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:15px;color:var(--muted)}
+.feat li::before{content:"";width:10px;height:10px;margin-top:7px;background:linear-gradient(135deg,var(--blue),var(--purple))}
+.feat b{color:var(--fg);font-weight:600}
+.frame{border:1px solid var(--line2);border-radius:6px;overflow:hidden;background:var(--bg2);min-width:0;box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.frame .bar{display:flex;gap:6px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line)}
+.frame .bar i{width:9px;height:9px;border-radius:50%;background:var(--line2)}
+.frame .bar .tabs{margin-left:auto;display:flex;gap:4px}
+.frame .bar button{font:11px var(--mono);padding:3px 9px;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:2px;cursor:pointer}
+.frame .bar button[aria-selected="true"]{color:var(--fg);border-color:var(--purple)}
+.frame img{display:block;width:100%;aspect-ratio:1360/860;object-fit:cover;object-position:left top}
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;font:12px var(--mono)}
+.tagrow span{border:1px solid var(--line2);padding:3px 9px;border-radius:2px}
+
+/* more work */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s;min-width:0}
+.card:hover{transform:translateY(-5px);border-color:var(--purple)}
+.card .img{aspect-ratio:16/9;background:var(--bg2);display:grid;place-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
+.card .img img{width:100%;height:100%;object-fit:cover}
+.card .img.empty{font:12px var(--mono);color:var(--muted);background:repeating-linear-gradient(45deg,var(--bg2) 0 10px,#110f20 10px 20px)}
+.card .body{padding:18px 20px 22px;display:grid;gap:8px}
+.card h3{margin:0;font-family:var(--display);font-weight:500;font-size:22px}
 .card p{margin:0;color:var(--muted);font-size:15px}
-.meta{font-family:var(--mono);font-size:12px;color:var(--fg);display:flex;flex-wrap:wrap;gap:6px 14px}
-.meta b{color:var(--ember-soft);font-weight:600}
-.services{border-top:1px solid var(--line)}
-.svc{display:grid;grid-template-columns:1fr auto;gap:4px 24px;padding-block:18px;border-bottom:1px solid var(--line);align-items:baseline}
-.svc h3{margin:0;font-size:17px;font-weight:600}
-.svc p{margin:0;color:var(--muted);font-size:14px;grid-column:1}
-.price{font-family:var(--mono);font-size:15px;color:var(--ember-soft);white-space:nowrap;grid-row:1}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:20px;list-style:none;padding:0;margin:0;counter-reset:s}
-.steps li{counter-increment:s;display:grid;gap:4px}
-.steps li::before{content:counter(s);font-family:var(--display);font-size:26px;color:var(--purple)}
-.steps b{font-weight:600}.steps span{color:var(--muted);font-size:14px}
-.contact{background:var(--glass);border:1px solid var(--line);padding:28px 24px;display:grid;gap:16px}
-.handles{display:grid;gap:10px}
-.handle{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:14px}
-.handle .k{width:80px;color:var(--muted)}
-.handle code{user-select:all;color:var(--fg)}
-.copy{font:12px var(--mono);background:transparent;border:1px solid var(--line);color:var(--muted);padding:3px 9px;cursor:pointer}
-.copy:hover{color:var(--fg);border-color:var(--muted)}
-footer{color:var(--muted);font-size:13px;padding-top:30px}
-@media (max-width:560px){nav ul{display:none}.svc{grid-template-columns:1fr}.price{grid-row:auto}}
-@media (prefers-reduced-motion:no-preference){.shard{animation:pulse 3s ease-in-out infinite}@keyframes pulse{50%{box-shadow:0 0 22px var(--ember)}}}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font:12px var(--mono);color:var(--fg)}
+.meta b{color:var(--blue2);font-weight:600}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px}
+.price{position:relative;border:1px solid var(--line);background:var(--panel);border-radius:4px;padding:24px 22px;display:grid;gap:10px;align-content:start;transition:transform .2s,border-color .2s,box-shadow .2s;overflow:hidden}
+.price::before{content:"";position:absolute;inset:-1px;background:linear-gradient(135deg,var(--blue),var(--purple));opacity:0;transition:opacity .25s;z-index:-1}
+.price:hover{transform:translateY(-4px);border-color:var(--purple);box-shadow:0 0 30px rgba(155,107,255,.18)}
+.price .ic{width:36px;height:36px}
+.price h3{margin:0;font-size:18px;font-weight:600}
+.price .from{font:600 22px var(--mono);color:var(--blue2)}
+.price .from small{font-size:12px;color:var(--muted);font-weight:400}
+.price p{margin:0;color:var(--muted);font-size:14px}
+.note{margin-top:16px;font-size:14px;color:var(--muted)}
+
+/* process */
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s;position:relative}
+.steps::before{content:"";position:absolute;left:24px;right:24px;top:23px;height:2px;background:repeating-linear-gradient(90deg,var(--line2) 0 6px,transparent 6px 12px)}
+.steps li{counter-increment:s;display:grid;gap:6px;padding-right:18px;position:relative}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:48px;height:48px;font-family:var(--display);font-size:22px;background:var(--bg);border:2px solid var(--purple);color:var(--fg);border-radius:4px;box-shadow:0 0 0 6px var(--bg)}
+.steps b{font-weight:600;margin-top:6px}
+.steps span{color:var(--muted);font-size:14px}
+
+/* about */
+.about{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center}
+.avatar{width:180px;height:180px;border:2px solid var(--line2);border-radius:6px;background:var(--bg2);padding:10px}
+.about p{margin:0 0 12px;color:var(--muted);max-width:60ch}
+.about p b{color:var(--fg)}
+.stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.stack span{font:13px var(--mono);padding:5px 11px;border:1px solid var(--line2);border-radius:2px;background:rgba(13,12,24,.7);transition:border-color .15s,color .15s}
+.stack span:hover{border-color:var(--blue);color:var(--blue2)}
+
+/* contact */
+.contact{border:1px solid var(--line2);border-radius:6px;padding:48px 32px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(155,107,255,.25),transparent 65%),var(--bg2);display:grid;gap:16px;justify-items:center}
+.contact h2{font-family:var(--display);font-size:clamp(32px,5vw,52px);margin:0;line-height:1.05}
+.contact p{margin:0;color:var(--muted);max-width:50ch}
+.handles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:6px}
+.handles a,.handles code{font:14px var(--mono);padding:9px 14px;border:1px solid var(--line2);border-radius:3px;color:var(--fg);text-decoration:none;background:rgba(7,7,12,.6)}
+.handles a:hover{border-color:var(--purple)}
+footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:860px){
+  .hero .wrap,.client,.lab,.about{grid-template-columns:1fr}
+  .stage{max-width:300px}
+  .chips{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));max-height:none}
+  .steps{grid-template-columns:1fr 1fr;row-gap:28px}.steps::before{display:none}
+  .avatar{width:120px;height:120px}
+}
+@media (max-width:560px){
+  nav ul{display:none}
+  .stats .wrap{grid-template-columns:1fr 1fr;row-gap:16px}.stat:nth-child(3){border-left:0}
+  .steps{grid-template-columns:1fr}
+  .screen{min-height:300px}
+  section{padding-block:60px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal.pre{transform:none;opacity:1}
+}
 </style>
 
-<style>body{margin:0}img{max-width:100%}</style>
+<style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
 <body>
-<div class="wrap">
+<canvas id="bgfx" aria-hidden="true"></canvas>
+<div class="progress" id="progress"></div>
+
 <nav>
-  <div class="mark"><img src="logo.png" alt="" width="28" height="28" style="image-rendering:pixelated;display:block">Janxirus</div>
-  <ul><li><a href="#work">Work</a></li><li><a href="#services">Services</a></li><li><a href="#contact">Contact</a></li></ul>
-  <span class="status">Open for commissions</span>
+  <div class="wrap">
+    <a class="mark" href="#top"><img class="px" src="logo.png" alt="">Janxirus</a>
+    <ul>
+      <li><a href="#shardlight">Shardlight</a></li>
+      <li><a href="#client">Launcher</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <span class="status">Open for commissions</span>
+  </div>
 </nav>
 
-<header class="hero">
-  <span class="label">Developer &amp; designer · Sweden</span>
-  <h1>Mods, apps and game UI that feel <em>crafted</em>.</h1>
-  <p>I design and build Minecraft mods and resource packs, desktop and mobile apps, and Roblox games. You get the visual design and the working code from one person, built to stay fast.</p>
-  <div class="tags"><span>Java</span><span>Fabric</span><span>JavaFX</span><span>Python</span><span>Luau</span><span>Gradle</span><span>Pixel art</span><span>UI/UX</span></div>
-  <div class="cta"><a class="btn" href="#contact">Request a quote</a><a class="btn ghost" href="#work">See my work</a></div>
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Developer &amp; designer · Karlskrona, Sweden</span>
+      <h1>I build <span class="type" id="type">Minecraft mods.</span><span class="caret" aria-hidden="true"></span></h1>
+      <p>Minecraft mods and resource packs, desktop apps and Roblox games. I design the look and write the code, so it ships fast and runs fast.</p>
+      <div class="cta"><a class="btn" href="#contact">Start a project</a><a class="btn ghost" href="#shardlight">See my work</a></div>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <canvas id="sparks"></canvas>
+      <img class="cube px" src="cube.png" alt="">
+      <span class="orbit" style="left:0;top:14%">Fabric · Java</span>
+      <span class="orbit" style="right:0;top:46%">Luau · Roblox</span>
+      <span class="orbit" style="left:6%;bottom:8%">JavaFX · Python</span>
+    </div>
+  </div>
 </header>
 
-<section id="work">
-  <span class="label">Selected work</span>
-  <h2>Projects</h2>
-  <p class="lead">Everything here I designed and built myself.</p>
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b data-count="4">4</b><span>Fabric mods</span></div>
+    <div class="stat"><b data-count="15">15</b><span>UI themes</span></div>
+    <div class="stat"><b data-count="590" data-prefix="~">~590</b><span>launcher tests</span></div>
+    <div class="stat"><b data-count="2">2</b><span>desktop apps</span></div>
+  </div>
+</div>
 
-  <div class="group">Minecraft</div>
-  <div class="projects">
-    <article class="card feature">
-      <div class="shot img"><img src="client-shardlight.jpg" alt="Shardlight Client screen for picking Shardlight mods and one of 15 themes per project"></div>
-      <div class="card-body">
-        <h3>Shardlight Client</h3>
-        <p>A standalone Minecraft: Java Edition launcher. Every setup lives in its own project with its own version, loader, mods and Java. It searches Modrinth and CurseForge, checks dependencies and conflicts before installing, explains crashes in plain words, and backs up worlds. Frame rate comes first: one click switches between six performance presets.</p>
-        <div class="meta"><span><b>JavaFX</b> desktop app</span><span><b>~590</b> automated tests</span><span>Windows · macOS · Linux</span><span>v0.1.0 preview</span></div>
-        <span class="cap"><a href="https://github.com/Janxirus/Shardlight_Client">Source on GitHub</a></span>
-      </div>
-    </article>
-    <article class="card feature">
-      <div class="shot img"><img src="shardlight-ingame.jpg" alt="Shardlight UI in game: themed inventory, HUD, compass strip and round minimap"></div>
-      <div class="card-body">
-        <h3>Shardlight mod family</h3>
-        <p>Four client-side Fabric mods for Minecraft 26.3 that each work alone, and together share one theme, one HUD layout editor and one compass.</p>
-        <div class="sub">
-          <div><b>Shardlight UI · v3.6.0</b><span>Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, switchable profiles.</span></div>
-          <div><b>Shardlight Map · v1.2.0</b><span>Minimap and world map with cave layers, radar, waypoints with groups and icons, and map sharing.</span></div>
-          <div><b>Shardlight Companion · v1.0.0</b><span>Notes pinned to places, self-checking to-do lists, photo mode, measuring tape, shape planner, timers.</span></div>
-          <div><b>Shardlight Party · v1.2.0</b><span>Friends list and party panel. Links players through rate-limited private messages, so no server plugin is needed.</span></div>
+<section id="shardlight">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Featured · Minecraft 26.3</span>
+      <h2>Shardlight: one mod, fifteen worlds</h2>
+      <p>A full UI overhaul with a matching resource and sound pack for every theme. Pick a theme to see how it restyles each screen.</p>
+    </div>
+    <div class="lab reveal">
+      <div class="chips" id="chips" role="group" aria-label="Themes"></div>
+      <div class="viewer" id="viewer">
+        <div class="vtabs" role="tablist" aria-label="Screen">
+          <button class="vtab" role="tab" aria-selected="true" data-kind="inv" id="t-inv">Inventory</button>
+          <button class="vtab" role="tab" aria-selected="false" data-kind="chest" id="t-chest">Chest</button>
+          <button class="vtab" role="tab" aria-selected="false" data-kind="furnace" id="t-furnace">Furnace</button>
         </div>
-        <div class="meta" style="margin-top:6px"><span><b>Fabric</b> · Mixins</span><span>MC <b>26.3</b></span><span>Modrinth · CurseForge</span></div>
+        <div class="screen"><img class="px" id="screen" src="themes/ember-inv.png" alt="Ember theme inventory screen"></div>
+        <div class="vname"><b id="tname">Ember</b><span>texture from the real resource pack, shown at 2.5×</span></div>
       </div>
-    </article>
-    <article class="card feature">
-      <div class="shot img" style="aspect-ratio:2076/1518"><img src="themes-grid.png" alt="Inventory screen from all 15 Shardlight theme packs side by side" style="object-fit:contain"></div>
-      <div class="card-body">
-        <h3>15 theme packs</h3>
-        <p>Resource and sound packs that restyle every screen, from Ember and Blood Moon to Cyberpunk and Voidborn. Each theme has its own frame, background art and icons. Themes can follow the dimension you're in.</p>
-        <div class="meta"><span><b>15</b> themes</span><span>Textures · sounds</span></div>
-      </div>
-    </article>
-    <article class="card">
-      <div class="shot img"><img src="client-project-performance.jpg" alt="Shardlight Client performance presets screen"></div>
-      <div class="card-body">
-        <h3>Performance presets</h3>
-        <p>From Ultra Performance to Ultra Quality. Each preset previews exactly which settings it will change before applying.</p>
-        <div class="meta"><span><b>6</b> presets</span><span>Part of Shardlight Client</span></div>
-      </div>
-    </article>
-  </div>
-
-  <div class="group">Apps</div>
-  <div class="projects">
-    <article class="card feature">
-      <div class="shot img svg"><img src="mediavault-library.svg" alt="Feature sketch of the MediaVault library view"></div>
-      <div class="card-body">
-        <h3>MediaVault</h3>
-        <p>A Windows app that brings videos, photos and audio from folders and external drives into one local library. It has an embedded player, Quick Sort, duplicate and similar-photo detection, side-by-side comparison, storage cleanup, and optional local AI. No cloud account needed.</p>
-        <div class="meta"><span><b>Python</b> desktop app</span><span>v<b>1.9.7</b></span><span>Windows installer</span><span>FFmpeg bundled</span></div>
-        <span class="cap">Feature sketch, not a screenshot</span>
-      </div>
-    </article>
-    <article class="card">
-      <div class="shot img"><img src="client-home.jpg" alt="Shardlight Client home screen"></div>
-      <div class="card-body">
-        <h3>Launcher UI design</h3>
-        <p>The Shardlight Client interface: projects, play time and shortcuts on one calm home screen.</p>
-        <div class="meta"><span>UI/UX</span><span>JavaFX + CSS</span></div>
-      </div>
-    </article>
-  </div>
-
-  <div class="group">Roblox</div>
-  <div class="projects">
-    <article class="card">
-      <div class="shot">[ screenshot: tycoon plot ]</div>
-      <div class="card-body">
-        <h3>Anime Tycoon</h3>
-        <p>Roblox tycoon with a hand-built anime map, 5 plots per server, staged buy-button progression, rebirths and Robux boosts.</p>
-        <div class="meta"><span><b>Luau</b></span><span><b>5</b>-player servers</span><span>Monetization</span></div>
-      </div>
-    </article>
+    </div>
+    <div class="mods">
+      <div class="mod reveal"><h3>Shardlight UI</h3><span class="v">v3.6.0</span><p>Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, profiles.</p></div>
+      <div class="mod reveal"><h3>Shardlight Map</h3><span class="v">v1.2.0</span><p>Minimap and world map with cave layers, radar, grouped waypoints and map sharing.</p></div>
+      <div class="mod reveal"><h3>Shardlight Companion</h3><span class="v">v1.0.0</span><p>Notes pinned to places, self-ticking to-do lists, photo mode, measuring tape, timers.</p></div>
+      <div class="mod reveal"><h3>Shardlight Party</h3><span class="v">v1.2.0</span><p>Friends list and party panel that finds friends anywhere, with no server plugin.</p></div>
+    </div>
+    <figure class="shot reveal" style="margin-inline:0"><img src="shardlight-ingame.jpg" alt="Shardlight UI in game with the Ember theme: inventory, HUD panels, compass strip and round minimap" loading="lazy"><figcaption>In game · Ember theme · HUD, compass and minimap</figcaption></figure>
   </div>
 </section>
 
-<section id="services">
-  <span class="label">What I offer</span>
-  <h2>Services</h2>
-  <p class="lead">Starting prices. Every job gets a fixed quote before work begins.</p>
-  <div class="services">
-    <div class="svc"><h3>Custom GUI / resource pack</h3><span class="price">from €60</span><p>Inventory, menus, HUD, icons and sounds in your server's style.</p></div>
-    <div class="svc"><h3>Fabric mod or server plugin feature</h3><span class="price">from €50</span><p>Commands, mechanics, custom screens, bug fixes, version ports.</p></div>
-    <div class="svc"><h3>Roblox scripting</h3><span class="price">from €50</span><p>Tycoon systems, shops, rebirths, data saving, UI.</p></div>
-    <div class="svc"><h3>Desktop tool or app</h3><span class="price">quote</span><p>Launchers, utilities and media tools in Java or Python, with installers.</p></div>
-    <div class="svc"><h3>Full UI overhaul</h3><span class="price">quote</span><p>Design plus implementation for a whole server, game or app.</p></div>
-  </div>
-</section>
-
-<section>
-  <span class="label">How it works</span>
-  <h2>Process</h2>
-  <ol class="steps">
-    <li><b>Brief</b><span>Tell me what you need and send references.</span></li>
-    <li><b>Quote</b><span>Fixed price and delivery date, 50% upfront.</span></li>
-    <li><b>Preview</b><span>You see work in progress and request changes.</span></li>
-    <li><b>Delivery</b><span>Final files, source and setup notes.</span></li>
-  </ol>
-</section>
-
-<section id="contact">
-  <div class="contact">
-    <span class="label">Contact</span>
-    <h2>Have a project?</h2>
-    <p class="lead" style="margin:0">Message me on GitHub or Discord with what you need, your game version and a deadline. More contact options are coming soon.</p>
-    <div class="handles">
-      <div class="handle"><span class="k">GitHub</span><a href="https://github.com/Janxirus"><code>github.com/Janxirus</code></a></div>
+<section id="client">
+  <div class="wrap client">
+    <div class="reveal">
+      <span class="eyebrow">Desktop app · JavaFX</span>
+      <h2 style="font-family:var(--display);font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:8px 0 12px">Shardlight Client</h2>
+      <p style="color:var(--muted);margin:0">My own Minecraft launcher. Every setup lives in its own project, and frame rate comes first.</p>
+      <ul class="feat">
+        <li><span><b>Projects</b> with their own version, loader, mods and Java</span></li>
+        <li><span><b>Modrinth and CurseForge</b> search with dependency and conflict checks</span></li>
+        <li><span><b>Six performance presets</b> that preview every change first</span></li>
+        <li><span><b>Crash help</b> in plain words, plus world backups</span></li>
+      </ul>
+      <div class="tagrow"><span>Java 21</span><span>JavaFX</span><span>Gradle</span><span>~590 tests</span><span>Win · macOS · Linux</span></div>
+      <p style="margin:18px 0 0"><a href="https://github.com/Janxirus/Shardlight_Client">Source on GitHub →</a></p>
+    </div>
+    <div class="frame reveal">
+      <div class="bar"><i></i><i></i><i></i>
+        <div class="tabs" role="tablist" aria-label="Launcher screens">
+          <button role="tab" aria-selected="true" data-src="client-home.jpg" id="c-home">Home</button>
+          <button role="tab" aria-selected="false" data-src="client-shardlight.jpg" id="c-themes">Themes</button>
+          <button role="tab" aria-selected="false" data-src="client-project-performance.jpg" id="c-perf">Presets</button>
+        </div>
+      </div>
+      <img id="clientimg" src="client-home.jpg" alt="Shardlight Client launcher screen">
     </div>
   </div>
 </section>
 
-<footer>© 2026 Janxirus · Based in Sweden · Replies within 24h</footer>
-</div>
+<section id="work">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">More work</span>
+      <h2>Apps and games</h2>
+    </div>
+    <div class="grid2">
+      <article class="card reveal">
+        <div class="img"><img src="mediavault-library.svg" alt="Feature sketch of the MediaVault library view" loading="lazy"></div>
+        <div class="body">
+          <h3>MediaVault</h3>
+          <p>A Windows app that turns folders and external drives into one local media library, with a built-in player, Quick Sort, duplicate finding, side-by-side compare and storage cleanup. No cloud needed.</p>
+          <div class="meta"><span><b>Python</b></span><span>v<b>1.9.7</b></span><span>Windows installer</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="img empty">screenshot coming soon</div>
+        <div class="body">
+          <h3>Anime Tycoon</h3>
+          <p>A Roblox tycoon with a hand-built anime map, 5 plots per server, staged buy-button progression, rebirths and Robux boosts.</p>
+          <div class="meta"><span><b>Luau</b></span><span>Roblox Studio</span><span>Monetization</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Commissions</span>
+      <h2>What I can build for you</h2>
+      <p>Starting prices. Every job gets a fixed quote before work begins.</p>
+    </div>
+    <div class="svc">
+      <div class="price reveal"><svg class="ic px" viewBox="0 0 9 9" aria-hidden="true"><path fill="#4f8cff" d="M0 0h9v9H0z"/><path fill="#0d0c18" d="M1 1h3v3H1zM5 1h3v3H5zM1 5h3v3H1zM5 5h3v3H5z"/></svg><h3>Minecraft GUI &amp; resource packs</h3><div class="from">€60 <small>and up</small></div><p>Inventory, chests, HUD, icons and sounds in your server's style.</p></div>
+      <div class="price reveal"><svg class="ic px" viewBox="0 0 9 9" aria-hidden="true"><path fill="#9b6bff" d="M1 2h1v1H1zM0 4h1v1H0zM1 6h1v1H1zM7 2h1v1H7zM8 4h1v1H8zM7 6h1v1H7zM5 1h1v2H5zM4 3h1v3H4zM3 6h1v2H3z"/></svg><h3>Fabric mods &amp; plugins</h3><div class="from">€50 <small>and up</small></div><p>Custom screens, mechanics, commands, bug fixes and version ports.</p></div>
+      <div class="price reveal"><svg class="ic px" viewBox="0 0 9 9" aria-hidden="true"><path fill="#c4a6ff" d="M3 0h3v1H3zM2 1h5v2H2zM1 3h7v3H1zM2 6h5v2H2zM3 8h3v1H3z"/><path fill="#4f8cff" d="M3 3h3v2H3z"/></svg><h3>Custom server themes</h3><div class="from">€80 <small>and up</small></div><p>A Shardlight theme in your colours and logo, with matching sounds.</p></div>
+      <div class="price reveal"><svg class="ic px" viewBox="0 0 9 9" aria-hidden="true"><path fill="#4f8cff" d="M0 1h9v6H0z"/><path fill="#0d0c18" d="M1 2h7v4H1z"/><path fill="#9b6bff" d="M3 7h3v1H3zM1 8h7v1H1z"/></svg><h3>Roblox scripting &amp; apps</h3><div class="from">€50 <small>and up</small></div><p>Tycoon systems, shops and data saving, or a desktop tool in Java or Python.</p></div>
+    </div>
+    <p class="note reveal">50% upfront, 50% on delivery · two rounds of changes included · invoiced through Frilans Finans</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">How it works</span><h2>From idea to delivery</h2></div>
+    <ol class="steps reveal">
+      <li><b>Brief</b><span>Tell me what you need and share references.</span></li>
+      <li><b>Quote</b><span>Fixed price and delivery date.</span></li>
+      <li><b>Preview</b><span>You see work in progress and ask for changes.</span></li>
+      <li><b>Delivery</b><span>Final files, source and setup notes.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about reveal">
+    <img class="avatar px" src="cube.png" alt="Janxirus pixel logo">
+    <div>
+      <span class="eyebrow">About me</span>
+      <h2 style="font-family:var(--display);font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:8px 0 14px">Hi, I'm Janxirus</h2>
+      <p>I study <b>Software Engineering at Blekinge Institute of Technology</b> in Karlskrona. Outside class I build the tools and games I want to use myself, from a Minecraft launcher to a full UI overhaul with fifteen themes.</p>
+      <p>I care about two things: it has to look good, and it has to run fast.</p>
+      <div class="stack"><span>Java</span><span>Fabric</span><span>Mixins</span><span>JavaFX</span><span>Gradle</span><span>Python</span><span>Luau</span><span>Roblox Studio</span><span>Pixel art</span><span>UI/UX</span><span>Git</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:20px">
+  <div class="wrap">
+    <div class="contact reveal">
+      <span class="eyebrow">Commissions open</span>
+      <h2>Let's build something</h2>
+      <p>Tell me what you need, your game version and a deadline. I reply within 24 hours.</p>
+      <div class="handles">
+        <a href="https://github.com/Janxirus">github.com/Janxirus</a>
+        <a href="https://www.fiverr.com/janxirus">fiverr.com/janxirus</a>
+      </div>
+    </div>
+    <footer><span>© 2026 Janxirus · Karlskrona, Sweden</span><span>Made with Java, pixels and too much coffee</span></footer>
+  </div>
+</section>
+
 <script>
-document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
-  const el=document.getElementById(b.dataset.t);const t=el.textContent;
-  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)};
-  try{navigator.clipboard.writeText(t).then(done,()=>sel(el))}catch(e){sel(el)}
-}));
-function sel(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* typewriter */
+const words=["Minecraft mods.","game UI.","resource packs.","desktop apps.","Roblox games."];
+const el=document.getElementById('type');
+if(!reduce){let w=0,i=words[0].length,del=true;
+  (function tick(){const s=words[w];
+    if(del){i--;el.textContent=s.slice(0,i);if(i<=0){del=false;w=(w+1)%words.length}setTimeout(tick,i<=0?250:45)}
+    else{const n=words[w];i++;el.textContent=n.slice(0,i);if(i>=n.length){del=true;setTimeout(tick,1800)}else setTimeout(tick,85)}
+  })();
+  setTimeout(()=>{},0);
+}
+
+/* scroll progress */
+const bar=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+
+/* reveal: elements stay visible; only those below the fold get a short entrance */
+const rv=[...document.querySelectorAll('.reveal')];
+if(!reduce&&'IntersectionObserver' in window){
+  rv.forEach(e=>{if(e.getBoundingClientRect().top>innerHeight)e.classList.add('pre')});
+  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.remove('pre');io.unobserve(x.target)}}),{threshold:.12});
+  rv.forEach(e=>io.observe(e));
+}
+
+/* count-up */
+const counts=[...document.querySelectorAll('[data-count]')];
+if(!reduce&&'IntersectionObserver' in window){
+  const co=new IntersectionObserver(es=>es.forEach(x=>{if(!x.isIntersecting)return;const b=x.target,t=+b.dataset.count,p=b.dataset.prefix||'';let s=null;
+    (function f(ts){s=s||ts;const k=Math.min(1,(ts-s)/1100);b.textContent=p+Math.round(t*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(performance.now());co.unobserve(b)}),{threshold:.6});
+  counts.forEach(c=>co.observe(c));
+}
+
+/* theme lab */
+const themes=[["Ember","#ff7a3d"],["Blood Moon","#e0334a"],["Soul Fire","#3fd0e8"],["Ashen","#c9c4c0"],["Dark Green","#4fcf6a"],["Purple Flame","#b86de3"],["Pink Blossom","#f59ab8"],["Dark Fantasy","#d0404a"],["Medieval","#d9a74a"],["Cyberpunk","#ff3fb8"],["Steampunk","#e8b04a"],["Frostbound","#9ad8ff"],["Celestial","#e8c96a"],["Arcane Academy","#6f8cff"],["Voidborn","#9b4dff"]];
+const slug=n=>n.toLowerCase().replace(/ /g,'-');
+const chips=document.getElementById('chips'),img=document.getElementById('screen'),tname=document.getElementById('tname'),viewer=document.getElementById('viewer');
+let cur=0,kind='inv',auto=true;
+themes.forEach(([n,c],i)=>{const b=document.createElement('button');b.className='chip';b.type='button';b.id='theme-'+slug(n);b.style.setProperty('--c',c);b.innerHTML='<i></i>'+n;b.setAttribute('aria-pressed',i===0);b.onclick=()=>{auto=false;show(i)};chips.appendChild(b)});
+themes.forEach(([n])=>['inv','chest','furnace'].forEach(k=>{const p=new Image();p.src='themes/'+slug(n)+'-'+k+'.png'}));
+function show(i){cur=i;const [n,c]=themes[i];
+  [...chips.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  viewer.style.setProperty('--accent',c);tname.textContent=n;
+  img.classList.add('swap');setTimeout(()=>{img.src='themes/'+slug(n)+'-'+kind+'.png';img.alt=n+' theme '+(kind==='inv'?'inventory':kind)+' screen';img.classList.remove('swap')},reduce?0:160);
+}
+document.querySelectorAll('.vtab').forEach(t=>t.onclick=()=>{auto=false;kind=t.dataset.kind;document.querySelectorAll('.vtab').forEach(x=>x.setAttribute('aria-selected',x===t));show(cur)});
+show(0);
+if(!reduce)setInterval(()=>{if(auto&&viewer.getBoundingClientRect().top<innerHeight)show((cur+1)%themes.length)},2600);
+
+/* launcher tabs */
+const cimg=document.getElementById('clientimg');
+document.querySelectorAll('.frame .bar button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.frame .bar button').forEach(x=>x.setAttribute('aria-selected',x===b));cimg.src=b.dataset.src});
+
+/* hero sparks: pixel particles rising around the cube */
+const sc=document.getElementById('sparks'),sx=sc.getContext('2d');let P=[];
+function sizeS(){const r=sc.getBoundingClientRect();sc.width=r.width;sc.height=r.height}
+sizeS();addEventListener('resize',sizeS);
+const cols=['#4f8cff','#9b6bff','#c4a6ff','#8fb4ff'];
+function spawn(){const w=sc.width,h=sc.height;P.push({x:w*.2+Math.random()*w*.6,y:h*.85,vy:-(.3+Math.random()*.7),vx:(Math.random()-.5)*.3,s:3+Math.floor(Math.random()*3)*2,life:1,c:cols[Math.random()*4|0]})}
+function stepS(){sx.clearRect(0,0,sc.width,sc.height);if(Math.random()<.35)spawn();
+  P=P.filter(p=>p.life>0);for(const p of P){p.x+=p.vx;p.y+=p.vy;p.life-=.006;sx.globalAlpha=Math.max(0,p.life);sx.fillStyle=p.c;sx.fillRect(Math.round(p.x/2)*2,Math.round(p.y/2)*2,p.s,p.s)}
+  sx.globalAlpha=1;requestAnimationFrame(stepS)}
+if(!reduce)stepS();
+
+/* background: slow pixel starfield */
+const bg=document.getElementById('bgfx'),bx=bg.getContext('2d');let S=[];
+function sizeB(){bg.width=innerWidth;bg.height=innerHeight;S=Array.from({length:Math.round(innerWidth*innerHeight/14000)},()=>({x:Math.random()*bg.width,y:Math.random()*bg.height,z:.2+Math.random()*.8,t:Math.random()*6}))}
+sizeB();addEventListener('resize',sizeB);
+function stepB(){bx.clearRect(0,0,bg.width,bg.height);const g=bx.createRadialGradient(bg.width*.8,0,0,bg.width*.8,0,bg.width*.7);g.addColorStop(0,'rgba(110,60,210,.16)');g.addColorStop(1,'rgba(0,0,0,0)');bx.fillStyle=g;bx.fillRect(0,0,bg.width,bg.height);
+  const g2=bx.createRadialGradient(0,bg.height,0,0,bg.height,bg.width*.6);g2.addColorStop(0,'rgba(79,140,255,.10)');g2.addColorStop(1,'rgba(0,0,0,0)');bx.fillStyle=g2;bx.fillRect(0,0,bg.width,bg.height);
+  for(const s of S){s.t+=.02;s.y-=s.z*.15;if(s.y<0){s.y=bg.height;s.x=Math.random()*bg.width}
+    bx.globalAlpha=.25+.35*Math.abs(Math.sin(s.t))*s.z;bx.fillStyle=s.z>.7?'#c4a6ff':'#8fb4ff';const sz=s.z>.75?3:2;bx.fillRect(Math.round(s.x),Math.round(s.y),sz,sz)}
+  bx.globalAlpha=1;if(!reduce)requestAnimationFrame(stepB)}
+stepB();
+})();
 </script>
 
 </body>
