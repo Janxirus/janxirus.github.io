@@ -324,6 +324,12 @@ footer{border-top:1px solid var(--hair);margin-top:40px}
 #glow{position:fixed;left:0;top:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;background:radial-gradient(circle,rgba(110,80,255,.10),transparent 60%);pointer-events:none;z-index:-1;transition:opacity .4s}
 @media (hover:none){#glow{display:none}}
 @media (prefers-reduced-motion:reduce){.stag.pre>*{transform:none;opacity:1}.marquee .track{animation:none}}
+
+/* rotating word: fixed slot, no layout shift */
+.rot{display:inline-grid;white-space:nowrap;font-size:min(1em,8.6vw);vertical-align:top}
+.rot>span{grid-area:1/1;background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;transform:translateY(.45em);filter:blur(6px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1),filter .55s}
+.rot>span.on{opacity:1;transform:none;filter:none}
+.rot>span.out{opacity:0;transform:translateY(-.45em);filter:blur(6px)}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -354,7 +360,7 @@ footer{border-top:1px solid var(--hair);margin-top:40px}
   <div class="wrap">
     <div>
       <span class="eyebrow intro">Developer &amp; designer · Karlskrona, Sweden</span>
-      <h1 class="intro">I build <span class="type" id="type">Minecraft mods.</span><span class="caret" aria-hidden="true"></span></h1>
+      <h1 class="intro">I build<br><span class="rot" id="rot" aria-label="Minecraft mods, game UI, resource packs, desktop apps, Roblox games"><span class="on">Minecraft mods.</span><span>game UI.</span><span>resource packs.</span><span>desktop apps.</span><span>Roblox games.</span></span></h1>
       <p class="intro">Minecraft mods and resource packs, desktop apps and Roblox games. I design the look and write the code, so it ships fast and runs fast.</p>
       <div class="cta intro"><a class="btn" href="#contact">Start a project</a><a class="btn ghost" href="#shardlight">See my work</a></div>
     </div>
@@ -577,16 +583,10 @@ footer{border-top:1px solid var(--hair);margin-top:40px}
 (function(){
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* typewriter */
-const words=["Minecraft mods.","game UI.","resource packs.","desktop apps.","Roblox games."];
-const el=document.getElementById('type');
-if(!reduce){let w=0,i=words[0].length,del=true;
-  (function tick(){const s=words[w];
-    if(del){i--;el.textContent=s.slice(0,i);if(i<=0){del=false;w=(w+1)%words.length}setTimeout(tick,i<=0?250:45)}
-    else{const n=words[w];i++;el.textContent=n.slice(0,i);if(i>=n.length){del=true;setTimeout(tick,1800)}else setTimeout(tick,85)}
-  })();
-  setTimeout(()=>{},0);
-}
+/* rotating word */
+const rot=document.getElementById('rot');
+if(rot&&!reduce){const ws=[...rot.children];let k=0;
+  setInterval(()=>{const cur=ws[k];cur.classList.remove('on');cur.classList.add('out');k=(k+1)%ws.length;const nx=ws[k];nx.classList.remove('out');nx.classList.add('on');setTimeout(()=>cur.classList.remove('out'),600)},2600);}
 
 /* scroll progress */
 const bar=document.getElementById('progress');
