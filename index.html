@@ -14,6 +14,7 @@
 <meta name="twitter:image" content="https://janxirus.github.io/og.png">
 <meta name="theme-color" content="#07070c">
 <link rel="icon" type="image/png" href="logo.png">
+<link rel="apple-touch-icon" href="logo-256.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>Janxirus Portfolio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap">
@@ -904,7 +905,7 @@ let bgCache=null;
 function sizeB(){BW=bg.width=innerWidth;BH=bg.height=innerHeight;
   bgCache=document.createElement('canvas');bgCache.width=BW;bgCache.height=BH;{const cx=bgCache.getContext('2d');let g=cx.createRadialGradient(BW*.8,0,0,BW*.8,0,BW*.7);g.addColorStop(0,'rgba(110,60,210,.16)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,BW,BH);g=cx.createRadialGradient(0,BH,0,0,BH,BW*.6);g.addColorStop(0,'rgba(79,140,255,.10)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,BW,BH);}
   stars=Array.from({length:Math.round(BW*BH/22000)},()=>({x:Math.random()*BW,y:Math.random()*BH,t:Math.random()*6,z:Math.random()}));
-  cubes=Array.from({length:Math.max(5,Math.round(BW/220))},()=>newCube(true));}
+  cubes=Array.from({length:Math.max(7,Math.round(BW/170))},()=>newCube(true));}
 function newCube(any){const z=.25+Math.random()*.75;return{x:Math.random()*BW,y:any?Math.random()*BH:BH+40,z,s:Math.round(3+z*5),vy:.08+z*.22,ph:Math.random()*6,c:CUBEC[Math.random()*3|0]}}
 function drawCube(x,y,u,c,a){ /* pixel iso cube, u = pixel unit */
   bx.globalAlpha=a;x=Math.round(x);y=Math.round(y);
@@ -913,7 +914,7 @@ function drawCube(x,y,u,c,a){ /* pixel iso cube, u = pixel unit */
   bx.fillStyle=c[2];bx.beginPath();bx.moveTo(x-w,y);bx.lineTo(x,y+h);bx.lineTo(x,y+h+4*u);bx.lineTo(x-w,y+4*u);bx.fill();
   bx.fillStyle=c[0];bx.beginPath();bx.moveTo(x+w,y);bx.lineTo(x,y+h);bx.lineTo(x,y+h+4*u);bx.lineTo(x+w,y+4*u);bx.fill();
   bx.fillStyle="rgba(255,255,255,.5)";bx.fillRect(x-u,y-h+u,2*u,u);}
-function spawnPart(){const f=FX[window.__bgTheme]||FX.Ember;const c=f.c[Math.random()*f.c.length|0];const s=2+(Math.random()*3|0)*2;
+function spawnPart(){const f=FX[window.__bgTheme]||FX.Ember;const c=f.c[Math.random()*f.c.length|0];const s=3+(Math.random()*3|0)*2;
   const p={k:f.k,c,s,x:Math.random()*BW,life:1,ph:Math.random()*6};
   if(f.k==="rise"){p.y=BH+10;p.vy=-(.4+Math.random()*.8);p.vx=(Math.random()-.5)*.3}
   else if(f.k==="twinkle"||f.k==="glitch"){p.y=Math.random()*BH;p.vy=0;p.vx=0;p.life=1;p.decay=.008+Math.random()*.01}
@@ -933,10 +934,10 @@ function stepB(t){
     if(mouse.x>-1){const dx=c.sx-mouse.x,dy=c.sy-mouse.y,d2=dx*dx+dy*dy;if(d2<140*140&&d2>1){const d=Math.sqrt(d2),f=(140-d)/140*3;c.ox+=dx/d*f;c.oy+=dy/d*f}}
     c.sx=c.x+Math.sin(c.ph)*6*c.z+c.ox;c.sy=py+c.oy;
     if(mouse.x>-1){const hx=c.sx-mouse.x,hy=c.sy-mouse.y;c.hl=hx*hx+hy*hy<1600}
-    drawCube(c.sx,c.sy,c.s*.5,c.c,c.hl?Math.min(.9,.10+c.z*.22+.5):.10+c.z*.22);c.hl=false;
+    drawCube(c.sx,c.sy,c.s*.5,c.c,c.hl?.95:(dayM?.6+c.z*.35:.28+c.z*.42));c.hl=false;
     if(c.y<-60-BH*2)cubes[i]=newCube(false)}
   /* theme particles */
-  if(parts.length<26&&Math.random()<.22)spawnPart();
+  if(parts.length<40&&Math.random()<.32)spawnPart();
   parts=parts.filter(p=>p.life>0&&p.y>-20&&p.y<BH+20);
   for(const p of parts){p.ph+=.04;
     if(p.k==="burst"){p.vy+=.12;p.x+=p.vx;p.y+=p.vy;p.life-=.02}
@@ -944,8 +945,8 @@ function stepB(t){
     else if(p.k==="twinkle"){p.life-=p.decay}
     else if(p.k==="glitch"){p.life-=p.decay;if(Math.random()<.05)p.x+=(Math.random()-.5)*20}
     else{p.x+=p.vx;p.y+=p.vy;p.life-=.0018}
-    const a=p.k==="burst"?Math.max(0,p.life):p.k==="twinkle"||p.k==="glitch"?Math.sin(p.life*Math.PI)*.7:Math.min(1,p.life)*.55;
-    bx.globalAlpha=Math.max(0,a);bx.fillStyle=p.c;
+    const a=p.k==="burst"?Math.max(0,p.life):p.k==="twinkle"||p.k==="glitch"?Math.sin(p.life*Math.PI)*.95:Math.min(1,p.life)*.85;
+    bx.globalAlpha=Math.max(0,a);bx.fillStyle=dayM?shade(p.c,.7):p.c;
     const X=Math.round(p.x/2)*2,Y=Math.round(p.y/2)*2;
     if(p.k==="twinkle"){bx.fillRect(X,Y-p.s,2,p.s*2+2);bx.fillRect(X-p.s,Y,p.s*2+2,2)}
     else if(p.k==="glitch"){bx.fillRect(X,Y,p.s*3,2)}
