@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chunk not loaded · Janxirus</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@600&family=Outfit:wght@400;600&display=swap">
+<style>
+:root{--bg:#07070c;--fg:#f4f4fb;--muted:#a3a2c0;--blue:#4f8cff;--purple:#9b6bff;color-scheme:dark}
+@media (prefers-color-scheme:light){:root{--bg:#eef0fb;--fg:#17142e;--muted:#4c4970;color-scheme:light}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:"Outfit",system-ui,sans-serif;display:grid;place-items:center;text-align:center;padding:24px 16px;overflow:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+.box{display:grid;justify-items:center;gap:16px;max-width:520px}
+img{width:104px;image-rendering:pixelated;animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px) rotate(-3deg)}}
+.code{font:600 15px "Outfit",sans-serif;letter-spacing:.2em;color:var(--purple)}
+h1{font:600 clamp(34px,7vw,56px)/1.05 "Pixelify Sans",monospace;margin:0}
+p{margin:0;color:var(--muted);font-size:17px}
+a{display:inline-block;margin-top:8px;padding:12px 22px;border-radius:8px;background:linear-gradient(90deg,var(--blue),var(--purple));color:#fff;font-weight:600;text-decoration:none;box-shadow:0 8px 24px -8px rgba(110,80,255,.6)}
+a:hover{transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){img{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<div class="box">
+  <img src="/cube.png" alt="">
+  <span class="code">ERROR 404</span>
+  <h1>This chunk hasn't loaded yet</h1>
+  <p>The page you're looking for isn't here. It might have moved, or the link has a typo.</p>
+  <a href="/">Back to spawn</a>
+</div>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');let W,H,S=[];
+function r(){W=c.width=innerWidth;H=c.height=innerHeight;S=Array.from({length:60},()=>({x:Math.random()*W,y:Math.random()*H,v:.2+Math.random()*.6,s:3+(Math.random()*3|0)*2,c:['#4f8cff','#9b6bff','#c4a6ff'][Math.random()*3|0]}))}
+r();addEventListener('resize',r);
+(function f(){x.clearRect(0,0,W,H);for(const p of S){p.y-=p.v;if(p.y<-10){p.y=H+10;p.x=Math.random()*W}x.globalAlpha=.5;x.fillStyle=p.c;x.fillRect(p.x|0,p.y|0,p.s,p.s)}if(!matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(f)})();
+</script>
+</body>
+</html>

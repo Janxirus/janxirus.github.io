@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Janxirus: Minecraft mods, game UI, resource packs and desktop apps. Commissions open.">
+<meta name="description" content="Janxirus: Minecraft mod and game UI developer from Sweden. Creator of Shardlight (4 Fabric mods, 15 themes) and Shardlight Client. Commissions open.">
+<meta name="keywords" content="Minecraft mod developer, Fabric mod, Minecraft UI, resource pack, custom GUI, Minecraft launcher, Shardlight, Roblox scripter, Sweden">
+<meta name="author" content="Janxirus">
+<link rel="canonical" href="https://janxirus.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://janxirus.github.io/">
 <meta property="og:title" content="Janxirus · Minecraft mods, game UI and apps">
@@ -16,7 +19,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
 <link rel="apple-touch-icon" href="logo-256.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<title>Janxirus Portfolio</title>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://janxirus.github.io/#me", "name": "Janxirus", "url": "https://janxirus.github.io/", "jobTitle": "Minecraft mod and game UI developer", "email": "mailto:janxirus.dev@gmail.com", "address": {"@type": "PostalAddress", "addressLocality": "Karlskrona", "addressCountry": "SE"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "Blekinge Institute of Technology"}, "knowsAbout": ["Minecraft modding", "Fabric", "Java", "JavaFX", "Resource packs", "Game UI design", "Pixel art", "Roblox Luau", "Python"], "sameAs": ["https://github.com/Janxirus", "https://www.patreon.com/Janxirus", "https://www.fiverr.com/janxirus"]}, {"@type": "SoftwareApplication", "name": "Shardlight Client", "applicationCategory": "GameApplication", "operatingSystem": "Windows, macOS, Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@id": "https://janxirus.github.io/#me"}, "url": "https://github.com/Janxirus/Shardlight_Client"}, {"@type": "CreativeWork", "name": "Shardlight UI", "about": "Themed UI overhaul mod for Minecraft (Fabric) with 15 themes", "author": {"@id": "https://janxirus.github.io/#me"}}, {"@type": "ProfessionalService", "name": "Janxirus commissions", "url": "https://janxirus.github.io/#services", "areaServed": "Worldwide", "provider": {"@id": "https://janxirus.github.io/#me"}, "serviceType": ["Minecraft GUI and resource packs", "Fabric mods and plugins", "Custom server themes", "Roblox scripting", "Desktop apps"]}]}</script>
+<title>Janxirus · Minecraft mods, game UI and apps</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap">
 <style>
 /* Layout: dark arcade-night single column; full-bleed bands, pixel display type, one interactive theme lab as the centrepiece */
@@ -531,6 +535,32 @@ html.day .card.wide .body{background:#fff}
 html.day footer{border-top-color:rgba(23,20,46,.12)}
 
 
+
+/* useful additions */
+.nowbox{display:inline-flex;align-items:center;gap:8px;font:400 14px var(--body);color:var(--muted);border:1px solid var(--hair2);border-radius:999px;padding:6px 14px;margin-bottom:22px;background:rgba(13,12,24,.5)}
+.nowbox b{color:var(--fg);font-weight:600}
+.nowbox .dot{width:8px;height:8px;border-radius:50%;background:var(--purple);animation:ping 2s infinite}
+html.day .nowbox{background:#fff}
+.dl{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.dl-note{margin:10px 0 0;font-size:13px;color:var(--muted)}
+.news{margin-top:8px}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.news article{border:1px solid var(--hair);background:var(--card);border-radius:var(--r);padding:18px 20px}
+.news header{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.news header b{font-weight:600}
+.news header span{font:600 12px var(--body);color:var(--blue2);letter-spacing:.04em}
+.news ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px;display:grid;gap:4px}
+html.day .news article{background:#fff;box-shadow:0 1px 2px rgba(23,20,46,.05),0 8px 24px -12px rgba(23,20,46,.18)}
+.brief .chk{display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font:400 14px var(--body);color:var(--fg);cursor:pointer}
+.brief .chk input{width:auto;accent-color:var(--purple)}
+.est{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border:1px dashed var(--purple);background:rgba(155,107,255,.08);border-radius:var(--r);padding:12px 16px}
+.est span{font:600 12px var(--body);text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.est b{font:700 22px var(--body);color:var(--fg)}
+.est em{font-style:normal;color:var(--muted);font-size:14px}
+.send,.copyb{width:100%}
+.discord{margin:0 0 22px}
+.discord iframe{width:100%;max-width:420px;height:300px;border:0;border-radius:var(--r)}
+@media (max-width:560px){.brief .chk{padding-top:0}}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -538,7 +568,7 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 <body>
 <div class="loader" id="loader" aria-hidden="true"><div class="ld-in"><img class="px" src="cube.png" alt=""><b>Loading world</b><div class="ld-bar"><i id="ld-fill"></i></div><span id="ld-tip">Generating terrain…</span></div></div>
 <a class="totop" id="totop" href="#top" aria-label="Back to top">↑</a>
-<div class="dock" aria-label="Page settings"><button type="button" id="snd" aria-pressed="false" title="Sound effects">♪ <span>Sound off</span></button><button type="button" id="day" aria-pressed="false" title="Switch day and night">☾ <span>Night</span></button></div>
+<div class="dock" aria-label="Page settings"><button type="button" id="snd" aria-pressed="false" title="Sound effects">♪ <span>Sound off</span></button><button type="button" id="lang" title="Svenska / English">SV</button><button type="button" id="day" aria-pressed="false" title="Switch day and night">☾ <span>Night</span></button></div>
 <canvas id="bgfx" aria-hidden="true"></canvas>
 <div id="cur-sh" aria-hidden="true"></div><div id="cur-gl" aria-hidden="true"></div>
 <div class="progress" id="progress"></div>
@@ -548,11 +578,11 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
   <div class="wrap">
     <a class="mark" href="#top"><img class="px" src="logo-nav.png" alt="" width="26" height="28">Janxirus</a>
     <ul>
-      <li><a href="#shardlight">Shardlight</a></li>
-      <li><a href="#client">Work</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#support">Support</a></li>
+      <li><a data-i18n="t0" href="#shardlight">Shardlight</a></li>
+      <li><a data-i18n="t1" href="#client">Work</a></li>
+      <li><a data-i18n="t2" href="#services">Services</a></li>
+      <li><a data-i18n="t3" href="#about">About</a></li>
+      <li><a data-i18n="t4" href="#support">Support</a></li>
     </ul>
     <span class="status" id="booking">Open for commissions</span>
   </div>
@@ -561,10 +591,11 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 <header class="hero" id="top">
   <div class="wrap">
     <div>
-      <span class="eyebrow intro">Developer &amp; designer · Karlskrona, Sweden</span>
+      <span data-i18n="t5" class="eyebrow intro">Developer &amp; designer · Karlskrona, Sweden</span>
       <h1 class="intro">I build<br><span class="rot" id="rot" aria-label="Minecraft mods, game UI, resource packs, desktop apps, Roblox games"><span class="on">Minecraft mods.</span><span>game UI.</span><span>resource packs.</span><span>desktop apps.</span><span>Roblox games.</span></span></h1>
-      <p class="intro">Minecraft mods and resource packs, desktop apps and Roblox games. I design the look and write the code, so it ships fast and runs fast.</p>
-      <div class="cta intro"><a class="btn" href="#contact">Start a project</a><a class="btn ghost" href="#shardlight">See my work</a></div>
+      <p data-i18n="t6" class="intro">Minecraft mods and resource packs, desktop apps and Roblox games. I design the look and write the code, so it ships fast and runs fast.</p>
+      <div class="nowbox intro"><span class="dot"></span><b data-i18n="now">Now:</b> <span id="now-text">updating Shardlight to Minecraft 26.3</span></div>
+      <div class="cta intro"><a data-i18n="t7" class="btn" href="#contact">Start a project</a><a data-i18n="t8" class="btn ghost" href="#shardlight">See my work</a></div>
     </div>
     <div class="stage" aria-hidden="true">
       <canvas id="sparks"></canvas>
@@ -575,10 +606,10 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 
 <div class="stats">
   <div class="wrap">
-    <div class="stat"><b data-count="4">4</b><span>Fabric mods</span></div>
-    <div class="stat"><b data-count="15">15</b><span>UI themes</span></div>
-    <div class="stat"><b data-count="590" data-prefix="~">~590</b><span>launcher tests</span></div>
-    <div class="stat"><b data-count="2">2</b><span>desktop apps</span></div>
+    <div class="stat"><b data-count="4">4</b><span data-i18n="t9">Fabric mods</span></div>
+    <div class="stat"><b data-count="15">15</b><span data-i18n="t10">UI themes</span></div>
+    <div class="stat"><b data-count="590" data-prefix="~">~590</b><span data-i18n="t11">launcher tests</span></div>
+    <div class="stat"><b data-count="2">2</b><span data-i18n="t12">desktop apps</span></div>
   </div>
 </div>
 
@@ -587,18 +618,18 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 <section id="shardlight">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">Featured · Minecraft 26.3</span>
-      <h2>Shardlight: one mod, fifteen worlds</h2>
-      <p>A full UI overhaul with a matching resource and sound pack for every theme. Pick a theme to see how it restyles each screen.</p>
+      <span data-i18n="t13" class="eyebrow">Featured · Minecraft 26.3</span>
+      <h2 data-i18n="t14">Shardlight: one mod, fifteen worlds</h2>
+      <p data-i18n="t15">A full UI overhaul with a matching resource and sound pack for every theme. Pick a theme to see how it restyles each screen.</p>
     </div>
     <div class="lab reveal">
       <div class="chips" id="chips" role="group" aria-label="Themes"></div>
       <div class="viewer" id="viewer">
         <div class="vtabs" role="tablist" aria-label="Screen">
-          <button class="vtab" role="tab" aria-selected="true" data-kind="inv" id="t-inv">Inventory</button>
-          <button class="vtab" role="tab" aria-selected="false" data-kind="chest" id="t-chest">Chest</button>
-          <button class="vtab" role="tab" aria-selected="false" data-kind="furnace" id="t-furnace">Furnace</button>
-          <button class="cmp" type="button" id="cmp" aria-pressed="false"><i></i>Compare with vanilla</button>
+          <button data-i18n="t16" class="vtab" role="tab" aria-selected="true" data-kind="inv" id="t-inv">Inventory</button>
+          <button data-i18n="t17" class="vtab" role="tab" aria-selected="false" data-kind="chest" id="t-chest">Chest</button>
+          <button data-i18n="t18" class="vtab" role="tab" aria-selected="false" data-kind="furnace" id="t-furnace">Furnace</button>
+          <button data-i18n="t19" class="cmp" type="button" id="cmp" aria-pressed="false"><i></i>Compare with vanilla</button>
         </div>
         <div class="screen"><div class="ba-box" id="ba" style="--p:0%">
           <img class="px ba-under" id="ba-a" src="fx/vanilla-inv.png" alt="Vanilla Minecraft inventory">
@@ -612,29 +643,37 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
     </div>
 
     <div class="mods reveal stag">
-      <div class="mod fx"><h3>Shardlight UI</h3><span class="v">v3.6.0</span><p>Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, profiles.</p></div>
-      <div class="mod fx"><h3>Shardlight Map</h3><span class="v">v1.2.0</span><p>Minimap and world map with cave layers, radar, grouped waypoints and map sharing.</p></div>
-      <div class="mod fx"><h3>Shardlight Companion</h3><span class="v">v1.0.0</span><p>Notes pinned to places, self-ticking to-do lists, photo mode, measuring tape, timers.</p></div>
-      <div class="mod fx"><h3>Shardlight Party</h3><span class="v">v1.2.0</span><p>Friends list and party panel that finds friends anywhere, with no server plugin.</p></div>
+      <div class="mod fx"><h3>Shardlight UI</h3><span class="v">v3.6.0</span><p data-i18n="t20">Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, profiles.</p></div>
+      <div class="mod fx"><h3>Shardlight Map</h3><span class="v">v1.2.0</span><p data-i18n="t21">Minimap and world map with cave layers, radar, grouped waypoints and map sharing.</p></div>
+      <div class="mod fx"><h3>Shardlight Companion</h3><span class="v">v1.0.0</span><p data-i18n="t22">Notes pinned to places, self-ticking to-do lists, photo mode, measuring tape, timers.</p></div>
+      <div class="mod fx"><h3>Shardlight Party</h3><span class="v">v1.2.1</span><p data-i18n="t23">Friends list and party panel that finds friends anywhere, with no server plugin.</p></div>
+    </div>
+    <div class="news reveal">
+      <h3 class="sub" data-i18n="nw0">What's new</h3>
+      <div class="news-grid">
+        <article><header><b>Shardlight Party</b><span>v1.2.1</span></header><ul><li data-i18n="nw1">The HUD layout editor now shows party panels in their real spot and size.</li></ul></article>
+        <article><header><b>Shardlight Party</b><span>v1.2.0</span></header><ul><li data-i18n="nw2">Eight new themes, and the party panel takes your theme's frame shape.</li><li data-i18n="nw3">Smarter position updates: friends never get an out-of-date location.</li></ul></article>
+        <article><header><b>Shardlight Client</b><span data-i18n="nw4">in development</span></header><ul><li data-i18n="nw5">New artwork, a splash screen and installers for Windows, macOS and Linux.</li><li data-i18n="nw6">3D skin viewer, Discord status and a language picker.</li></ul></article>
+      </div>
     </div>
   </div>
 </section>
-
 <div class="hills" aria-hidden="true"></div>
 <section id="client">
   <div class="wrap client">
     <div class="reveal">
-      <span class="eyebrow">Desktop app · JavaFX</span>
+      <span data-i18n="t24" class="eyebrow">Desktop app · JavaFX</span>
       <h2 style="font-family:var(--display);font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:8px 0 12px">Shardlight Client</h2>
-      <p style="color:var(--muted);margin:0">My own Minecraft launcher. Every setup lives in its own project, and frame rate comes first.</p>
+      <p data-i18n="t25" style="color:var(--muted);margin:0">My own Minecraft launcher. Every setup lives in its own project, and frame rate comes first.</p>
       <ul class="feat">
-        <li><span><b>Projects</b> with their own version, loader, mods and Java</span></li>
-        <li><span><b>Modrinth and CurseForge</b> search with dependency and conflict checks</span></li>
-        <li><span><b>Six performance presets</b> that preview every change first</span></li>
-        <li><span><b>Crash help</b> in plain words, plus world backups</span></li>
+        <li data-i18n="t26"><span><b>Projects</b> with their own version, loader, mods and Java</span></li>
+        <li data-i18n="t27"><span><b>Modrinth and CurseForge</b> search with dependency and conflict checks</span></li>
+        <li data-i18n="t28"><span><b>Six performance presets</b> that preview every change first</span></li>
+        <li data-i18n="t29"><span><b>Crash help</b> in plain words, plus world backups</span></li>
       </ul>
       <div class="tagrow"><span>Java 21</span><span>JavaFX</span><span>Gradle</span><span>~590 tests</span><span>Win · macOS · Linux</span></div>
-      <p style="margin:18px 0 0"><a href="https://github.com/Janxirus/Shardlight_Client">Source on GitHub →</a></p>
+      <div class="dl"><a class="btn" href="https://github.com/Janxirus/Shardlight_Client/releases" data-i18n="dl1">Download Shardlight Client</a><a class="btn ghost" href="https://github.com/Janxirus/Shardlight_Client" data-i18n="dl2">View source</a></div>
+      <p class="dl-note" data-i18n="dl3">Free · Windows, macOS and Linux · releases on GitHub with checksums</p>
     </div>
     <div class="frame reveal fx">
       <div class="bar"><i></i><i></i><i></i>
@@ -652,15 +691,15 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 <section id="work">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">More work</span>
-      <h2>Desktop apps</h2>
+      <span data-i18n="t30" class="eyebrow">More work</span>
+      <h2 data-i18n="t31">Desktop apps</h2>
     </div>
     <div class="grid2 reveal stag" style="grid-template-columns:1fr">
       <article class="card fx wide">
         <div class="img"><img class="zoom" src="mediavault-home.jpg" alt="MediaVault home screen with library overview, folders and recently added videos" loading="lazy"></div>
         <div class="body">
           <h3>MediaVault</h3>
-          <p>A Windows app that turns folders and external drives into one private, local media library. Built-in player, Quick Sort, duplicate and similar-photo finding, side-by-side compare, storage cleanup and optional local AI. No cloud account needed.</p>
+          <p data-i18n="t32">A Windows app that turns folders and external drives into one private, local media library. Built-in player, Quick Sort, duplicate and similar-photo finding, side-by-side compare, storage cleanup and optional local AI. No cloud account needed.</p>
           <div class="meta"><span><b>Python</b></span><span>v<b>1.9.7</b></span><span>Windows installer</span></div>
         </div>
       </article>
@@ -672,28 +711,28 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 <section id="services">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">Commissions</span>
-      <h2>What I can build for you</h2>
-      <p>Pick a service to see the packages. Every job gets a fixed quote before work begins.</p>
+      <span data-i18n="t33" class="eyebrow">Commissions</span>
+      <h2 data-i18n="t34">What I can build for you</h2>
+      <p data-i18n="t35">Pick a service to see the packages. Every job gets a fixed quote before work begins.</p>
     </div>
-    <div class="offer reveal"><span class="offer-tag">Launch offer</span><p><b>30% off for my first 3 clients</b> in return for an honest review. <span id="slots">3 of 3 spots left.</span></p></div>
+    <div class="offer reveal"><span class="offer-tag">Launch offer</span><p data-i18n="t36"><b>30% off for my first 3 clients</b> in return for an honest review. <span id="slots">3 of 3 spots left.</span></p></div>
     <div class="stabs reveal" role="tablist" aria-label="Services">
-      <button role="tab" id="s-gui" aria-selected="true" data-s="gui">GUI &amp; packs</button>
-      <button role="tab" id="s-mod" aria-selected="false" data-s="mod">Mods &amp; plugins</button>
-      <button role="tab" id="s-theme" aria-selected="false" data-s="theme">Server themes</button>
+      <button data-i18n="t37" role="tab" id="s-gui" aria-selected="true" data-s="gui">GUI &amp; packs</button>
+      <button data-i18n="t38" role="tab" id="s-mod" aria-selected="false" data-s="mod">Mods &amp; plugins</button>
+      <button data-i18n="t39" role="tab" id="s-theme" aria-selected="false" data-s="theme">Server themes</button>
       <button role="tab" id="s-roblox" aria-selected="false" data-s="roblox">Roblox</button>
-      <button role="tab" id="s-app" aria-selected="false" data-s="app">Desktop apps</button>
+      <button data-i18n="t40" role="tab" id="s-app" aria-selected="false" data-s="app">Desktop apps</button>
     </div>
     <div class="pkgs" id="pkgs" role="tabpanel" aria-live="polite"></div>
-    <p class="note reveal">Prices in euros · 50% upfront, 50% on delivery · two rounds of changes included · rush delivery under 3 days +30% · invoiced through Frilans Finans</p>
-    <h3 class="sub reveal">How it works</h3>
+    <p data-i18n="t41" class="note reveal">Prices in euros · 50% upfront, 50% on delivery · two rounds of changes included · rush delivery under 3 days +30% · invoiced through Frilans Finans</p>
+    <h3 data-i18n="t42" class="sub reveal">How it works</h3>
     <ol class="steps reveal">
-      <li><b>Brief</b><span>Tell me what you need and share references.</span></li>
-      <li><b>Quote</b><span>Fixed price and delivery date.</span></li>
-      <li><b>Preview</b><span>You see work in progress and ask for changes.</span></li>
-      <li><b>Delivery</b><span>Final files, source and setup notes.</span></li>
+      <li data-i18n="t43"><b>Brief</b><span>Tell me what you need and share references.</span></li>
+      <li data-i18n="t44"><b>Quote</b><span>Fixed price and delivery date.</span></li>
+      <li data-i18n="t45"><b>Preview</b><span>You see work in progress and ask for changes.</span></li>
+      <li data-i18n="t46"><b>Delivery</b><span>Final files, source and setup notes.</span></li>
     </ol>
-    <p class="faq-link reveal">Questions about payment, changes or versions? <a href="#faq">Read the FAQ</a></p>
+    <p data-i18n="t47" class="faq-link reveal">Questions about payment, changes or versions? <a href="#faq">Read the FAQ</a></p>
   </div>
 </section>
 
@@ -702,14 +741,14 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 
 <section id="faq">
   <div class="wrap">
-    <div class="head reveal"><span class="eyebrow">Good to know</span><h2>Questions clients ask</h2></div>
+    <div class="head reveal"><span data-i18n="t48" class="eyebrow">Good to know</span><h2 data-i18n="t49">Questions clients ask</h2></div>
     <div class="faq reveal stag">
-      <details open><summary>How do I pay?</summary><p>50% upfront before I start and 50% before the final files are delivered. Jobs under €60 are paid in full upfront. I invoice through Frilans Finans, so you get a proper invoice.</p></details>
-      <details><summary>How many changes do I get?</summary><p>Two rounds of changes are included in every package. Extra rounds are €15 each. New features outside the agreed scope get their own quote.</p></details>
-      <details><summary>Which Minecraft versions do you work with?</summary><p>Mainly Fabric on the latest versions (26.x). Tell me your version and loader and I'll confirm before quoting. Forge and NeoForge are possible on request.</p></details>
-      <details><summary>Do I get the source code?</summary><p>Full packages include source. For Starter and Standard, source is +50% unless agreed in the quote. You can always use the finished work on your server or game.</p></details>
-      <details><summary>Can you show my project in your portfolio?</summary><p>By default I may show finished work in my portfolio. Just ask and I'll keep it private.</p></details>
-      <details><summary>What if I need to cancel?</summary><p>If you cancel after work has started, the upfront payment isn't refunded. If I cancel, you get a full refund.</p></details>
+      <details open><summary data-i18n="t50">How do I pay?</summary><p data-i18n="t51">50% upfront before I start and 50% before the final files are delivered. Jobs under €60 are paid in full upfront. I invoice through Frilans Finans, so you get a proper invoice.</p></details>
+      <details><summary data-i18n="t52">How many changes do I get?</summary><p data-i18n="t53">Two rounds of changes are included in every package. Extra rounds are €15 each. New features outside the agreed scope get their own quote.</p></details>
+      <details><summary data-i18n="t54">Which Minecraft versions do you work with?</summary><p data-i18n="t55">Mainly Fabric on the latest versions (26.x). Tell me your version and loader and I'll confirm before quoting. Forge and NeoForge are possible on request.</p></details>
+      <details><summary data-i18n="t56">Do I get the source code?</summary><p data-i18n="t57">Full packages include source. For Starter and Standard, source is +50% unless agreed in the quote. You can always use the finished work on your server or game.</p></details>
+      <details><summary data-i18n="t58">Can you show my project in your portfolio?</summary><p data-i18n="t59">By default I may show finished work in my portfolio. Just ask and I'll keep it private.</p></details>
+      <details><summary data-i18n="t60">What if I need to cancel?</summary><p data-i18n="t61">If you cancel after work has started, the upfront payment isn't refunded. If I cancel, you get a full refund.</p></details>
     </div>
   </div>
 </section>
@@ -718,10 +757,10 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
   <div class="wrap about reveal">
     <img class="avatar px" src="cube.png" alt="Janxirus pixel logo">
     <div>
-      <span class="eyebrow">About me</span>
-      <h2 style="font-family:var(--display);font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:8px 0 14px">Hi, I'm Janxirus</h2>
-      <p>I study <b>Software Engineering at Blekinge Institute of Technology</b> in Karlskrona. Outside class I build the tools and games I want to use myself, from a Minecraft launcher to a full UI overhaul with fifteen themes.</p>
-      <p>I care about two things: it has to look good, and it has to run fast.</p>
+      <span data-i18n="t62" class="eyebrow">About me</span>
+      <h2 data-i18n="t63" style="font-family:var(--display);font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:8px 0 14px">Hi, I'm Janxirus</h2>
+      <p data-i18n="t64">I study <b>Software Engineering at Blekinge Institute of Technology</b> in Karlskrona. Outside class I build the tools and games I want to use myself, from a Minecraft launcher to a full UI overhaul with fifteen themes.</p>
+      <p data-i18n="t65">I care about two things: it has to look good, and it has to run fast.</p>
       <div class="stack"><span>Java</span><span>Fabric</span><span>Mixins</span><span>JavaFX</span><span>Gradle</span><span>Python</span><span>Luau</span><span>Roblox Studio</span><span>Pixel art</span><span>UI/UX</span><span>Git</span></div>
     </div>
   </div>
@@ -732,40 +771,45 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
 <section id="support">
   <div class="wrap">
     <div class="head reveal">
-      <span class="eyebrow">Support my work</span>
-      <h2>Keep Shardlight free</h2>
-      <p>The mods will always be free. Members on Patreon get early access, a vote on what comes next and exclusive themes.</p>
+      <span data-i18n="t66" class="eyebrow">Support my work</span>
+      <h2 data-i18n="t67">Keep Shardlight free</h2>
+      <p data-i18n="t68">The mods will always be free. Members on Patreon get early access, a vote on what comes next and exclusive themes.</p>
     </div>
     <div class="tiers reveal stag">
       <a class="tier fx" style="--tc:#ff7a3d;text-decoration:none;color:inherit" href="https://www.patreon.com/Janxirus/membership"><img src="tiers/tier-ember.png" alt="Ember tier" loading="lazy"><div class="tb"><div class="tp">35 kr <small>/ month</small></div><ul><li>Supporter role on Discord</li><li>Your name in the mod credits</li><li>Behind-the-scenes devlogs</li></ul></div></a>
       <a class="tier hl fx" style="--tc:#6eaaff;text-decoration:none;color:inherit" href="https://www.patreon.com/Janxirus/membership"><div class="badge">Most popular</div><img src="tiers/tier-shard.png" alt="Shard tier" loading="lazy"><div class="tb"><div class="tp">69 kr <small>/ month</small></div><ul><li>Everything in Ember</li><li>New themes 2 weeks early</li><li>Vote on the next theme</li></ul></div></a>
       <a class="tier fx" style="--tc:#b48cff;text-decoration:none;color:inherit" href="https://www.patreon.com/Janxirus/membership"><img src="tiers/tier-forge.png" alt="Forge tier" loading="lazy"><div class="tb"><div class="tp">129 kr <small>/ month</small></div><ul><li>Everything in Shard</li><li>An exclusive theme every quarter</li><li>Your suggestions first</li></ul></div></a>
     </div>
-    <div class="support-cta reveal"><a class="btn" href="https://www.patreon.com/Janxirus">Join on Patreon</a><p>Prices are shown in your own currency on Patreon.</p></div>
+    <div class="discord" id="discord" hidden></div>
+    <div class="support-cta reveal"><a data-i18n="t69" class="btn" href="https://www.patreon.com/Janxirus">Join on Patreon</a><p data-i18n="t70">Prices are shown in your own currency on Patreon.</p></div>
   </div>
 </section>
 
 <section id="contact" style="padding-top:20px">
   <div class="wrap">
     <div class="contact reveal">
-      <span class="eyebrow">Commissions open</span>
-      <h2>Let's build something</h2>
-      <p>Tell me what you need, your game version and a deadline. I reply within 24 hours.</p>
+      <span data-i18n="t71" class="eyebrow">Commissions open</span>
+      <h2 data-i18n="t72">Let's build something</h2>
+      <p data-i18n="t73">Tell me what you need, your game version and a deadline. I reply within 24 hours.</p>
       <form class="brief" id="brief" onsubmit="return false">
         <div class="row">
-          <label for="b-type">Project</label>
+          <label data-i18n="t74" for="b-type">Project</label>
           <select id="b-type"><option>Minecraft GUI / resource pack</option><option>Fabric mod or plugin</option><option>Custom Shardlight server theme</option><option>Roblox scripting</option><option>Desktop app</option><option>Something else</option></select>
         </div>
         <div class="row two">
-          <div><label for="b-ver">Game version / platform</label><input id="b-ver" placeholder="e.g. Minecraft 26.3, Fabric"></div>
-          <div><label for="b-date">Deadline</label><input id="b-date" placeholder="e.g. in 2 weeks"></div>
+          <div><label data-i18n="t75" for="b-ver">Game version / platform</label><input id="b-ver" placeholder="e.g. Minecraft 26.3, Fabric"></div>
+          <div><label data-i18n="t76" for="b-date">Deadline</label><input id="b-date" placeholder="e.g. in 2 weeks"></div>
         </div>
-        <div class="row"><label for="b-desc">What do you need?</label><textarea id="b-desc" rows="3" placeholder="Describe the idea and link any references"></textarea></div>
+        <div class="row"><label data-i18n="t77" for="b-desc">What do you need?</label><textarea id="b-desc" rows="3" placeholder="Describe the idea and link any references"></textarea></div>
         <div class="row two">
-          <div><label for="b-budget">Budget</label><select id="b-budget"><option>Under €100</option><option>€100 – €250</option><option>€250 – €500</option><option>€500+</option><option>Not sure yet</option></select></div>
-          <div class="act"><button class="btn" id="b-copy" type="button">Copy my brief</button></div>
+          <div><label data-i18n="t78" for="b-budget">Budget</label><select id="b-budget"><option>Under €100</option><option>€100 – €250</option><option>€250 – €500</option><option>€500+</option><option>Not sure yet</option></select></div>
+          <div><label for="b-pkg" data-i18n="e1">Package</label><select id="b-pkg"><option value="0">Starter</option><option value="1" selected>Standard</option><option value="2">Full</option></select></div>
         </div>
-        <p class="hint" id="b-hint">Copy the brief, then paste it in an email to janxirus.dev@gmail.com or a Fiverr message.</p>
+        <div class="row"><label class="chk" for="b-rush"><input type="checkbox" id="b-rush"> <span data-i18n="e2">Rush delivery (under 3 days)</span></label></div>
+        <div class="est" id="est" aria-live="polite"><span data-i18n="e3">Estimate</span><b id="est-v">€150 and up</b><em id="est-d">5–7 days</em></div>
+        <button data-i18n="t79" class="btn copyb" id="b-copy" type="button">Copy my brief</button>
+        <button class="btn send" id="b-send" type="button" hidden data-i18n="e4">Send to Janxirus</button>
+        <p data-i18n="t80" class="hint" id="b-hint">Copy the brief, then paste it in an email to janxirus.dev@gmail.com or a Fiverr message.</p>
         <pre class="out" id="b-out" hidden></pre>
       </form>
       <div class="handles">
@@ -775,7 +819,7 @@ html.day footer{border-top-color:rgba(23,20,46,.12)}
         <code id="mail" style="user-select:all">janxirus.dev@gmail.com</code>
       </div>
     </div>
-    <footer><span>© 2026 Janxirus · Karlskrona, Sweden</span><nav class="flinks" aria-label="Elsewhere"><a href="https://github.com/Janxirus">GitHub</a><a href="https://www.patreon.com/Janxirus">Patreon</a><a href="https://www.fiverr.com/janxirus">Fiverr</a><a href="#contact">Contact</a></nav><span class="secrets" id="ach" title="There are hidden things on this page">0 / 5 secrets found</span></footer>
+    <footer><span data-i18n="t81">© 2026 Janxirus · Karlskrona, Sweden</span><nav class="flinks" aria-label="Elsewhere"><a href="https://github.com/Janxirus">GitHub</a><a href="https://www.patreon.com/Janxirus">Patreon</a><a href="https://www.fiverr.com/janxirus">Fiverr</a><a href="#contact">Contact</a></nav><span class="secrets" id="ach" title="There are hidden things on this page">0 / 5 secrets found</span></footer>
   </div>
 </section>
 
@@ -1014,7 +1058,7 @@ function tone(f,d,type,vol,slide){if(!soundOn)return;try{AC=AC||new (window.Audi
 function noise(d,vol){if(!soundOn)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const n=AC.sampleRate*d,b=AC.createBuffer(1,n,AC.sampleRate),c=b.getChannelData(0);for(let i=0;i<n;i++)c[i]=(Math.random()*2-1)*(1-i/n);const s=AC.createBufferSource(),g=AC.createGain(),f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=1800;s.buffer=b;g.gain.value=vol||.12;s.connect(f).connect(g).connect(AC.destination);s.start()}catch(e){}}
 window.sfx=k=>{if(k==='click')tone(660,.06,'square',.03);else if(k==='tab')tone(520,.05,'triangle',.05,780);else if(k==='break'){noise(.18,.14);tone(180,.12,'square',.03,90)}else if(k==='pop')tone(900,.07,'sine',.05,1400);else if(k==='ach'){tone(784,.12,'square',.04);setTimeout(()=>tone(1046,.18,'square',.04),110);setTimeout(()=>tone(1318,.25,'square',.035),230)}};
 const snd=document.getElementById('snd');
-function updSnd(){snd.setAttribute('aria-pressed',soundOn);snd.querySelector('span').textContent=soundOn?'Sound on':'Sound off'}
+function updSnd(){snd.setAttribute('aria-pressed',soundOn);snd.querySelector('span').textContent=document.documentElement.lang==='sv'?(soundOn?'Ljud på':'Ljud av'):(soundOn?'Sound on':'Sound off')}
 snd.onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('jx-snd',soundOn?'1':'0')}catch(e){}updSnd();sfx('ach')};updSnd();
 document.addEventListener('click',e=>{const t=e.target.closest('.chip,[role=tab]');if(t)sfx('tab');else if(e.target.closest('a.btn,button.btn,.btn'))sfx('click')});
 /* hook sounds into the background + achievements */
@@ -1023,7 +1067,7 @@ const _ach=achieve;achieve=function(id,t,x){const was=got.has(id);_ach(id,t,x);i
 
 /* ===== day / night ===== */
 const dayBtn=document.getElementById('day');
-function setDay(on){document.documentElement.classList.toggle('day',on);dayBtn.setAttribute('aria-pressed',on);dayBtn.innerHTML=(on?'☀ <span>Day</span>':'☾ <span>Night</span>');try{localStorage.setItem('jx-day',on?'1':'0')}catch(e){}}
+function setDay(on){document.documentElement.classList.toggle('day',on);dayBtn.setAttribute('aria-pressed',on);const svl=document.documentElement.lang==='sv';dayBtn.innerHTML=(on?'☀ <span>'+(svl?'Dag':'Day')+'</span>':'☾ <span>'+(svl?'Natt':'Night')+'</span>');try{localStorage.setItem('jx-day',on?'1':'0')}catch(e){}}
 let dayOn=false;try{dayOn=localStorage.getItem('jx-day')==='1'}catch(e){}
 setDay(dayOn);dayBtn.onclick=()=>{dayOn=!dayOn;setDay(dayOn);sfx('tab')};
 
@@ -1043,8 +1087,66 @@ syncCmp();
 
 /* booking badge + back to top */
 (function(){const m=['January','February','March','April','May','June','July','August','September','October','November','December'];const d=new Date();const n=d.getDate()>20?m[(d.getMonth()+1)%12]:m[d.getMonth()];
-  const b=document.getElementById('booking');if(b)b.textContent='Booking for '+n;
+  const sm=['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'];const mi=d.getDate()>20?(d.getMonth()+1)%12:d.getMonth();const b=document.getElementById('booking');window.__booking=l=>{if(b)b.textContent=l==='sv'?'Bokar för '+sm[mi]:'Booking for '+m[mi]};__booking(document.documentElement.lang==='sv'?'sv':'en');
   const t=document.getElementById('totop');addEventListener('scroll',()=>t.classList.toggle('show',scrollY>900),{passive:true});})();
+
+
+/* ===== site config: fill these in to switch features on ===== */
+const SITE={
+  formspree:'',      // Formspree form ID, e.g. 'xyzabcde' -> the brief is sent straight to your inbox
+  goatcounter:'',    // GoatCounter code, e.g. 'janxirus' -> privacy-friendly visitor stats
+  discordServer:'',  // Discord server ID (enable the widget in Server Settings > Widget)
+  now:'updating Shardlight to Minecraft 26.3', nowSv:'uppdaterar Shardlight till Minecraft 26.3'
+};
+/* ===== quote estimator ===== */
+(function(){const map=['gui','mod','theme','roblox','app',null];const t=document.getElementById('b-type'),pk=document.getElementById('b-pkg'),ru=document.getElementById('b-rush');
+  function est(){const k=map[t.selectedIndex];const v=document.getElementById('est-v'),d=document.getElementById('est-d');const sv=document.documentElement.lang==='sv';
+    if(!k){v.textContent=sv?'Offert efter ett kort samtal':'Quote after a short chat';d.textContent='';return}
+    const p=PKG[k][+pk.value];let price=p[1];if(!price){v.textContent=sv?'Offert':'Quote';d.textContent=p[3];return}
+    if(ru.checked)price=Math.round(price*1.3/5)*5;v.textContent='€'+price+(sv?' och uppåt':' and up');d.textContent=ru.checked?(sv?'under 3 dagar':'under 3 days'):p[3].replace('days',sv?'dagar':'days').replace('week',sv?'vecka':'week').replace('weeks',sv?'veckor':'weeks')}
+  [t,pk,ru].forEach(e=>e.addEventListener('change',()=>{est();sfx('tick')}));window.__est=est;est();})();
+/* ===== brief: include estimate; optional Formspree send ===== */
+(function(){const copy=document.getElementById('b-copy');const old=copy.onclick;copy.onclick=()=>{old&&old();const out=document.getElementById('b-out');out.textContent+='\n\nEstimate: '+document.getElementById('est-v').textContent+' · '+document.getElementById('est-d').textContent+' ('+document.getElementById('b-pkg').selectedOptions[0].text+(document.getElementById('b-rush').checked?', rush':'')+')'};
+  if(!SITE.formspree||location.protocol==='file:')return;const send=document.getElementById('b-send');send.hidden=false;
+  send.onclick=async()=>{const g=id=>document.getElementById(id).value;const body={project:document.getElementById('b-type').selectedOptions[0].text,version:g('b-ver'),deadline:g('b-date'),budget:g('b-budget'),package:document.getElementById('b-pkg').selectedOptions[0].text,rush:document.getElementById('b-rush').checked,estimate:document.getElementById('est-v').textContent,message:g('b-desc')};
+    send.disabled=true;send.textContent='Sending…';
+    try{const r=await fetch('https://formspree.io/f/'+SITE.formspree,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(r.ok){send.textContent='Sent! I\'ll reply within 24 hours';sfx('ach')}else throw 0}catch(e){send.disabled=false;send.textContent='Couldn\'t send. Copy the brief and email it instead'}}})();
+/* ===== stats + discord (only when configured) ===== */
+if(SITE.goatcounter&&location.protocol!=='file:'){const sc=document.createElement('script');sc.async=true;sc.src='//gc.zgo.at/count.js';sc.dataset.goatcounter='https://'+SITE.goatcounter+'.goatcounter.com/count';document.head.appendChild(sc)}
+if(SITE.discordServer&&location.protocol!=='file:'){const d=document.getElementById('discord');d.hidden=false;d.innerHTML='<iframe title="Shardlight Discord" src="https://discord.com/widget?id='+SITE.discordServer+'&theme=dark" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>'}
+document.getElementById('now-text').textContent=SITE.now;
+/* ===== language: EN / SV ===== */
+(function(){const SV={"t0": "Shardlight", "t1": "Projekt", "t2": "Tjänster", "t3": "Om mig", "t4": "Stöd", "t5": "Utvecklare &amp; designer · Karlskrona", "t6": "Minecraft-moddar och resurspaket, datorappar och Roblox-spel. Jag designar utseendet och skriver koden, så det blir klart snabbt och går snabbt.", "t7": "Starta ett projekt", "t8": "Se mina projekt", "t9": "Fabric-moddar", "t10": "UI-teman", "t11": "launcher-tester", "t12": "datorappar", "t13": "Utvalt · Minecraft 26.3", "t14": "Shardlight: en mod, femton världar", "t15": "Ett helt nytt gränssnitt med matchande resurs- och ljudpaket för varje tema. Välj ett tema och se hur det ändrar varje skärm.", "t16": "Inventory", "t17": "Kista", "t18": "Ugn", "t19": "<i></i>Jämför med vanilla", "t20": "Glas-HUD som du kan flytta runt, chattflikar och sök, sortering, förhandsvisning av shulker-lådor och profiler.", "t21": "Minikarta och världskarta med grottlager, radar, grupperade waypoints och kartdelning.", "t22": "Anteckningar på platser, att göra-listor som bockar av sig själva, fotoläge, måttband och timers.", "t23": "Vänlista och gruppanel som hittar dina vänner var som helst, utan serverplugin.", "t24": "Datorapp · JavaFX", "t25": "Min egen Minecraft-launcher. Varje uppsättning har ett eget projekt, och bildfrekvensen kommer först.", "t26": "<span><b>Projekt</b> med egen version, loader, moddar och Java</span>", "t27": "<span><b>Modrinth och CurseForge</b>-sök med kontroll av beroenden och konflikter</span>", "t28": "<span><b>Sex prestandalägen</b> som visar varje ändring först</span>", "t29": "<span><b>Krasch-hjälp</b> på vanlig svenska, plus säkerhetskopior av världar</span>", "t30": "Fler projekt", "t31": "Datorappar", "t32": "En Windows-app som samlar mappar och externa diskar i ett privat, lokalt mediebibliotek. Inbyggd spelare, snabbsortering, hittar dubbletter och liknande bilder, jämförelse sida vid sida, städning av lagring och valfri lokal AI. Inget molnkonto behövs.", "t33": "Uppdrag", "t34": "Vad jag kan bygga åt dig", "t35": "Välj en tjänst för att se paketen. Varje jobb får ett fast pris innan arbetet börjar.", "t36": "<b>30 % rabatt för mina 3 första kunder</b> i utbyte mot en ärlig recension. <span id=\"slots\">3 av 3 platser kvar.</span>", "t37": "GUI &amp; paket", "t38": "Moddar &amp; plugins", "t39": "Serverteman", "t40": "Datorappar", "t41": "Priser i euro · 50 % i förskott, 50 % vid leverans · två ändringsrundor ingår · expressleverans under 3 dagar +30 % · fakturering via Frilans Finans", "t42": "Så går det till", "t43": "<b>Brief</b><span>Berätta vad du behöver och dela referenser.</span>", "t44": "<b>Offert</b><span>Fast pris och leveransdatum.</span>", "t45": "<b>Förhandsvisning</b><span>Du ser arbetet under tiden och kan be om ändringar.</span>", "t46": "<b>Leverans</b><span>Färdiga filer, källkod och installationsinstruktioner.</span>", "t47": "Frågor om betalning, ändringar eller versioner? <a href=\"#faq\">Läs vanliga frågor</a>", "t48": "Bra att veta", "t49": "Vanliga frågor", "t50": "Hur betalar jag?", "t51": "50 % i förskott innan jag börjar och 50 % innan de färdiga filerna levereras. Jobb under 60 € betalas helt i förskott. Jag fakturerar via Frilans Finans, så du får en riktig faktura.", "t52": "Hur många ändringar ingår?", "t53": "Två ändringsrundor ingår i varje paket. Extra rundor kostar 15 € styck. Nya funktioner utanför det avtalade får en egen offert.", "t54": "Vilka Minecraft-versioner jobbar du med?", "t55": "Främst Fabric på de senaste versionerna (26.x). Berätta din version och loader så bekräftar jag innan offerten. Forge och NeoForge går att ordna på begäran.", "t56": "Får jag källkoden?", "t57": "Full-paketen inkluderar källkod. För Starter och Standard kostar källkoden +50 % om inget annat avtalats. Du får alltid använda det färdiga arbetet på din server eller i ditt spel.", "t58": "Får du visa mitt projekt i din portfolio?", "t59": "Som standard kan jag visa färdigt arbete i min portfolio. Säg bara till så håller jag det privat.", "t60": "Vad händer om jag måste avbryta?", "t61": "Om du avbryter efter att arbetet har börjat återbetalas inte förskottet. Om jag avbryter får du allt tillbaka.", "t62": "Om mig", "t63": "Hej, jag heter Janxirus", "t64": "Jag pluggar <b>Software Engineering på Blekinge Tekniska Högskola</b> i Karlskrona. Vid sidan av studierna bygger jag verktyg och spel som jag själv vill använda, från en Minecraft-launcher till ett helt nytt gränssnitt med femton teman.", "t65": "Jag bryr mig om två saker: det ska se bra ut, och det ska gå snabbt.", "t66": "Stöd mitt arbete", "t67": "Håll Shardlight gratis", "t68": "Moddarna kommer alltid vara gratis. Medlemmar på Patreon får tidig tillgång, röstar på vad som kommer härnäst och får exklusiva teman.", "t69": "Gå med på Patreon", "t70": "Priserna visas i din egen valuta på Patreon.", "t71": "Tar emot uppdrag", "t72": "Låt oss bygga något", "t73": "Berätta vad du behöver, din spelversion och en deadline. Jag svarar inom 24 timmar.", "t74": "Projekt", "t75": "Spelversion / plattform", "t76": "Deadline", "t77": "Vad behöver du?", "t78": "Budget", "t79": "Kopiera min brief", "t80": "Kopiera briefen och klistra in den i ett mejl till janxirus.dev@gmail.com eller ett Fiverr-meddelande.", "t81": "© 2026 Janxirus · Karlskrona", "now": "Just nu:", "dl1": "Ladda ner Shardlight Client", "dl2": "Se källkoden", "dl3": "Gratis · Windows, macOS och Linux · släpps på GitHub med checksummor", "nw0": "Nyheter", "nw1": "HUD-layoutredigeraren visar nu gruppanelerna på rätt plats och i rätt storlek.", "nw2": "Åtta nya teman, och gruppanelen får ditt temas ramform.", "nw3": "Smartare positionsuppdateringar: vänner får aldrig en gammal position.", "nw4": "under utveckling", "nw5": "Ny grafik, startskärm och installationsprogram för Windows, macOS och Linux.", "nw6": "3D-skinvisning, Discord-status och språkväljare.", "e1": "Paket", "e2": "Expressleverans (under 3 dagar)", "e3": "Uppskattning", "e4": "Skicka till Janxirus"};
+  const ROT=['Minecraft-moddar.','spel-UI.','resurspaket.','datorappar.','Roblox-spel.'];
+  const PKG_SV={gui:['En skärm, t.ex. inventory eller kista, i din servers stil.','Inventory, kistor, HUD och ikoner som ett matchande resurspaket.','Hela gränssnittet omgjort, med menyljud och källfiler.'],
+   mod:['En liten funktion eller buggfix i en Fabric-mod eller plugin.','En hel funktion med inställningsskärm och konfiguration.','En komplett mod från grunden, med källkod och dokumentation.'],
+   theme:['Ett Shardlight-tema i dina färger med din logga.','Tema plus matchande ljudpaket.','Tema, ljud, menypartiklar och en färdig HUD-profil för dina spelare.'],
+   roblox:['Ett system, t.ex. en butik eller datasparning.','Flera sammankopplade system, t.ex. butik med rebirths och boosts.','En hel spelloop med UI, progression och intäkter.'],
+   app:['Ett fokuserat datorverktyg i Java eller Python.','En komplett app med designat gränssnitt och installationsprogram.','Större projekt får en offert efter ett kort samtal.']};
+  const EN={},PEN=JSON.parse(JSON.stringify(PKG)),RE=[...document.querySelectorAll('#rot>span')].map(s=>s.textContent);
+  const btn=document.getElementById('lang');
+  function setLang(l){document.documentElement.lang=l;
+    document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.dataset.i18n;if(!(k in EN))EN[k]=e.innerHTML;e.innerHTML=l==='sv'&&SV[k]!=null?SV[k]:EN[k]});
+    document.querySelectorAll('#rot>span').forEach((s,i)=>s.textContent=l==='sv'?ROT[i]:RE[i]);
+    for(const k in PKG)PKG[k].forEach((p,i)=>{p[2]=l==='sv'?PKG_SV[k][i]:PEN[k][i][2]});
+    const cur=document.querySelector('.stabs button[aria-selected="true"]');if(cur)renderPk(cur.dataset.s);
+    document.getElementById('now-text').textContent=l==='sv'?SITE.nowSv:SITE.now;
+    btn.textContent=l==='sv'?'EN':'SV';if(window.__est)__est();
+    const h1=document.querySelector('.hero h1');if(h1&&h1.firstChild&&h1.firstChild.nodeType===3)h1.firstChild.textContent=l==='sv'?'Jag bygger':'I build';
+    const PH={'b-ver':['e.g. Minecraft 26.3, Fabric','t.ex. Minecraft 26.3, Fabric'],'b-date':['e.g. in 2 weeks','t.ex. om 2 veckor'],'b-desc':['Describe the idea and link any references','Beskriv idén och länka referenser']};
+    for(const id in PH){const e=document.getElementById(id);if(e)e.placeholder=PH[id][l==='sv'?1:0]}
+    const OPT={'b-type':[['Minecraft GUI / resource pack','Fabric mod or plugin','Custom Shardlight server theme','Roblox scripting','Desktop app','Something else'],['Minecraft-GUI / resurspaket','Fabric-mod eller plugin','Eget Shardlight-servertema','Roblox-skript','Datorapp','Något annat']],
+      'b-budget':[['Under €100','€100 – €250','€250 – €500','€500+','Not sure yet'],['Under 100 €','100 – 250 €','250 – 500 €','500+ €','Vet inte än']]};
+    for(const id in OPT){const e=document.getElementById(id);if(e)[...e.options].forEach((o,i)=>o.textContent=OPT[id][l==='sv'?1:0][i])}
+    if(window.__booking)__booking(l);
+    const sb=document.getElementById('snd');if(sb)sb.querySelector('span').textContent=l==='sv'?(soundOn?'Ljud på':'Ljud av'):(soundOn?'Sound on':'Sound off');
+    const db=document.getElementById('day');if(db){const on=document.documentElement.classList.contains('day');db.querySelector('span').textContent=l==='sv'?(on?'Dag':'Natt'):(on?'Day':'Night')}
+
+    try{localStorage.setItem('jx-lang',l)}catch(e){}}
+  btn.onclick=()=>{setLang(document.documentElement.lang==='sv'?'en':'sv');sfx('tab')};
+  let l='en';try{l=localStorage.getItem('jx-lang')||((navigator.language||'').startsWith('sv')?'sv':'en')}catch(e){}
+  if(l==='sv')setLang('sv');})();
 
 /* ===== loader: short, once per visit ===== */
 (function(){const L=document.getElementById('loader');let seen=false;try{seen=sessionStorage.getItem('jx-loaded')==='1'}catch(e){}
