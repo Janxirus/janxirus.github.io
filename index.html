@@ -437,6 +437,22 @@ html.day .ba-sel select{background:#fff}
 @keyframes glint{0%{opacity:0;transform:var(--t) scale(.3) rotate(0)}40%{opacity:1}100%{opacity:0;transform:var(--t) scale(1.1) rotate(90deg)}}
 @media (hover:none),(pointer:coarse){#cur-sh,#cur-gl{display:none}}
 html.day #cur-sh{background:radial-gradient(circle,rgba(40,30,90,.25),rgba(0,0,0,0) 70%)}
+
+/* compare inside theme lab */
+.vtabs{align-items:center}
+.cmp{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font:500 13px var(--body);color:var(--muted);background:transparent;border:1px solid var(--hair2);border-radius:999px;padding:6px 12px 6px 6px;cursor:pointer;transition:color .2s,border-color .2s}
+.cmp i{width:30px;height:18px;border-radius:999px;background:rgba(255,255,255,.12);position:relative;transition:background .2s}
+.cmp i::after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s}
+.cmp[aria-pressed="true"]{color:var(--fg);border-color:var(--purple)}
+.cmp[aria-pressed="true"] i{background:linear-gradient(90deg,var(--blue),var(--purple))}
+.cmp[aria-pressed="true"] i::after{transform:translateX(12px)}
+.screen .ba-box{width:min(440px,100%)}
+.ba-box .ba-line,.ba-box em,.ba-under{transition:opacity .3s}
+.ba-box:not(.on) .ba-line,.ba-box:not(.on) em,.ba-box:not(.on) .ba-under{opacity:0}
+.ba-box:not(.on) input{pointer-events:none}
+.ba-top img{transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .35s}
+.ba-top img.swap{transform:scale(.94);filter:brightness(1.8) saturate(.4)}
+html.day .ba-box em{background:rgba(7,7,12,.75);color:#fff}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -508,24 +524,19 @@ html.day #cur-sh{background:radial-gradient(circle,rgba(40,30,90,.25),rgba(0,0,0
           <button class="vtab" role="tab" aria-selected="true" data-kind="inv" id="t-inv">Inventory</button>
           <button class="vtab" role="tab" aria-selected="false" data-kind="chest" id="t-chest">Chest</button>
           <button class="vtab" role="tab" aria-selected="false" data-kind="furnace" id="t-furnace">Furnace</button>
+          <button class="cmp" type="button" id="cmp" aria-pressed="false"><i></i>Compare with vanilla</button>
         </div>
-        <div class="screen"><img class="px" id="screen" src="themes/ember-inv.png" alt="Ember theme inventory screen"></div>
-        <div class="vname"><b id="tname">Ember</b><span>texture from the real resource pack, shown at 2.5×</span></div>
+        <div class="screen"><div class="ba-box" id="ba" style="--p:0%">
+          <img class="px ba-under" id="ba-a" src="fx/vanilla-inv.png" alt="Vanilla Minecraft inventory">
+          <div class="ba-top"><img class="px" id="screen" src="themes/ember-inv.png" alt="Ember theme inventory screen"></div>
+          <input type="range" id="ba-r" min="0" max="100" value="50" aria-label="Compare vanilla and Shardlight" tabindex="-1">
+          <div class="ba-line" aria-hidden="true"><span>⟷</span></div>
+          <em class="ba-l">Vanilla</em><em class="ba-rr">Shardlight</em>
+        </div></div>
+        <div class="vname"><b id="tname">Ember</b><span id="vhint">Real textures from the resource pack. Try Compare with vanilla.</span></div>
       </div>
     </div>
 
-    <div class="ba reveal">
-      <div class="ba-head"><span class="eyebrow">Before / after</span><p>Drag the handle to compare vanilla Minecraft with Shardlight. Pick a screen and a theme.</p>
-        <div class="ba-tabs" role="tablist" aria-label="Screen to compare"><button role="tab" id="ba-inv" aria-selected="true" data-k="inv">Inventory</button><button role="tab" id="ba-chest" aria-selected="false" data-k="chest">Chest</button><button role="tab" id="ba-furnace" aria-selected="false" data-k="furnace">Furnace</button></div>
-        <label class="ba-sel" for="ba-theme">Theme <select id="ba-theme"></select></label></div>
-      <div class="ba-box" id="ba" style="--p:50%">
-        <img class="px" id="ba-a" src="fx/vanilla-inv.png" alt="Vanilla Minecraft inventory">
-        <div class="ba-top"><img class="px" id="ba-b" src="themes/ember-inv.png" alt="Shardlight Ember inventory"></div>
-        <input type="range" id="ba-r" min="0" max="100" value="50" aria-label="Compare before and after">
-        <div class="ba-line" aria-hidden="true"><span>⟷</span></div>
-        <em class="ba-l">Vanilla</em><em class="ba-rr">Shardlight</em>
-      </div>
-    </div>
     <div class="mods reveal stag">
       <div class="mod fx"><h3>Shardlight UI</h3><span class="v">v3.6.0</span><p>Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, profiles.</p></div>
       <div class="mod fx"><h3>Shardlight Map</h3><span class="v">v1.2.0</span><p>Minimap and world map with cave layers, radar, grouped waypoints and map sharing.</p></div>
@@ -735,7 +746,7 @@ themes.forEach(([n])=>['inv','chest','furnace'].forEach(k=>{const p=new Image();
 function show(i){cur=i;const [n,c]=themes[i];window.__bgTheme=n;
   [...chips.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
   viewer.style.setProperty('--accent',c);tname.textContent=n;
-  img.classList.add('swap');setTimeout(()=>{img.src='themes/'+slug(n)+'-'+kind+'.png';img.alt=n+' theme '+(kind==='inv'?'inventory':kind)+' screen';img.classList.remove('swap')},reduce?0:160);
+  img.classList.add('swap');setTimeout(()=>{img.src='themes/'+slug(n)+'-'+kind+'.png';if(typeof syncCmp==='function')syncCmp();img.alt=n+' theme '+(kind==='inv'?'inventory':kind)+' screen';img.classList.remove('swap')},reduce?0:160);
 }
 document.querySelectorAll('.vtab').forEach(t=>t.onclick=()=>{auto=false;kind=t.dataset.kind;document.querySelectorAll('.vtab').forEach(x=>x.setAttribute('aria-selected',x===t));show(cur)});
 show(0);
@@ -944,47 +955,18 @@ function setDay(on){document.documentElement.classList.toggle('day',on);dayBtn.s
 let dayOn=false;try{dayOn=localStorage.getItem('jx-day')==='1'}catch(e){}
 setDay(dayOn);dayBtn.onclick=()=>{dayOn=!dayOn;setDay(dayOn);sfx('tab')};
 
-/* ===== before / after ===== */
-const ba=document.getElementById('ba'),baR=document.getElementById('ba-r');
-if(ba){baR.addEventListener('input',()=>ba.style.setProperty('--p',baR.value+'%'));
-  if(!reduce){let t0=null;const io2=new IntersectionObserver(es=>{if(es[0].isIntersecting){io2.disconnect();let k=0;(function sweep(ts){t0=t0||ts;k=(ts-t0)/1600;if(k<1&&baR.dataset.touched!=='1'){const v=50+Math.sin(k*Math.PI*2)*30;ba.style.setProperty('--p',v+'%');baR.value=v;requestAnimationFrame(sweep)}else if(baR.dataset.touched!=='1'){ba.style.setProperty('--p','50%');baR.value=50}})(performance.now())}},{threshold:.6});io2.observe(ba)}
-  baR.addEventListener('pointerdown',()=>baR.dataset.touched='1')}
-
-
-/* before/after: screen + theme pickers */
-(function(){const A=document.getElementById('ba-a'),B=document.getElementById('ba-b'),box=document.getElementById('ba'),sel=document.getElementById('ba-theme');if(!A)return;
-  let k='inv';themes.forEach(([n])=>{const o=document.createElement('option');o.value=slug(n);o.textContent=n;sel.appendChild(o)});
-  const H={inv:166,chest:222,furnace:166};
-  function upd(){A.src='fx/vanilla-'+k+'.png';B.src='themes/'+sel.value+'-'+k+'.png';box.style.setProperty('--h',H[k]);B.alt='Shardlight '+sel.options[sel.selectedIndex].text+' '+k;A.alt='Vanilla Minecraft '+k}
-  document.querySelectorAll('.ba-tabs button').forEach(b=>b.onclick=()=>{k=b.dataset.k;document.querySelectorAll('.ba-tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));upd()});
-  sel.onchange=()=>{upd();sfx('tab')};upd();})();
-
-
-/* ===== cursor shadow + glint ===== */
-(function(){if(reduce||!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
-  const sh=document.getElementById('cur-sh'),gl=document.getElementById('cur-gl');let x=-50,y=-50,sx=-50,sy=-50,last=0,run=false;
-  addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;if(!run){run=true;requestAnimationFrame(loop)}
-    const now=performance.now();if(now-last>1400&&Math.random()<.25){last=now;gl.style.setProperty('--t','translate('+(x+12)+'px,'+(y+14)+'px)');gl.style.transform='translate('+(x+12)+'px,'+(y+14)+'px)';gl.classList.remove('on');void gl.offsetWidth;gl.classList.add('on')}},{passive:true});
-  function loop(){sx+=(x-sx)*.35;sy+=(y-sy)*.35;sh.style.transform='translate('+(sx+3)+'px,'+(sy+5)+'px)';if(Math.abs(x-sx)+Math.abs(y-sy)>.3)requestAnimationFrame(loop);else run=false}
-  document.addEventListener('pointerleave',()=>{sh.style.transform='translate(-50px,-50px)'});
-})();
-
-/* ===== more sounds ===== */
-(function(){
-  const extra={hover:()=>tone(1200,.025,'sine',.012),theme:()=>{tone(523,.08,'triangle',.04);setTimeout(()=>tone(784,.1,'triangle',.035),70)},
-    tick:()=>tone(1500,.015,'square',.012),open:()=>tone(440,.09,'triangle',.04,660),close:()=>tone(660,.08,'triangle',.035,440),
-    key:()=>tone(1800+Math.random()*400,.012,'square',.01),whoosh:()=>{noise(.12,.035)},day:()=>{tone(392,.1,'sine',.04,784)},night:()=>{tone(784,.12,'sine',.04,392)},
-    zoom:()=>tone(300,.12,'sine',.04,900),done:()=>{tone(659,.07,'square',.03);setTimeout(()=>tone(988,.12,'square',.03),80)}};
-  const base=window.sfx;window.sfx=k=>extra[k]?(soundOn&&extra[k]()):base(k);
-  let hv=0;document.addEventListener('pointerover',e=>{const t=e.target.closest('a,button,.chip,.mod,.card,.pkg,.tier,summary,.stabs button');if(!t||t===hv)return;hv=t;sfx('hover')},{passive:true});
-  document.querySelectorAll('.faq details').forEach(d=>d.addEventListener('toggle',()=>sfx(d.open?'open':'close')));
-  const r=document.getElementById('ba-r');let lv=-1;if(r)r.addEventListener('input',()=>{const v=Math.round(r.value/5);if(v!==lv){lv=v;sfx('tick')}});
-  document.querySelectorAll('.brief input,.brief textarea').forEach(i=>i.addEventListener('keydown',()=>sfx('key')));
-  document.addEventListener('click',e=>{if(e.target.closest('img.zoom'))sfx('zoom');if(e.target.closest('.chip'))sfx('theme')});
-  const db=document.getElementById('day');if(db)db.addEventListener('click',()=>sfx(document.documentElement.classList.contains('day')?'day':'night'));
-  const secs=[...document.querySelectorAll('section[id]')];let cur=null;
-  if('IntersectionObserver' in window){const so=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting&&x.target!==cur){if(cur)sfx('whoosh');cur=x.target}}),{threshold:.35});secs.forEach(s=>so.observe(s))}
-})();
+/* ===== compare with vanilla (inside theme lab) ===== */
+const ba=document.getElementById('ba'),baR=document.getElementById('ba-r'),baA=document.getElementById('ba-a'),cmp=document.getElementById('cmp');
+const VH={inv:166,chest:222,furnace:166};
+function syncCmp(){baA.src='fx/vanilla-'+kind+'.png';ba.style.setProperty('--h',VH[kind])}
+cmp.onclick=()=>{const on=cmp.getAttribute('aria-pressed')!=='true';cmp.setAttribute('aria-pressed',on);ba.classList.toggle('on',on);auto=false;
+  baR.tabIndex=on?0:-1;syncCmp();
+  if(on){if(reduce){ba.style.setProperty('--p','50%');baR.value=50}else{let t0=null;(function sw(ts){t0=t0||ts;const k=Math.min(1,(ts-t0)/900);const v=k*50;ba.style.setProperty('--p',v+'%');baR.value=v;if(k<1)requestAnimationFrame(sw)})(performance.now())}}
+  else{ba.style.setProperty('--p','0%')}
+  document.getElementById('vhint').textContent=on?'Drag the handle to compare vanilla with Shardlight.':'Real textures from the resource pack. Try Compare with vanilla.';sfx('open')};
+baR.addEventListener('input',()=>ba.style.setProperty('--p',baR.value+'%'));
+document.querySelectorAll('.vtab').forEach(t=>t.addEventListener('click',syncCmp));
+syncCmp();
 
 /* ===== loader: short, once per visit ===== */
 (function(){const L=document.getElementById('loader');let seen=false;try{seen=sessionStorage.getItem('jx-loaded')==='1'}catch(e){}
