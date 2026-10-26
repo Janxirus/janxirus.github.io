@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Janxirus: Minecraft mods, resource packs, desktop apps and Roblox scripting. Commissions open.">
 <meta property="og:title" content="Janxirus Portfolio">
-<meta property="og:description" content="Shardlight mods and launcher, MediaVault, Roblox. Commissions open.">
+<meta property="og:description" content="Shardlight mods and launcher, MediaVault and more. Commissions open.">
 <meta property="og:image" content="https://janxirus.github.io/themes-grid.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="logo.png">
@@ -338,6 +338,12 @@ footer{border-top:1px solid var(--hair);margin-top:40px}
 .steps li::before{font-family:var(--body);font-weight:700}
 /* pixel headings: crisper rendering */
 h1,h2,h3,.mark,.vname b{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-synthesis:none;text-rendering:geometricPrecision}
+
+.card.wide{display:grid;grid-template-columns:1.5fr 1fr}
+.card.wide .img{aspect-ratio:1480/920;border-bottom:0;border-right:1px solid var(--hair)}
+.card.wide .img img{object-fit:cover;object-position:left top}
+.card.wide .body{align-content:center;padding:28px}
+@media (max-width:860px){.card.wide{grid-template-columns:1fr}.card.wide .img{border-right:0;border-bottom:1px solid var(--hair)}}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
@@ -453,23 +459,15 @@ h1,h2,h3,.mark,.vname b{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothi
   <div class="wrap">
     <div class="head reveal">
       <span class="eyebrow">More work</span>
-      <h2>Apps and games</h2>
+      <h2>Desktop apps</h2>
     </div>
-    <div class="grid2 reveal stag">
-      <article class="card fx">
-        <div class="img"><img src="mediavault-library.svg" alt="Feature sketch of the MediaVault library view" loading="lazy"></div>
+    <div class="grid2 reveal stag" style="grid-template-columns:1fr">
+      <article class="card fx wide">
+        <div class="img"><img class="zoom" src="mediavault-home.jpg" alt="MediaVault home screen with library overview, folders and recently added videos" loading="lazy"></div>
         <div class="body">
           <h3>MediaVault</h3>
-          <p>A Windows app that turns folders and external drives into one local media library, with a built-in player, Quick Sort, duplicate finding, side-by-side compare and storage cleanup. No cloud needed.</p>
+          <p>A Windows app that turns folders and external drives into one private, local media library. Built-in player, Quick Sort, duplicate and similar-photo finding, side-by-side compare, storage cleanup and optional local AI. No cloud account needed.</p>
           <div class="meta"><span><b>Python</b></span><span>v<b>1.9.7</b></span><span>Windows installer</span></div>
-        </div>
-      </article>
-      <article class="card fx">
-        <div class="img empty">screenshot coming soon</div>
-        <div class="body">
-          <h3>Anime Tycoon</h3>
-          <p>A Roblox tycoon with a hand-built anime map, 5 plots per server, staged buy-button progression, rebirths and Robux boosts.</p>
-          <div class="meta"><span><b>Luau</b></span><span>Roblox Studio</span><span>Monetization</span></div>
         </div>
       </article>
     </div>
