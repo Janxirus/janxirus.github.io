@@ -3,11 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Janxirus: Minecraft mods, resource packs, desktop apps and Roblox scripting. Commissions open.">
-<meta property="og:title" content="Janxirus Portfolio">
-<meta property="og:description" content="Shardlight mods and launcher, MediaVault and more. Commissions open.">
-<meta property="og:image" content="https://janxirus.github.io/themes-grid.png">
+<meta name="description" content="Janxirus: Minecraft mods, game UI, resource packs and desktop apps. Commissions open.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://janxirus.github.io/">
+<meta property="og:title" content="Janxirus · Minecraft mods, game UI and apps">
+<meta property="og:description" content="Creator of Shardlight: 4 Fabric mods and 15 themes. Commissions open.">
+<meta property="og:image" content="https://janxirus.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://janxirus.github.io/og.png">
+<meta name="theme-color" content="#07070c">
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>Janxirus Portfolio</title>
@@ -476,12 +481,28 @@ html.day .ba-box em{background:rgba(7,7,12,.75);color:#fff}
   .chip[aria-pressed="true"]::before{left:8px;right:8px;top:auto;bottom:2px;width:auto;height:2px}
 }
 html.day .chip:hover{background:rgba(23,20,46,.05)}
+
+/* cleanup pass */
+section{padding-block:100px}
+.head{margin-bottom:40px}
+.sub{font:600 22px var(--display);margin:56px 0 22px}
+.faq-link{margin:26px 0 0;color:var(--muted);font-size:15px}
+.steps{margin-top:6px;align-items:start}
+.steps li{align-content:start}
+footer{display:flex;align-items:center;justify-content:space-between;gap:12px 22px;flex-wrap:wrap;padding-block:28px 40px;font-size:13px}
+.flinks{display:flex;gap:18px;position:static;background:none;border:0;backdrop-filter:none}
+.flinks a{color:var(--muted);text-decoration:none}.flinks a:hover{color:var(--fg)}
+.totop{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:80;width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(13,12,24,.88);border:1px solid var(--hair2);color:var(--fg);text-decoration:none;font:600 18px var(--body);opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .25s,transform .25s,border-color .2s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{border-color:var(--purple)}
+html.day .totop{background:rgba(255,255,255,.92)}
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
 <body>
 <div class="loader" id="loader" aria-hidden="true"><div class="ld-in"><img class="px" src="cube.png" alt=""><b>Loading world</b><div class="ld-bar"><i id="ld-fill"></i></div><span id="ld-tip">Generating terrain…</span></div></div>
+<a class="totop" id="totop" href="#top" aria-label="Back to top">↑</a>
 <div class="dock" aria-label="Page settings"><button type="button" id="snd" aria-pressed="false" title="Sound effects">♪ <span>Sound off</span></button><button type="button" id="day" aria-pressed="false" title="Switch day and night">☾ <span>Night</span></button></div>
 <canvas id="bgfx" aria-hidden="true"></canvas>
 <div id="cur-sh" aria-hidden="true"></div><div id="cur-gl" aria-hidden="true"></div>
@@ -493,14 +514,12 @@ html.day .chip:hover{background:rgba(23,20,46,.05)}
     <a class="mark" href="#top"><img class="px" src="logo.png" alt="">Janxirus</a>
     <ul>
       <li><a href="#shardlight">Shardlight</a></li>
-      <li><a href="#client">Launcher</a></li>
-      <li><a href="#work">Work</a></li>
+      <li><a href="#client">Work</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#faq">FAQ</a></li>
       <li><a href="#support">Support</a></li>
     </ul>
-    <span class="status">Open for commissions</span>
+    <span class="status" id="booking">Open for commissions</span>
   </div>
 </nav>
 
@@ -515,9 +534,6 @@ html.day .chip:hover{background:rgba(23,20,46,.05)}
     <div class="stage" aria-hidden="true">
       <canvas id="sparks"></canvas>
       <img class="cube px" src="cube.png" alt="">
-      <span class="orbit" style="left:0;top:14%">Fabric · Java</span>
-      <span class="orbit" style="right:0;top:46%">Luau · Roblox</span>
-      <span class="orbit" style="left:6%;bottom:8%">JavaFX · Python</span>
     </div>
   </div>
 </header>
@@ -635,20 +651,18 @@ html.day .chip:hover{background:rgba(23,20,46,.05)}
     </div>
     <div class="pkgs" id="pkgs" role="tabpanel" aria-live="polite"></div>
     <p class="note reveal">Prices in euros · 50% upfront, 50% on delivery · two rounds of changes included · rush delivery under 3 days +30% · invoiced through Frilans Finans</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="head reveal"><span class="eyebrow">How it works</span><h2>From idea to delivery</h2></div>
+    <h3 class="sub reveal">How it works</h3>
     <ol class="steps reveal">
       <li><b>Brief</b><span>Tell me what you need and share references.</span></li>
       <li><b>Quote</b><span>Fixed price and delivery date.</span></li>
       <li><b>Preview</b><span>You see work in progress and ask for changes.</span></li>
       <li><b>Delivery</b><span>Final files, source and setup notes.</span></li>
     </ol>
+    <p class="faq-link reveal">Questions about payment, changes or versions? <a href="#faq">Read the FAQ</a></p>
   </div>
 </section>
+
+
 
 
 <section id="faq">
@@ -726,7 +740,7 @@ html.day .chip:hover{background:rgba(23,20,46,.05)}
         <code id="mail" style="user-select:all">janxirus.dev@gmail.com</code>
       </div>
     </div>
-    <footer><span>© 2026 Janxirus · Karlskrona, Sweden</span><span>Made with Java, pixels and too much coffee · <span class="secrets" id="ach" title="There are hidden things on this page">0 / 5 secrets found</span></span></footer>
+    <footer><span>© 2026 Janxirus · Karlskrona, Sweden</span><nav class="flinks" aria-label="Elsewhere"><a href="https://github.com/Janxirus">GitHub</a><a href="https://www.patreon.com/Janxirus">Patreon</a><a href="https://www.fiverr.com/janxirus">Fiverr</a><a href="#contact">Contact</a></nav><span class="secrets" id="ach" title="There are hidden things on this page">0 / 5 secrets found</span></footer>
   </div>
 </section>
 
@@ -858,7 +872,7 @@ let bgCache=null;
 function sizeB(){BW=bg.width=innerWidth;BH=bg.height=innerHeight;
   bgCache=document.createElement('canvas');bgCache.width=BW;bgCache.height=BH;{const cx=bgCache.getContext('2d');let g=cx.createRadialGradient(BW*.8,0,0,BW*.8,0,BW*.7);g.addColorStop(0,'rgba(110,60,210,.16)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,BW,BH);g=cx.createRadialGradient(0,BH,0,0,BH,BW*.6);g.addColorStop(0,'rgba(79,140,255,.10)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,BW,BH);}
   stars=Array.from({length:Math.round(BW*BH/22000)},()=>({x:Math.random()*BW,y:Math.random()*BH,t:Math.random()*6,z:Math.random()}));
-  cubes=Array.from({length:Math.max(6,Math.round(BW/150))},()=>newCube(true));}
+  cubes=Array.from({length:Math.max(5,Math.round(BW/220))},()=>newCube(true));}
 function newCube(any){const z=.25+Math.random()*.75;return{x:Math.random()*BW,y:any?Math.random()*BH:BH+40,z,s:Math.round(3+z*5),vy:.08+z*.22,ph:Math.random()*6,c:CUBEC[Math.random()*3|0]}}
 function drawCube(x,y,u,c,a){ /* pixel iso cube, u = pixel unit */
   bx.globalAlpha=a;x=Math.round(x);y=Math.round(y);
@@ -890,7 +904,7 @@ function stepB(t){
     drawCube(c.sx,c.sy,c.s*.5,c.c,c.hl?Math.min(.9,.10+c.z*.22+.5):.10+c.z*.22);c.hl=false;
     if(c.y<-60-BH*2)cubes[i]=newCube(false)}
   /* theme particles */
-  if(parts.length<45&&Math.random()<.35)spawnPart();
+  if(parts.length<26&&Math.random()<.22)spawnPart();
   parts=parts.filter(p=>p.life>0&&p.y>-20&&p.y<BH+20);
   for(const p of parts){p.ph+=.04;
     if(p.k==="burst"){p.vy+=.12;p.x+=p.vx;p.y+=p.vy;p.life-=.02}
@@ -990,6 +1004,12 @@ cmp.onclick=()=>{const on=cmp.getAttribute('aria-pressed')!=='true';cmp.setAttri
 baR.addEventListener('input',()=>ba.style.setProperty('--p',baR.value+'%'));
 document.querySelectorAll('.vtab').forEach(t=>t.addEventListener('click',syncCmp));
 syncCmp();
+
+
+/* booking badge + back to top */
+(function(){const m=['January','February','March','April','May','June','July','August','September','October','November','December'];const d=new Date();const n=d.getDate()>20?m[(d.getMonth()+1)%12]:m[d.getMonth()];
+  const b=document.getElementById('booking');if(b)b.textContent='Booking for '+n;
+  const t=document.getElementById('totop');addEventListener('scroll',()=>t.classList.toggle('show',scrollY>900),{passive:true});})();
 
 /* ===== loader: short, once per visit ===== */
 (function(){const L=document.getElementById('loader');let seen=false;try{seen=sessionStorage.getItem('jx-loaded')==='1'}catch(e){}
