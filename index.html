@@ -194,18 +194,67 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
 .support-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:22px}
 .support-cta p{margin:0;color:var(--muted);font-size:14px}
 
+
+/* services packages */
+.offer{display:flex;gap:14px;align-items:center;flex-wrap:wrap;border:1px dashed var(--purple);background:rgba(155,107,255,.08);padding:12px 16px;border-radius:4px;margin-bottom:22px}
+.offer p{margin:0;color:var(--muted);font-size:15px}.offer b{color:var(--fg)}
+.offer-tag{font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.12em;background:var(--purple);color:#fff;padding:4px 9px;border-radius:2px;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 16px rgba(155,107,255,.7)}}
+.stabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.stabs button{font:500 14px var(--body);padding:9px 14px;border:1px solid var(--line2);background:transparent;color:var(--muted);border-radius:3px;cursor:pointer;transition:all .15s}
+.stabs button:hover{color:var(--fg)}
+.stabs button[aria-selected="true"]{color:#fff;border-color:transparent;background:linear-gradient(90deg,var(--blue),var(--purple))}
+.pkgs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pkg{border:1px solid var(--line);background:var(--panel);border-radius:4px;padding:22px;display:grid;gap:10px;align-content:start;transition:transform .2s,border-color .2s;animation:pin .35s ease both}
+.pkg:nth-child(2){animation-delay:.05s}.pkg:nth-child(3){animation-delay:.1s}
+@keyframes pin{from{transform:translateY(10px);opacity:.3}}
+.pkg:hover{transform:translateY(-4px);border-color:var(--purple)}
+.pkg.mid{border-color:var(--purple);box-shadow:0 0 30px rgba(155,107,255,.15)}
+.pkg .lvl{font:600 12px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--blue2)}
+.pkg .amt{font:600 30px var(--mono);font-variant-numeric:tabular-nums}
+.pkg .amt small{font-size:13px;color:var(--muted);font-weight:400}
+.pkg p{margin:0;color:var(--muted);font-size:14px}
+.pkg .del{font:12px var(--mono);color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+/* faq */
+.faq{display:grid;gap:10px;max-width:820px}
+.faq details{border:1px solid var(--line);background:var(--panel);border-radius:4px;padding:0 18px;transition:border-color .2s}
+.faq details[open]{border-color:var(--line2)}
+.faq summary{cursor:pointer;list-style:none;padding:16px 0;font-weight:600;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:600 20px var(--mono);color:var(--purple);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 16px;color:var(--muted);font-size:15px}
+/* brief */
+.brief{width:100%;max-width:640px;text-align:left;display:grid;gap:12px;margin-top:10px}
+.brief .row{display:grid;gap:6px}.brief .two{grid-template-columns:1fr 1fr;gap:12px}
+.brief label{font:12px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.brief input,.brief select,.brief textarea{width:100%;font:15px var(--body);color:var(--fg);background:rgba(7,7,12,.7);border:1px solid var(--line2);border-radius:3px;padding:10px 12px}
+.brief input:focus,.brief select:focus,.brief textarea:focus{outline:none;border-color:var(--purple)}
+.brief .act{display:flex;align-items:flex-end}.brief .act .btn{width:100%}
+.brief .hint{margin:0;font-size:13px;color:var(--muted);text-align:center}
+.brief .out{margin:0;white-space:pre-wrap;font:13px var(--mono);background:rgba(7,7,12,.7);border:1px solid var(--line2);padding:12px;border-radius:3px;max-height:220px;overflow:auto}
+/* lightbox */
+.zoom{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(4,4,10,.92);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.lb[hidden]{display:none}
+.lb img{max-width:100%;max-height:90vh;border:1px solid var(--line2);border-radius:4px}
+.lb-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(18px + env(safe-area-inset-right,0px));font:28px var(--mono);background:none;border:0;color:var(--fg);cursor:pointer}
+
 @media (max-width:860px){
   .hero .wrap,.client,.lab,.about{grid-template-columns:1fr}
   .stage{max-width:300px}
   .chips{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));max-height:none}
   .steps{grid-template-columns:1fr 1fr;row-gap:28px}.steps::before{display:none}
   .avatar{width:120px;height:120px}
+  .pkgs{grid-template-columns:1fr}
 }
 @media (max-width:560px){
   nav ul{display:none}
   .stats .wrap{grid-template-columns:1fr 1fr;row-gap:16px}.stat:nth-child(3){border-left:0}
   .steps{grid-template-columns:1fr}
   .screen{min-height:300px}
+  .brief .two{grid-template-columns:1fr}
   section{padding-block:60px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -219,6 +268,7 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
 <body>
 <canvas id="bgfx" aria-hidden="true"></canvas>
 <div class="progress" id="progress"></div>
+<div class="lb" id="lb" hidden><button class="lb-x" id="lb-x" aria-label="Close">×</button><img id="lb-img" alt=""></div>
 
 <nav>
   <div class="wrap">
@@ -229,6 +279,7 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
       <li><a href="#work">Work</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#support">Support</a></li>
     </ul>
     <span class="status">Open for commissions</span>
@@ -287,7 +338,7 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
       <div class="mod reveal"><h3>Shardlight Companion</h3><span class="v">v1.0.0</span><p>Notes pinned to places, self-ticking to-do lists, photo mode, measuring tape, timers.</p></div>
       <div class="mod reveal"><h3>Shardlight Party</h3><span class="v">v1.2.0</span><p>Friends list and party panel that finds friends anywhere, with no server plugin.</p></div>
     </div>
-    <figure class="shot reveal" style="margin-inline:0"><img src="shardlight-ingame.jpg" alt="Shardlight UI in game with the Ember theme: inventory, HUD panels, compass strip and round minimap" loading="lazy"><figcaption>In game · Ember theme · HUD, compass and minimap</figcaption></figure>
+    <figure class="shot reveal" style="margin-inline:0"><img class="zoom" src="shardlight-ingame.jpg" alt="Shardlight UI in game with the Ember theme: inventory, HUD panels, compass strip and round minimap" loading="lazy"><figcaption>In game · Ember theme · HUD, compass and minimap</figcaption></figure>
   </div>
 </section>
 
@@ -314,7 +365,7 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
           <button role="tab" aria-selected="false" data-src="client-project-performance.jpg" id="c-perf">Presets</button>
         </div>
       </div>
-      <img id="clientimg" src="client-home.jpg" alt="Shardlight Client launcher screen">
+      <img class="zoom" id="clientimg" src="client-home.jpg" alt="Shardlight Client launcher screen">
     </div>
   </div>
 </section>
@@ -351,15 +402,18 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
     <div class="head reveal">
       <span class="eyebrow">Commissions</span>
       <h2>What I can build for you</h2>
-      <p>Starting prices. Every job gets a fixed quote before work begins.</p>
+      <p>Pick a service to see the packages. Every job gets a fixed quote before work begins.</p>
     </div>
-    <div class="svc">
-      <div class="price reveal"><svg class="ic px" viewBox="0 0 9 9" aria-hidden="true"><path fill="#4f8cff" d="M0 0h9v9H0z"/><path fill="#0d0c18" d="M1 1h3v3H1zM5 1h3v3H5zM1 5h3v3H1zM5 5h3v3H5z"/></svg><h3>Minecraft GUI &amp; resource packs</h3><div class="from">€60 <small>and up</small></div><p>Inventory, chests, HUD, icons and sounds in your server's style.</p></div>
-      <div class="price reveal"><svg class="ic px" viewBox="0 0 9 9" aria-hidden="true"><path fill="#9b6bff" d="M1 2h1v1H1zM0 4h1v1H0zM1 6h1v1H1zM7 2h1v1H7zM8 4h1v1H8zM7 6h1v1H7zM5 1h1v2H5zM4 3h1v3H4zM3 6h1v2H3z"/></svg><h3>Fabric mods &amp; plugins</h3><div class="from">€50 <small>and up</small></div><p>Custom screens, mechanics, commands, bug fixes and version ports.</p></div>
-      <div class="price reveal"><svg class="ic px" viewBox="0 0 9 9" aria-hidden="true"><path fill="#c4a6ff" d="M3 0h3v1H3zM2 1h5v2H2zM1 3h7v3H1zM2 6h5v2H2zM3 8h3v1H3z"/><path fill="#4f8cff" d="M3 3h3v2H3z"/></svg><h3>Custom server themes</h3><div class="from">€80 <small>and up</small></div><p>A Shardlight theme in your colours and logo, with matching sounds.</p></div>
-      <div class="price reveal"><svg class="ic px" viewBox="0 0 9 9" aria-hidden="true"><path fill="#4f8cff" d="M0 1h9v6H0z"/><path fill="#0d0c18" d="M1 2h7v4H1z"/><path fill="#9b6bff" d="M3 7h3v1H3zM1 8h7v1H1z"/></svg><h3>Roblox scripting &amp; apps</h3><div class="from">€50 <small>and up</small></div><p>Tycoon systems, shops and data saving, or a desktop tool in Java or Python.</p></div>
+    <div class="offer reveal"><span class="offer-tag">Launch offer</span><p><b>30% off for my first 3 clients</b> in return for an honest review. <span id="slots">3 of 3 spots left.</span></p></div>
+    <div class="stabs reveal" role="tablist" aria-label="Services">
+      <button role="tab" id="s-gui" aria-selected="true" data-s="gui">GUI &amp; packs</button>
+      <button role="tab" id="s-mod" aria-selected="false" data-s="mod">Mods &amp; plugins</button>
+      <button role="tab" id="s-theme" aria-selected="false" data-s="theme">Server themes</button>
+      <button role="tab" id="s-roblox" aria-selected="false" data-s="roblox">Roblox</button>
+      <button role="tab" id="s-app" aria-selected="false" data-s="app">Desktop apps</button>
     </div>
-    <p class="note reveal">50% upfront, 50% on delivery · two rounds of changes included · invoiced through Frilans Finans</p>
+    <div class="pkgs reveal" id="pkgs" role="tabpanel" aria-live="polite"></div>
+    <p class="note reveal">Prices in euros · 50% upfront, 50% on delivery · two rounds of changes included · rush delivery under 3 days +30% · invoiced through Frilans Finans</p>
   </div>
 </section>
 
@@ -372,6 +426,21 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
       <li><b>Preview</b><span>You see work in progress and ask for changes.</span></li>
       <li><b>Delivery</b><span>Final files, source and setup notes.</span></li>
     </ol>
+  </div>
+</section>
+
+
+<section id="faq">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Good to know</span><h2>Questions clients ask</h2></div>
+    <div class="faq reveal">
+      <details open><summary>How do I pay?</summary><p>50% upfront before I start and 50% before the final files are delivered. Jobs under €60 are paid in full upfront. I invoice through Frilans Finans, so you get a proper invoice.</p></details>
+      <details><summary>How many changes do I get?</summary><p>Two rounds of changes are included in every package. Extra rounds are €15 each. New features outside the agreed scope get their own quote.</p></details>
+      <details><summary>Which Minecraft versions do you work with?</summary><p>Mainly Fabric on the latest versions (26.x). Tell me your version and loader and I'll confirm before quoting. Forge and NeoForge are possible on request.</p></details>
+      <details><summary>Do I get the source code?</summary><p>Full packages include source. For Starter and Standard, source is +50% unless agreed in the quote. You can always use the finished work on your server or game.</p></details>
+      <details><summary>Can you show my project in your portfolio?</summary><p>By default I may show finished work in my portfolio. Just ask and I'll keep it private.</p></details>
+      <details><summary>What if I need to cancel?</summary><p>If you cancel after work has started, the upfront payment isn't refunded. If I cancel, you get a full refund.</p></details>
+    </div>
   </div>
 </section>
 
@@ -411,6 +480,23 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
       <span class="eyebrow">Commissions open</span>
       <h2>Let's build something</h2>
       <p>Tell me what you need, your game version and a deadline. I reply within 24 hours.</p>
+      <form class="brief" id="brief" onsubmit="return false">
+        <div class="row">
+          <label for="b-type">Project</label>
+          <select id="b-type"><option>Minecraft GUI / resource pack</option><option>Fabric mod or plugin</option><option>Custom Shardlight server theme</option><option>Roblox scripting</option><option>Desktop app</option><option>Something else</option></select>
+        </div>
+        <div class="row two">
+          <div><label for="b-ver">Game version / platform</label><input id="b-ver" placeholder="e.g. Minecraft 26.3, Fabric"></div>
+          <div><label for="b-date">Deadline</label><input id="b-date" placeholder="e.g. in 2 weeks"></div>
+        </div>
+        <div class="row"><label for="b-desc">What do you need?</label><textarea id="b-desc" rows="3" placeholder="Describe the idea and link any references"></textarea></div>
+        <div class="row two">
+          <div><label for="b-budget">Budget</label><select id="b-budget"><option>Under €100</option><option>€100 – €250</option><option>€250 – €500</option><option>€500+</option><option>Not sure yet</option></select></div>
+          <div class="act"><button class="btn" id="b-copy" type="button">Copy my brief</button></div>
+        </div>
+        <p class="hint" id="b-hint">Copy the brief, then paste it in an email to janxirus.dev@gmail.com or a Fiverr message.</p>
+        <pre class="out" id="b-out" hidden></pre>
+      </form>
       <div class="handles">
         <a href="https://github.com/Janxirus">github.com/Janxirus</a>
         <a href="https://www.fiverr.com/janxirus">fiverr.com/janxirus</a>
@@ -476,6 +562,36 @@ if(!reduce)setInterval(()=>{if(auto&&viewer.getBoundingClientRect().top<innerHei
 /* launcher tabs */
 const cimg=document.getElementById('clientimg');
 document.querySelectorAll('.frame .bar button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.frame .bar button').forEach(x=>x.setAttribute('aria-selected',x===b));cimg.src=b.dataset.src});
+
+
+/* service packages */
+const PKG={
+ gui:[["Starter",60,"One screen, like the inventory or a chest, in your server's style.","3–5 days"],["Standard",150,"Inventory, chests, HUD and icons as one matching resource pack.","5–7 days"],["Full",350,"Your whole UI restyled, with menu sounds and source files.","7–10 days"]],
+ mod:[["Starter",50,"One small feature or a bug fix in a Fabric mod or plugin.","3–5 days"],["Standard",150,"A complete feature with a settings screen and config.","5–10 days"],["Full",400,"A full mod built from scratch, with source and docs.","10–14 days"]],
+ theme:[["Starter",80,"A Shardlight theme in your colours with your logo.","5 days"],["Standard",200,"Theme plus a matching sound pack.","7 days"],["Full",400,"Theme, sounds, menu particles and a ready HUD profile for your players.","10 days"]],
+ roblox:[["Starter",50,"One system, like a shop or data saving.","3–5 days"],["Standard",150,"Several connected systems, like a shop with rebirths and boosts.","7 days"],["Full",400,"A full game loop with UI, progression and monetization.","14 days"]],
+ app:[["Small tool",150,"A focused desktop utility in Java or Python.","1 week"],["App",400,"A full app with a designed interface and installer.","2–3 weeks"],["Custom",0,"Bigger projects get a quote after a short call.","by scope"]]
+};
+const pk=document.getElementById('pkgs');
+function renderPk(k){pk.innerHTML=PKG[k].map((x,i)=>'<div class="pkg'+(i===1?' mid':'')+'"><span class="lvl">'+x[0]+'</span><div class="amt">'+(x[1]?'€'+x[1]+' <small>and up</small>':'Quote')+'</div><p>'+x[2]+'</p><div class="del">Delivery: '+x[3]+'</div></div>').join('')}
+document.querySelectorAll('.stabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.stabs button').forEach(x=>x.setAttribute('aria-selected',x===b));renderPk(b.dataset.s)});
+renderPk('gui');
+
+/* brief builder */
+const g=id=>document.getElementById(id);
+g('b-copy').onclick=()=>{
+  const t='Hi Janxirus!\n\nProject: '+g('b-type').value+'\nVersion / platform: '+(g('b-ver').value||'-')+'\nDeadline: '+(g('b-date').value||'-')+'\nBudget: '+g('b-budget').value+'\n\nWhat I need:\n'+(g('b-desc').value||'-');
+  const out=g('b-out');out.textContent=t;out.hidden=false;
+  const done=()=>{g('b-copy').textContent='Copied';g('b-hint').textContent='Brief copied. Paste it in an email to janxirus.dev@gmail.com or a Fiverr message.';setTimeout(()=>g('b-copy').textContent='Copy my brief',1800)};
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(out);const s=getSelection();s.removeAllRanges();s.addRange(r);g('b-hint').textContent='Press Ctrl+C to copy the selected brief.'};
+  try{navigator.clipboard.writeText(t).then(done,sel)}catch(e){sel()}
+};
+
+/* lightbox */
+const lb=g('lb'),lbi=g('lb-img');
+document.addEventListener('click',e=>{const im=e.target.closest('img.zoom');if(im){lbi.src=im.src;lbi.alt=im.alt;lb.hidden=false}});
+lb.onclick=e=>{if(e.target!==lbi)lb.hidden=true};
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true});
 
 /* hero sparks: pixel particles rising around the cube */
 const sc=document.getElementById('sparks'),sx=sc.getContext('2d');let P=[];
