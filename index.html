@@ -392,6 +392,8 @@ html.night{--bg:#020208}
 html.night #bgfx{filter:saturate(1.6) brightness(1.4)}
 .secrets{font:500 12px var(--body);color:var(--muted);opacity:.7}
 .stage{pointer-events:none}
+body.orbhov{cursor:pointer}
+@media (max-width:560px){.stage{max-width:min(260px,66vw)}}
 
 /* performance */
 .fx{will-change:auto}
@@ -1118,16 +1120,20 @@ const TILT=-17*Math.PI/180,TZ=-7*Math.PI/180,LIGHT=(()=>{const l=[-.55,-.75,.6],
 const rX=(p,a)=>{const c=Math.cos(a),s=Math.sin(a);return[p[0],p[1]*c-p[2]*s,p[1]*s+p[2]*c]},rY=(p,a)=>{const c=Math.cos(a),s=Math.sin(a);return[p[0]*c+p[2]*s,p[1],-p[0]*s+p[2]*c]},rZ=(p,a)=>{const c=Math.cos(a),s=Math.sin(a);return[p[0]*c-p[1]*s,p[0]*s+p[1]*c,p[2]]};
 function size(){const r=back.getBoundingClientRect();W=Math.max(40,Math.round(r.width/PX));H=Math.max(40,Math.round(r.height/PX));
  for(const c of[back,front]){c.width=W;c.height=H}cb=back.getContext('2d');cf=front.getContext('2d');ib=cb.createImageData(W,H);iF=cf.createImageData(W,H);IDb=new Int16Array(W*H);IDf=new Int16Array(W*H)}
+const ST=[];for(let i=0;i<9;i++)ST.push({hov:0,hit:-9,kick:0,kv:0});let HOV=-1,lastN=0;
 function frame(now){
+ const dt=Math.min(.05,Math.max(0,(now-lastN)/1000));lastN=now;
  const t=((now/1000)%T+T)%T,CX=W/2,CY=H/2,F=W*1.8,SZ=W*.04,R1=W*.31,R2=W*.41;
  const proj=p=>{const s=F/(F-p[2]);return[CX+p[0]*s,CY+p[1]*s]};
  const faces=[],OZ=[],RP=[];let oid=0;
  const add=(items,Rr,dir,tz)=>items.forEach((it,k)=>{const th=dir*t/T*Math.PI*2+k/items.length*Math.PI*2;const pos=rZ([Rr*Math.sin(th),0,Rr*Math.cos(th)],tz);
-  const m=M[it[0]],ang=t/T*Math.PI*2,sc=(it[0]==='globe'||it[0]==='ring'?1.15:1)*SZ,id=oid++;OZ[id]=rX(pos,TILT)[2];RP[id]=R[it[1]];
-  const vw=m.v.map(p=>{let q=[p[0]*sc,p[1]*sc,p[2]*sc];if(it[0]==='coin')q=rX(q,Math.PI/2);q=rX(q,it[2][0]*ang*2);q=rY(q,it[2][1]*ang*2);return rX([q[0]+pos[0],q[1]+pos[1],q[2]+pos[2]],TILT)});
+  const id=oid++,S=ST[id];S.hov+=((HOV===id?1:0)-S.hov)*Math.min(1,dt*14);S.kick+=S.kv*dt;S.kv*=Math.pow(.06,dt);
+  const e=(now-S.hit)/1000,bn=e>=0&&e<1.2?-.32*Math.exp(-e*6)*Math.cos(e*24):0;
+  const m=M[it[0]],ang=t/T*Math.PI*2,sc=(it[0]==='globe'||it[0]==='ring'?1.15:1)*SZ*(1+.2*S.hov+bn),hv=S.hov>.5;OZ[id]=rX(pos,TILT)[2];RP[id]=R[it[1]];
+  const vw=m.v.map(p=>{let q=[p[0]*sc,p[1]*sc,p[2]*sc];if(it[0]==='coin')q=rX(q,Math.PI/2);q=rX(q,it[2][0]*ang*2+S.kick*.35);q=rY(q,it[2][1]*ang*2+S.kick);return rX([q[0]+pos[0],q[1]+pos[1],q[2]+pos[2]],TILT)});
   m.f.forEach(fc=>{const P=fc.map(i=>vw[i]),a=P[0],b=P[1],c=P[2],u=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],v=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const nl=Math.hypot(...n)||1;n=n.map(x=>x/nl);
    const cen=P.reduce((s,p)=>[s[0]+p[0]/P.length,s[1]+p[1]/P.length,s[2]+p[2]/P.length],[0,0,0]);if(n[0]*-cen[0]+n[1]*-cen[1]+n[2]*(F-cen[2])<=0)return;
-   const d=n[0]*LIGHT[0]+n[1]*LIGHT[1]+n[2]*LIGHT[2];faces.push({z:cen[2],oz:OZ[id],id,P:P.map(proj),rp:RP[id],ti:d>.62?3:d>.18?2:d>-.25?1:0,k:it[0],fi:m.f.indexOf(fc)})})});
+   const d=n[0]*LIGHT[0]+n[1]*LIGHT[1]+n[2]*LIGHT[2];faces.push({z:cen[2],oz:OZ[id],id,P:P.map(proj),rp:RP[id],ti:(d>.62?3:d>.18?2:d>-.25?1:0)+(hv?1:0),k:it[0],fi:m.f.indexOf(fc)})})});
  add(inner,R1,1,0);add(outer,R2,-1,TZ);faces.sort((a,b)=>a.oz-b.oz||a.z-b.z);
  for(const [img,ID,isFront] of [[ib,IDb,false],[iF,IDf,true]]){const D=img.data;D.fill(0);ID.fill(-1);
   const put=(x,y,c,a,id)=>{if(x<0||y<0||x>=W||y>=H)return;const i=(y*W+x)*4;if(id!==undefined)ID[y*W+x]=id;D[i]=c[0];D[i+1]=c[1];D[i+2]=c[2];D[i+3]=Math.max(D[i+3],a*255|0)};
@@ -1137,11 +1143,25 @@ function frame(now){
    x0=Math.max(0,Math.floor(x0));x1=Math.min(W-1,Math.ceil(x1));y0=Math.max(0,Math.floor(y0));y1=Math.min(H-1,Math.ceil(y1));let ar=0,pe=0;const EL=[];for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length];ar+=a[0]*b[1]-b[0]*a[1];const l=Math.hypot(b[0]-a[0],b[1]-a[1])||1;EL.push(l);pe+=l}const sg=ar>0?1:-1,inr=Math.abs(ar)/pe;
    for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const px=x+.5,py=y+.5;let ed=1e9;for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length],e=sg*((b[0]-a[0])*(py-a[1])-(b[1]-a[1])*(px-a[0]))/EL[i];if(e<ed)ed=e;if(ed<0)break}if(ed>=0)put(x,y,tone(f.rp,f.ti,deco(f.k,f.fi,P.length,ed/inr,ed,inr)),1,f.id)}}
   const mark=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++){const id=ID[y*W+x];if(id<0)continue;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy,out=X<0||Y<0||X>=W||Y>=H,nb=out?-1:ID[Y*W+X];if(nb===id)continue;if(nb===-1||OZ[nb]<OZ[id]){mark.push(x,y,id);break}}}
-  for(let k=0;k<mark.length;k+=3)put(mark[k],mark[k+1],RP[mark[k+2]][4],1)}
+  for(let k=0;k<mark.length;k+=3){const o=mark[k+2];put(mark[k],mark[k+1],ST[o].hov>.5?R.lilac[5]:RP[o][4],1)}}
  cb.putImageData(ib,0,0);cf.putImageData(iF,0,0)}
 size();addEventListener('resize',()=>{size();frame(performance.now())});
-let vis=true,run=false;const loop=n=>{if(!vis){run=false;return}run=true;frame(n);requestAnimationFrame(loop)};
+let vis=true,run=false;const loop=n=>{if(!vis){run=false;return}run=true;frame(n);if(window.__orbTick)window.__orbTick();requestAnimationFrame(loop)};
 window.__px3d={M,R,rX,rY,LIGHT,deco,tone};
+const ALL=[...inner,...outer],cubeEl=document.querySelector('.stage .cube');
+function pick(cx,cy){const r=back.getBoundingClientRect();if(cx<r.left||cy<r.top||cx>r.right||cy>r.bottom||!W)return -1;
+ const x=Math.floor((cx-r.left)/r.width*W),y=Math.floor((cy-r.top)/r.height*H),k=y*W+x;
+ for(const [x2,y2] of [[0,0],[1,0],[-1,0],[0,1],[0,-1]]){const j=k+y2*W+x2;if(j<0||j>=W*H)continue;if(IDf[j]>=0)return IDf[j]}
+ if(IDb[k]>=0&&cubeEl){const c=cubeEl.getBoundingClientRect(),ix=c.width*.12,iy=c.height*.08;if(cx>c.left+ix&&cx<c.right-ix&&cy>c.top+iy&&cy<c.bottom-iy)return -1}
+ return IDb[k]>=0?IDb[k]:-1}
+const skip=t=>t&&t.closest&&t.closest('a,button,input,select,textarea,label,.cube,nav');
+let PT=null;const setHov=h=>{if(h!==HOV){HOV=h;document.body.classList.toggle('orbhov',h>=0)}};
+addEventListener('pointermove',e=>{if(e.pointerType==='touch'){PT=null;return}PT=skip(e.target)?null:[e.clientX,e.clientY];if(!vis)return;setHov(PT?pick(PT[0],PT[1]):-1);if(reduce)frame(performance.now())},{passive:true});
+document.addEventListener('pointerleave',()=>{PT=null;setHov(-1)});
+window.__orbTick=()=>{if(PT)setHov(pick(PT[0],PT[1]))};
+window.__orbPick=(x,y)=>vis?pick(x,y):-1;
+addEventListener('pointerdown',e=>{if(!vis||skip(e.target))return;const h=pick(e.clientX,e.clientY);if(h<0)return;const S=ST[h];S.hit=performance.now();S.kv+=(Math.random()<.5?-1:1)*(16+Math.random()*6);
+ const c=TH[ALL[h][1]];if(typeof burst==='function')burst(e.clientX,e.clientY,[c,c,'#ffffff',TH.lilac],12);if(reduce)frame(performance.now())});
 if(reduce){frame(0)}else{new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!run)requestAnimationFrame(loop)}).observe(back)}
 })();
 
@@ -1249,7 +1269,7 @@ function updAch(){let n=0;try{n=JSON.parse(localStorage.getItem('jx-ach')||'[]')
 let mined=0;
 document.addEventListener('pointerdown',e=>{
   if(e.target.closest('a,button,input,select,textarea,label,summary,img,.chip,.viewer,.frame,.brief,nav'))return;
-  const x=e.clientX,y=e.clientY;let hit=-1,best=40*40;
+  const x=e.clientX,y=e.clientY;if(window.__orbPick&&window.__orbPick(x,y)>=0)return;let hit=-1,best=40*40;
   cubes.forEach((c,i)=>{const dx=c.sx-x,dy=(c.sy+c.s)-y,d=dx*dx+dy*dy;if(d<best){best=d;hit=i}});
   if(hit>=0){const c=cubes[hit];burst(c.sx,c.sy,c.c,26);cubes[hit]=newCube(false);mined++;
     if(mined===1)achieve('miner','Achievement unlocked','First block mined. Keep going!');
