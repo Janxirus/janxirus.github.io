@@ -32,13 +32,22 @@ h1{margin:4px 0 0;font:700 34px/1 var(--display);letter-spacing:.02em}
 .tag{margin:0;color:var(--muted);font-size:15px;max-width:34ch}
 .status{display:inline-flex;align-items:center;gap:8px;font:500 13px var(--body);color:var(--ok);border:1px solid var(--hair2);border-radius:999px;padding:5px 12px}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.socials{display:flex;gap:6px;margin-top:4px}
+.socials a{width:38px;height:38px;display:grid;place-items:center;color:var(--muted);border-radius:10px;transition:color .15s,background .15s}
+.socials a:hover{color:var(--fg);background:rgba(255,255,255,.06)}
+.socials svg{width:20px;height:20px}
 .strip{display:grid;grid-template-columns:repeat(15,1fr);gap:3px;width:100%}
 .strip span{aspect-ratio:1;border-radius:2px}
-nav{display:grid;gap:10px}
+section{display:grid;gap:10px}
+section h2{margin:6px 0 0;font:600 13px var(--body);text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+.sp{margin:-6px 0 2px;font-size:13px;color:var(--muted)}
+.email button{font:500 13px var(--body);color:var(--fg);background:transparent;border:1px solid var(--hair2);border-radius:999px;padding:5px 12px;cursor:pointer}
+#mail{user-select:all;overflow-wrap:anywhere}
 .link{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--hair);border-radius:12px;background:var(--card);color:var(--fg);text-decoration:none;transition:transform .18s,border-color .18s}
 a.link:hover{transform:translateY(-2px);border-color:var(--hair2)}
 a.link:focus-visible,button:focus-visible{outline:2px solid var(--blue2);outline-offset:3px}
-.px{width:14px;height:14px;border-radius:3px;background:var(--c);box-shadow:inset 0 -3px 0 rgba(0,0,0,.25)}
+.ic{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;color:var(--c);background:color-mix(in srgb,var(--c) 15%,transparent);border:1px solid color-mix(in srgb,var(--c) 30%,transparent)}
+.ic svg{width:21px;height:21px}
 .txt{min-width:0;display:grid}
 .txt b{font:600 16px var(--body)}
 .txt small{color:var(--muted);font-size:13px}
@@ -47,6 +56,7 @@ a.link:focus-visible,button:focus-visible{outline:2px solid var(--blue2);outline
 .soon{opacity:.55}
 .soon .go{font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--hair2);border-radius:999px;padding:2px 8px}
 .mail{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.mail .mi{display:inline-grid;color:var(--muted)}.mail .mi svg{width:18px;height:18px}
 .mail code{font:500 14px var(--body);color:var(--fg);user-select:all}
 .mail button{font:500 13px var(--body);color:var(--fg);background:transparent;border:1px solid var(--hair2);border-radius:999px;padding:5px 12px;cursor:pointer}
 footer{text-align:center;color:var(--muted);font-size:12px}
@@ -66,16 +76,24 @@ footer{text-align:center;color:var(--muted);font-size:12px}
     <span style="background:#FF7A2F"></span><span style="background:#E0283A"></span><span style="background:#3EC9E6"></span><span style="background:#C9C9C9"></span><span style="background:#45C25A"></span><span style="background:#A463FF"></span><span style="background:#FF8FB8"></span><span style="background:#6F8CFF"></span><span style="background:#E8C76A"></span><span style="background:#FF4FD8"></span><span style="background:#C0504A"></span><span style="background:#9FE3FF"></span><span style="background:#C9A15A"></span><span style="background:#F0A23A"></span><span style="background:#B57CFF"></span>
   </div>
 
-  <nav aria-label="Links">
-    <a class="link main" href="https://www.fiverr.com/janxirus" target="_blank" rel="noopener" style="--c:#1dbf73"><span class="px"></span><span class="txt"><b>Hire me on Fiverr</b><small>GUIs, Fabric mods, Roblox scripts · from $20</small></span><span class="go">↗</span></a>
-    <a class="link" href="https://discord.gg/FJQhr2YEAe" target="_blank" rel="noopener" style="--c:#5865F2"><span class="px"></span><span class="txt"><b>Janxirus Studio Discord</b><small>Sneak peeks, theme votes and help</small></span><span class="go">↗</span></a>
-    <a class="link" href="https://www.patreon.com/Janxirus" target="_blank" rel="noopener" style="--c:#F96854"><span class="px"></span><span class="txt"><b>Patreon</b><small>8 exclusive Shardlight theme packs</small></span><span class="go">↗</span></a>
-    <a class="link" href="https://janxirus.github.io" style="--c:#9b6bff"><span class="px"></span><span class="txt"><b>Website</b><small>Portfolio, theme lab and price estimator</small></span><span class="go">→</span></a>
-    <a class="link" href="https://github.com/Janxirus" target="_blank" rel="noopener" style="--c:#c9c9d6"><span class="px"></span><span class="txt"><b>GitHub</b><small>Shardlight Client launcher and source</small></span><span class="go">↗</span></a>
-    <div class="link soon" style="--c:#1bd96a"><span class="px"></span><span class="txt"><b>Modrinth</b><small>4 mods + 7 free theme packs</small></span><span class="go">Soon</span></div>
-  </nav>
+  <section aria-labelledby="h-h">
+    <h2 id="h-h">Hire me</h2><p class="sp">Minecraft GUIs, Fabric mods and Roblox scripts</p>
+    <a class="link main" href="https://www.fiverr.com/janxirus" target="_blank" rel="noopener" style="--c:#1dbf73"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="17.6" text-anchor="middle" font-family="Outfit,Arial,sans-serif" font-weight="800" font-size="17" fill="currentColor">fi</text></svg></span><span class="txt"><b>Hire me on Fiverr</b><small>Packages from $20 · 2–10 day delivery</small></span><span class="go">↗</span></a>
+    <div class="link email" style="--c:#8fb4ff"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><span class="txt"><b>Email</b><small id="mail">janxirus.dev@gmail.com</small></span><button type="button" id="copy">Copy</button></div>
+    <a class="link" href="https://janxirus.github.io/#contact" style="--c:#9b6bff"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="txt"><b>Project brief</b><small>Describe your idea, get a price estimate</small></span><span class="go">→</span></a>
+  </section>
+  <section aria-labelledby="h-c">
+    <h2 id="h-c">Community</h2>
+    <a class="link" href="https://discord.gg/FJQhr2YEAe" target="_blank" rel="noopener" style="--c:#5865F2"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></span><span class="txt"><b>Janxirus Studio Discord</b><small>Sneak peeks, theme votes, help · ask about commissions too</small></span><span class="go">↗</span></a>
+  </section>
+  <section aria-labelledby="h-m">
+    <h2 id="h-m">My projects</h2>
+    <a class="link" href="https://janxirus.github.io" style="--c:#9b6bff"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.6 5.6 3.6 9s-1 6.4-3.6 9M12 3c-2.6 2.6-3.6 5.6-3.6 9s1 6.4 3.6 9"/></svg></span><span class="txt"><b>Website</b><small>Portfolio, theme lab and my apps</small></span><span class="go">→</span></a>
+    <a class="link" href="https://www.patreon.com/Janxirus" target="_blank" rel="noopener" style="--c:#F96854"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z"/></svg></span><span class="txt"><b>Patreon</b><small>8 exclusive Shardlight theme packs</small></span><span class="go">↗</span></a>
+    <a class="link" href="https://github.com/Janxirus" target="_blank" rel="noopener" style="--c:#c9c9d6"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span><span class="txt"><b>GitHub</b><small>Shardlight Client launcher and source</small></span><span class="go">↗</span></a>
+    <div class="link soon" style="--c:#1bd96a"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0 .5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z"/></svg></span><span class="txt"><b>Modrinth</b><small>4 mods + 7 free theme packs</small></span><span class="go">Soon</span></div>
+  </section>
 
-  <div class="mail"><span>Email</span><code id="mail">janxirus.dev@gmail.com</code><button type="button" id="copy">Copy</button></div>
 
   <footer>© 2026 Janxirus · Karlskrona, Sweden</footer>
 </main>
