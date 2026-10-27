@@ -75,6 +75,9 @@ nav ul a:hover{color:var(--fg)}nav ul a:hover::after{transform:scaleX(1)}
 .btn.ghost:hover{border-color:var(--purple)}
 .stage{position:relative;aspect-ratio:1;max-width:420px;width:100%;justify-self:center}
 .stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.stage .orb3d{image-rendering:pixelated;image-rendering:crisp-edges;inset:-22%;width:144%;height:144%}
+.hero{overflow-x:clip}
+#orbFront{z-index:2;pointer-events:none}
 .stage .cube{position:absolute;left:50%;top:50%;width:62%;transform:translate(-50%,-50%);animation:float 4s ease-in-out infinite;filter:drop-shadow(0 18px 30px rgba(110,60,210,.45))}
 @keyframes float{50%{transform:translate(-50%,calc(-50% - 14px))}}
 .orbit{position:absolute;font-family:var(--mono);font-size:12px;padding:5px 10px;border:1px solid var(--line2);background:rgba(13,12,24,.85);border-radius:3px;white-space:nowrap;animation:bob 5s ease-in-out infinite}
@@ -704,8 +707,9 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
       <div class="cta intro"><a data-i18n="t7" class="btn" href="#contact">Start a project</a><a data-i18n="t8" class="btn ghost" href="#shardlight">See my work</a></div>
     </div>
     <div class="stage" aria-hidden="true">
-      <canvas id="sparks"></canvas>
+      <canvas id="orbBack" class="orb3d"></canvas>
       <img class="cube px" src="cube.png" alt="">
+      <canvas id="orbFront" class="orb3d"></canvas>
     </div>
   </div>
 </header>
@@ -1074,16 +1078,58 @@ if(!reduce&&fine){
   });
 }
 
-/* hero sparks: pixel particles rising around the cube */
-const sc=document.getElementById('sparks'),sx=sc.getContext('2d');let P=[];
-function sizeS(){const r=sc.getBoundingClientRect();sc.width=r.width;sc.height=r.height}
-sizeS();addEventListener('resize',sizeS);
-const cols=['#4f8cff','#9b6bff','#c4a6ff','#8fb4ff'];
-function spawn(){const w=sc.width,h=sc.height;P.push({x:w*.2+Math.random()*w*.6,y:h*.85,vy:-(.3+Math.random()*.7),vx:(Math.random()-.5)*.3,s:3+Math.floor(Math.random()*3)*2,life:1,c:cols[Math.random()*4|0]})}
-let heroVis=true,sRun=false;new IntersectionObserver(es=>{heroVis=es[0].isIntersecting;if(heroVis&&!sRun&&!reduce){sRun=true;requestAnimationFrame(stepS)}}).observe(sc);
-function stepS(){if(!heroVis){sRun=false;return}sRun=true;sx.clearRect(0,0,sc.width,sc.height);if(Math.random()<.35)spawn();
-  P=P.filter(p=>p.life>0);for(const p of P){p.x+=p.vx;p.y+=p.vy;p.life-=.006;sx.globalAlpha=Math.max(0,p.life);sx.fillStyle=p.c;sx.fillRect(Math.round(p.x/2)*2,Math.round(p.y/2)*2,p.s,p.s)}
-  sx.globalAlpha=1;requestAnimationFrame(stepS)}
+/* hero: pixel-art 3D shapes orbiting the cube (two canvases: behind and in front of the cube) */
+(function(){
+const back=document.getElementById('orbBack'),front=document.getElementById('orbFront');if(!back||!front)return;
+const PX=4,T=24;let W=0,H=0,cb,cf,ib,iF,IDb,IDf;
+const TH={ember:'#ff7a2f',blood:'#e0283a',soul:'#3ec9e6',green:'#45c25a',purple:'#a463ff',pink:'#ff8fb8',arcane:'#6f8cff',celestial:'#e8c76a',cyber:'#ff4fd8',frost:'#9fe3ff',steam:'#f0a23a',void:'#b57cff',lilac:'#c4a6ff'};
+const hex=h=>{const n=parseInt(h.slice(1),16);return[n>>16&255,n>>8&255,n&255]};
+const mixc=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t].map(Math.round);
+const ramp=c=>[mixc(c,[30,16,64],.62),mixc(c,[44,26,96],.3),c,mixc(c,[255,246,222],.42),mixc(c,[8,6,18],.72)];
+const R={};for(const k in TH)R[k]=ramp(hex(TH[k]));
+function cube(){const v=[];for(const x of[-1,1])for(const y of[-1,1])for(const z of[-1,1])v.push([x,y,z]);return{v,f:[[0,1,3,2],[4,6,7,5],[0,4,5,1],[2,3,7,6],[0,2,6,4],[1,5,7,3]]}}
+function cyl(n,h){const v=[],f=[];for(let i=0;i<n;i++){const a=i/n*Math.PI*2;v.push([Math.cos(a),-h,Math.sin(a)])}for(let i=0;i<n;i++){const a=i/n*Math.PI*2;v.push([Math.cos(a),h,Math.sin(a)])}
+ for(let i=0;i<n;i++){const j=(i+1)%n;f.push([i,j,n+j,n+i])}f.push([...Array(n).keys()].reverse());f.push([...Array(n).keys()].map(i=>n+i));return{v,f}}
+const pyr={v:[[-1,1,-1],[1,1,-1],[1,1,1],[-1,1,1],[0,-1.1,0]],f:[[3,2,1,0],[0,1,4],[1,2,4],[2,3,4],[3,0,4]]};
+const gem={v:[[1,0,0],[-1,0,0],[0,-1.25,0],[0,1.25,0],[0,0,1],[0,0,-1]],f:[[2,4,0],[2,0,5],[2,5,1],[2,1,4],[3,0,4],[3,5,0],[3,1,5],[3,4,1]]};
+function star(){const b=[];for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?.45:1;b.push([Math.cos(a)*r,Math.sin(a)*r])}const v=[[0,0,-.28],[0,0,.28]];b.forEach(p=>v.push([p[0],p[1],-.28]));b.forEach(p=>v.push([p[0],p[1],.28]));const f=[];
+ for(let i=0;i<10;i++){const j=(i+1)%10;f.push([0,2+j,2+i]);f.push([1,12+i,12+j]);f.push([2+i,2+j,12+j,12+i])}return{v,f}}
+function torus(n,m,Rr,r){const v=[],f=[];for(let i=0;i<n;i++){const a=i/n*Math.PI*2;for(let j=0;j<m;j++){const b=j/m*Math.PI*2;v.push([(Rr+r*Math.cos(b))*Math.cos(a),r*Math.sin(b),(Rr+r*Math.cos(b))*Math.sin(a)])}}
+ for(let i=0;i<n;i++)for(let j=0;j<m;j++){const i2=(i+1)%n,j2=(j+1)%m;f.push([i*m+j,i2*m+j,i2*m+j2,i*m+j2])}return{v,f}}
+function sphere(n,m){const v=[[0,-1,0]],f=[];for(let j=1;j<m;j++){const b=j/m*Math.PI;for(let i=0;i<n;i++){const a=i/n*Math.PI*2;v.push([Math.sin(b)*Math.cos(a),-Math.cos(b),Math.sin(b)*Math.sin(a)])}}v.push([0,1,0]);
+ const L=v.length-1;for(let i=0;i<n;i++){const i2=(i+1)%n;f.push([0,1+i2,1+i]);f.push([L,1+(m-2)*n+i,1+(m-2)*n+i2]);for(let j=0;j<m-2;j++)f.push([1+j*n+i,1+j*n+i2,1+(j+1)*n+i2,1+(j+1)*n+i])}return{v,f}}
+const M={cube:cube(),cyl:cyl(10,1.1),coin:cyl(12,.32),pyr,gem,star:star(),ring:torus(12,5,.8,.32),globe:sphere(9,6)};
+const inner=[['cube','ember',[1,2]],['cyl','soul',[0,1]],['ring','celestial',[3,0]],['pyr','green',[0,1]]];
+const outer=[['globe','frost',[0,1]],['coin','steam',[0,2]],['cube','purple',[1,2]],['gem','arcane',[0,2]],['star','pink',[1,2]]];
+const TILT=-17*Math.PI/180,TZ=-7*Math.PI/180,LIGHT=(()=>{const l=[-.55,-.75,.6],n=Math.hypot(...l);return l.map(x=>x/n)})();
+const rX=(p,a)=>{const c=Math.cos(a),s=Math.sin(a);return[p[0],p[1]*c-p[2]*s,p[1]*s+p[2]*c]},rY=(p,a)=>{const c=Math.cos(a),s=Math.sin(a);return[p[0]*c+p[2]*s,p[1],-p[0]*s+p[2]*c]},rZ=(p,a)=>{const c=Math.cos(a),s=Math.sin(a);return[p[0]*c-p[1]*s,p[0]*s+p[1]*c,p[2]]};
+function size(){const r=back.getBoundingClientRect();W=Math.max(40,Math.round(r.width/PX));H=Math.max(40,Math.round(r.height/PX));
+ for(const c of[back,front]){c.width=W;c.height=H}cb=back.getContext('2d');cf=front.getContext('2d');ib=cb.createImageData(W,H);iF=cf.createImageData(W,H);IDb=new Int16Array(W*H);IDf=new Int16Array(W*H)}
+function frame(now){
+ const t=((now/1000)%T+T)%T,CX=W/2,CY=H/2,F=W*1.8,SZ=W*.04,R1=W*.31,R2=W*.41;
+ const proj=p=>{const s=F/(F-p[2]);return[CX+p[0]*s,CY+p[1]*s]};
+ const faces=[],OZ=[],RP=[];let oid=0;
+ const add=(items,Rr,dir,tz)=>items.forEach((it,k)=>{const th=dir*t/T*Math.PI*2+k/items.length*Math.PI*2;const pos=rZ([Rr*Math.sin(th),0,Rr*Math.cos(th)],tz);
+  const m=M[it[0]],ang=t/T*Math.PI*2,sc=(it[0]==='globe'||it[0]==='ring'?1.15:1)*SZ,id=oid++;OZ[id]=rX(pos,TILT)[2];RP[id]=R[it[1]];
+  const vw=m.v.map(p=>{let q=[p[0]*sc,p[1]*sc,p[2]*sc];if(it[0]==='coin')q=rX(q,Math.PI/2);q=rX(q,it[2][0]*ang*2);q=rY(q,it[2][1]*ang*2);return rX([q[0]+pos[0],q[1]+pos[1],q[2]+pos[2]],TILT)});
+  m.f.forEach(fc=>{const P=fc.map(i=>vw[i]),a=P[0],b=P[1],c=P[2],u=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],v=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const nl=Math.hypot(...n)||1;n=n.map(x=>x/nl);
+   const cen=P.reduce((s,p)=>[s[0]+p[0]/P.length,s[1]+p[1]/P.length,s[2]+p[2]/P.length],[0,0,0]);if(n[0]*-cen[0]+n[1]*-cen[1]+n[2]*(F-cen[2])<=0)return;
+   const d=n[0]*LIGHT[0]+n[1]*LIGHT[1]+n[2]*LIGHT[2];faces.push({z:cen[2],oz:OZ[id],id,P:P.map(proj),c:RP[id][d>.62?3:d>.18?2:d>-.25?1:0]})})});
+ add(inner,R1,1,0);add(outer,R2,-1,TZ);faces.sort((a,b)=>a.oz-b.oz||a.z-b.z);
+ for(const [img,ID,isFront] of [[ib,IDb,false],[iF,IDf,true]]){const D=img.data;D.fill(0);ID.fill(-1);
+  const put=(x,y,c,a,id)=>{if(x<0||y<0||x>=W||y>=H)return;const i=(y*W+x)*4;if(id!==undefined)ID[y*W+x]=id;D[i]=c[0];D[i+1]=c[1];D[i+2]=c[2];D[i+3]=Math.max(D[i+3],a*255|0)};
+  // orbit tracks (dotted)
+  for(const [Rr,tz] of [[R1,0],[R2,TZ]])for(let k=0;k<160;k+=4){const a=k/160*Math.PI*2,p=rX(rZ([Rr*Math.sin(a),0,Rr*Math.cos(a)],tz),TILT);if((p[2]>=0)!==isFront)continue;const q=proj(p);put(Math.round(q[0]),Math.round(q[1]),R.lilac[2],.3)}
+  for(const f of faces){if((f.oz>=0)!==isFront)continue;const P=f.P;let x0=W,x1=0,y0=H,y1=0;P.forEach(p=>{x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])});
+   x0=Math.max(0,Math.floor(x0));x1=Math.min(W-1,Math.ceil(x1));y0=Math.max(0,Math.floor(y0));y1=Math.min(H-1,Math.ceil(y1));let ar=0;for(let i=0;i<P.length;i++){const a=P[i],b=P[(i+1)%P.length];ar+=a[0]*b[1]-b[0]*a[1]}const sg=ar>0?1:-1;
+   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const px=x+.5,py=y+.5;let ok=true;for(let i=0;i<P.length&&ok;i++){const a=P[i],b=P[(i+1)%P.length];if(sg*((b[0]-a[0])*(py-a[1])-(b[1]-a[1])*(px-a[0]))<0)ok=false}if(ok)put(x,y,f.c,1,f.id)}}
+  const mark=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++){const id=ID[y*W+x];if(id<0)continue;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy,out=X<0||Y<0||X>=W||Y>=H,nb=out?-1:ID[Y*W+X];if(nb===id)continue;if(nb===-1||OZ[nb]<OZ[id]){mark.push(x,y,id);break}}}
+  for(let k=0;k<mark.length;k+=3)put(mark[k],mark[k+1],RP[mark[k+2]][4],1)}
+ cb.putImageData(ib,0,0);cf.putImageData(iF,0,0)}
+size();addEventListener('resize',()=>{size();frame(performance.now())});
+let vis=true,run=false;const loop=n=>{if(!vis){run=false;return}run=true;frame(n);requestAnimationFrame(loop)};
+if(reduce){frame(0)}else{new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!run)requestAnimationFrame(loop)}).observe(back)}
+})();
 
 
 /* background: voxel cubes + theme particles */
