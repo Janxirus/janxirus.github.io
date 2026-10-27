@@ -1128,6 +1128,7 @@ function frame(now){
  cb.putImageData(ib,0,0);cf.putImageData(iF,0,0)}
 size();addEventListener('resize',()=>{size();frame(performance.now())});
 let vis=true,run=false;const loop=n=>{if(!vis){run=false;return}run=true;frame(n);requestAnimationFrame(loop)};
+window.__px3d={M,R,rX,rY,LIGHT};
 if(reduce){frame(0)}else{new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!run)requestAnimationFrame(loop)}).observe(back)}
 })();
 
@@ -1152,7 +1153,25 @@ function sizeB(){BW=bg.width=innerWidth;BH=bg.height=innerHeight;
   bgCache=document.createElement('canvas');bgCache.width=BW;bgCache.height=BH;{const cx=bgCache.getContext('2d');let g=cx.createRadialGradient(BW*.8,0,0,BW*.8,0,BW*.7);g.addColorStop(0,'rgba(110,60,210,.16)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,BW,BH);g=cx.createRadialGradient(0,BH,0,0,BH,BW*.6);g.addColorStop(0,'rgba(79,140,255,.10)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,BW,BH);}
   stars=Array.from({length:Math.round(BW*BH/22000)},()=>({x:Math.random()*BW,y:Math.random()*BH,t:Math.random()*6,z:Math.random()}));
   cubes=Array.from({length:Math.max(7,Math.round(BW/170))},()=>newCube(true));}
-function newCube(any){const z=.25+Math.random()*.75;return{x:Math.random()*BW,y:any?Math.random()*BH:BH+40,z,s:Math.round(3+z*5),vy:.08+z*.22,ph:Math.random()*6,c:CUBEC[Math.random()*3|0]}}
+const BGK=['cube','cube','gem','coin','star','ring','globe','pyr','cyl'],BGC=['purple','lilac','void','arcane','ember','soul','pink','celestial','green','frost','cyber','steam'];
+function newCube(any){const z=.25+Math.random()*.75;return{x:Math.random()*BW,y:any?Math.random()*BH:BH+40,z,s:Math.round(3+z*5),vy:.08+z*.22,ph:Math.random()*6,c:CUBEC[Math.random()*3|0],
+  kind:BGK[Math.random()*BGK.length|0],col:BGC[Math.random()*BGC.length|0],ax:Math.random()*6,ay:Math.random()*6,wx:(Math.random()-.5)*.02,wy:.006+Math.random()*.016,N:18,cv:null}}
+/* pixel-art 3D sprite: same meshes, tone ramp and outline as the hero */
+function drawShape(c,a){const P=window.__px3d;if(!P){drawCube(c.sx,c.sy,c.s*.5,c.c,a);return}
+  const N=c.N;if(!c.cv){c.cv=document.createElement('canvas');c.cv.width=c.cv.height=N;c.cx=c.cv.getContext('2d');c.img=c.cx.createImageData(N,N);c.id=new Uint8Array(N*N)}
+  if(!reduce){c.ax+=c.wx;c.ay+=c.wy}
+  const D=c.img.data,ID=c.id;D.fill(0);ID.fill(0);const m=P.M[c.kind],rp=P.R[c.col],sc=N*(c.kind==='globe'||c.kind==='ring'?.36:.3),h=N/2;
+  const vw=m.v.map(v=>{let q=[v[0]*sc,v[1]*sc,v[2]*sc];if(c.kind==='coin')q=P.rX(q,Math.PI/2);q=P.rX(q,c.ax);q=P.rY(q,c.ay);return q});
+  const fs=[];m.f.forEach(fc=>{const Q=fc.map(i=>vw[i]),A=Q[0],B=Q[1],C=Q[2],u=[B[0]-A[0],B[1]-A[1],B[2]-A[2]],v=[C[0]-A[0],C[1]-A[1],C[2]-A[2]];
+    let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const nl=Math.hypot(...n)||1;n=n.map(x=>x/nl);if(n[2]<=0)return;
+    const d=n[0]*P.LIGHT[0]+n[1]*P.LIGHT[1]+n[2]*P.LIGHT[2];fs.push({z:Q.reduce((s,q)=>s+q[2],0)/Q.length,Q:Q.map(q=>[h+q[0],h+q[1]]),c:rp[d>.62?3:d>.18?2:d>-.25?1:0]})});
+  fs.sort((a,b)=>a.z-b.z);
+  for(const f of fs){const Q=f.Q;let ar=0;for(let i=0;i<Q.length;i++){const A=Q[i],B=Q[(i+1)%Q.length];ar+=A[0]*B[1]-B[0]*A[1]}const sg=ar>0?1:-1;
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){let ok=true;for(let i=0;i<Q.length&&ok;i++){const A=Q[i],B=Q[(i+1)%Q.length];if(sg*((B[0]-A[0])*(y+.5-A[1])-(B[1]-A[1])*(x+.5-A[0]))<0)ok=false}
+      if(ok){const k=(y*N+x)*4;D[k]=f.c[0];D[k+1]=f.c[1];D[k+2]=f.c[2];D[k+3]=255;ID[y*N+x]=1}}}
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){if(!ID[y*N+x])continue;if(x===0||y===0||x===N-1||y===N-1||!ID[y*N+x-1]||!ID[y*N+x+1]||!ID[(y-1)*N+x]||!ID[(y+1)*N+x]){const k=(y*N+x)*4,o=rp[4];D[k]=o[0];D[k+1]=o[1];D[k+2]=o[2]}}
+  c.cx.putImageData(c.img,0,0);const u=Math.max(2,Math.round(1+c.z*2.2)),w=N*u;
+  bx.globalAlpha=a;bx.imageSmoothingEnabled=false;bx.drawImage(c.cv,Math.round(c.sx-w/2),Math.round(c.sy-w/2),w,w)}
 function drawCube(x,y,u,c,a){ /* pixel iso cube, u = pixel unit */
   bx.globalAlpha=a;x=Math.round(x);y=Math.round(y);
   const w=4*u,h=2*u;
@@ -1180,7 +1199,7 @@ function stepB(t){
     if(mouse.x>-1){const dx=c.sx-mouse.x,dy=c.sy-mouse.y,d2=dx*dx+dy*dy;if(d2<140*140&&d2>1){const d=Math.sqrt(d2),f=(140-d)/140*3;c.ox+=dx/d*f;c.oy+=dy/d*f}}
     c.sx=c.x+Math.sin(c.ph)*6*c.z+c.ox;c.sy=py+c.oy;
     if(mouse.x>-1){const hx=c.sx-mouse.x,hy=c.sy-mouse.y;c.hl=hx*hx+hy*hy<1600}
-    drawCube(c.sx,c.sy,c.s*.5,c.c,c.hl?.95:(dayM?.6+c.z*.35:.28+c.z*.42));c.hl=false;
+    drawShape(c,c.hl?.95:(dayM?.62+c.z*.33:.32+c.z*.45));c.hl=false;
     if(c.y<-60-BH*2)cubes[i]=newCube(false)}
   /* theme particles */
   if(parts.length<40&&Math.random()<.32)spawnPart();
