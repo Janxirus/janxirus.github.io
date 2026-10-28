@@ -1279,11 +1279,15 @@ if(reduce){frame(0)}else{new IntersectionObserver(es=>{vis=es[0].isIntersecting;
 
 /* about: the same 3D code-block cube, slowly turning so every side shows; drag to spin it, click to tap it */
 (function(){const box=document.querySelector('.av3d'),cv=document.getElementById('aboutCube'),P=window.__px3d;if(!box||!cv||!P)return;
- const cx=cv.getContext('2d');let W=0,img,ID,yaw=Math.PI/4,uo=0,kv=0,hov=0,hit=-9,last=0,vis=false,run=false,drag=null;
+ const cx=cv.getContext('2d');let W=0,img,ID,yaw=Math.PI/4,uo=0,kv=0,wh=false,hov=0,hit=-9,last=0,vis=false,run=false,drag=null;
  function size(){const r=box.getBoundingClientRect();W=Math.max(64,Math.round(r.width/1.5));cv.width=cv.height=W;img=cx.createImageData(W,W);ID=new Uint8Array(W*W)}
  function draw(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;P.setLT(now/1000);
   /* keeps turning clockwise (seen from above), one full turn every 12 s */
-  if(!drag){const tg=Math.round(uo/(Math.PI/2))*Math.PI/2;kv+=(-(uo-tg)*30-kv*4.5)*dt;uo+=kv*dt}yaw=Math.PI/4-now/1000*Math.PI*2/12+uo;hov+=((box.matches(':hover')||drag?1:0)-hov)*Math.min(1,dt*12);
+  /* hold = speed up clockwise (up to ~3 turns a second); let go = ease back down to the normal turn */
+  if(drag&&!drag.moved){kv=Math.max(-19,kv-(3+Math.abs(kv)*1.1)*dt)}else if(!drag){kv*=Math.pow(.42,dt);if(Math.abs(kv)<.02)kv=0}
+  if(!drag||!drag.moved)uo+=kv*dt;
+  if(window.sfx3d){const sp=Math.abs(kv);if(sp>.6){if(!wh){wh=true;window.sfx3d('spinstart','logo')}window.sfx3d('drag','logo',sp*130)}else if(wh){wh=false;window.sfx3d('stopw','logo')}}
+  yaw=Math.PI/4-now/1000*Math.PI*2/12+uo;hov+=((box.matches(':hover')||drag?1:0)-hov)*Math.min(1,dt*12);
   const e=(now-hit)/1000,bn=e>=0&&e<1?-.1*Math.exp(-e*6)*Math.cos(e*24):0,ls=W*.255*(1+.04*hov+bn),F=W*2.2,c0=W/2,bob=Math.sin(now/1000*Math.PI/2)*W*.012,pit=-.44;
   const D=img.data;D.fill(0);ID.fill(0);const vw=P.M.cube.v.map(p=>{const q=P.rX(P.rY([p[0]*ls,p[1]*ls,p[2]*ls],yaw),pit);return[q[0],q[1]+bob,q[2]]}),pr=q=>{const k=F/(F-q[2]);return[c0+q[0]*k,c0+q[1]*k]};
   for(const L of P.LF){const Q=L.fc.map(i=>vw[i]),a=Q[0],b=Q[1],c=Q[2],u=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],v=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const nl=Math.hypot(...n)||1;n=n.map(x=>x/nl);
@@ -1299,10 +1303,10 @@ if(reduce){frame(0)}else{new IntersectionObserver(es=>{vis=es[0].isIntersecting;
  size();box.classList.add('live');addEventListener('resize',()=>{size();draw(performance.now())});
  const SX=(a,b)=>{if(window.sfx3d)window.sfx3d(a,b)};
  box.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')SX('hover','logo')});
- box.addEventListener('pointerdown',e=>{e.preventDefault();drag={x:e.clientX,y0:uo,lx:e.clientX,lt:performance.now(),v:0,moved:false,rk:Math.floor(uo/(Math.PI/12))};box.classList.add('grab');try{box.setPointerCapture(e.pointerId)}catch(_){}});
- box.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(Math.abs(dx)>4)drag.moved=true;if(!drag.moved)return;const n=performance.now();drag.v=drag.v*.5+.5*(e.clientX-drag.lx)/Math.max(1,n-drag.lt)*1000;drag.lx=e.clientX;drag.lt=n;
-  uo=drag.y0+dx*.02;const rk=Math.floor(uo/(Math.PI/12));if(rk!==drag.rk){drag.rk=rk;SX('ratchet','logo')}if(reduce)draw(n)});
- const end=()=>{if(!drag)return;box.classList.remove('grab');if(drag.moved){kv=Math.max(-14,Math.min(14,drag.v*.02));SX('home','logo')}else{hit=performance.now();kv-=12;SX('tap','logo')}drag=null;if(reduce)draw(performance.now())};
+ box.addEventListener('pointerdown',e=>{e.preventDefault();drag={t0:performance.now(),x:e.clientX,y0:uo,lx:e.clientX,lt:performance.now(),v:0,moved:false,rk:Math.floor(uo/(Math.PI/12))};box.classList.add('grab');try{box.setPointerCapture(e.pointerId)}catch(_){}});
+ box.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(Math.abs(dx)>4&&!drag.moved){drag.moved=true;drag.y0=null;kv=0}if(!drag.moved)return;const n=performance.now();drag.v=drag.v*.5+.5*(e.clientX-drag.lx)/Math.max(1,n-drag.lt)*1000;drag.lx=e.clientX;drag.lt=n;
+  if(drag.y0===null)drag.y0=uo-dx*.02;uo=drag.y0+dx*.02;const rk=Math.floor(uo/(Math.PI/12));if(rk!==drag.rk){drag.rk=rk;SX('ratchet','logo')}if(reduce)draw(n)});
+ const end=()=>{if(!drag)return;box.classList.remove('grab');const held=performance.now()-drag.t0;if(drag.moved){kv=Math.max(-14,Math.min(14,drag.v*.02));SX('home','logo')}else if(held<220){hit=performance.now();kv-=6;SX('tap','logo')}drag=null;if(reduce)draw(performance.now())};
  box.addEventListener('pointerup',end);box.addEventListener('pointercancel',end);box.addEventListener('dblclick',e=>e.preventDefault());
  if(reduce)draw(0);else new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!run)requestAnimationFrame(loop)}).observe(box);
 })();
@@ -1492,6 +1496,8 @@ window.sfx3d=(ev,k,p)=>{const a=ac();if(!a)return;
  if(ev==='drag'){if(!DW)return;const t=a.currentTime,sp=Math.min(1,p/2500);DW.g.gain.setTargetAtTime(.0001+sp*.09,t,.05);DW.f.frequency.setTargetAtTime(400+sp*2600,t,.05);return}
  if(ev==='release'){if(DW){const t=a.currentTime;DW.g.gain.setTargetAtTime(.0001,t,.06);const s=DW.s;setTimeout(()=>{try{s.stop()}catch(e){}},400);DW=null}
   hiss({d:.45,vol:.07,f:500,f2:4200,q:1.4,a:.05,rev:.35});voice({f:(NOTE[k]||523)*.5,slide:(NOTE[k]||523)*2,d:.4,vol:.035,type:'triangle',lp:2000,a:.03,rev:.3});return}
+ if(ev==='spinstart'){try{if(DW)DW.s.stop();const s=a.createBufferSource(),f=a.createBiquadFilter(),g=a.createGain();s.buffer=NB;s.loop=true;f.type='bandpass';f.frequency.value=500;f.Q.value=2.2;g.gain.value=.0001;s.connect(f).connect(g);out(g,.2);s.start();DW={s,f,g}}catch(e){}return}
+ if(ev==='stopw'){if(DW){const t=a.currentTime;DW.g.gain.setTargetAtTime(.0001,t,.12);const s=DW.s;setTimeout(()=>{try{s.stop()}catch(e){}},800);DW=null}return}
  if(ev==='ratchet'){voice({f:1500+Math.random()*200,d:.025,vol:.025,type:'square',lp:3000,rev:.05});return}};
 const snd=document.getElementById('snd');
 function updSnd(){snd.setAttribute('aria-pressed',soundOn);const c=(window.LC)?LC():{soundOn:'Sound on',soundOff:'Sound off'};snd.querySelector('span').textContent=soundOn?c.soundOn:c.soundOff;snd.firstChild.textContent=soundOn?'♪ ':'♪ ';snd.title=snd.querySelector('span').textContent}
