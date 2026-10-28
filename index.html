@@ -1282,9 +1282,8 @@ if(reduce){frame(0)}else{new IntersectionObserver(es=>{vis=es[0].isIntersecting;
  const cx=cv.getContext('2d');let W=0,img,ID,yaw=Math.PI/4,uo=0,kv=0,hov=0,hit=-9,last=0,vis=false,run=false,drag=null;
  function size(){const r=box.getBoundingClientRect();W=Math.max(64,Math.round(r.width/1.5));cv.width=cv.height=W;img=cx.createImageData(W,W);ID=new Uint8Array(W*W)}
  function draw(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;P.setLT(now/1000);
-  /* turns one side at a time, clockwise seen from above: hold 2.4 s, then a smooth quarter turn */
-  const ph=(now/1000)%3.3,st=Math.floor(now/1000/3.3),ez=ph<2.4?0:(q=>q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2)((ph-2.4)/.9);
-  if(!drag){const tg=Math.round(uo/(Math.PI/2))*Math.PI/2;kv+=(-(uo-tg)*30-kv*4.5)*dt;uo+=kv*dt}yaw=Math.PI/4-(st+ez)*Math.PI/2+uo;hov+=((box.matches(':hover')||drag?1:0)-hov)*Math.min(1,dt*12);
+  /* keeps turning clockwise (seen from above), one full turn every 12 s */
+  if(!drag){const tg=Math.round(uo/(Math.PI/2))*Math.PI/2;kv+=(-(uo-tg)*30-kv*4.5)*dt;uo+=kv*dt}yaw=Math.PI/4-now/1000*Math.PI*2/12+uo;hov+=((box.matches(':hover')||drag?1:0)-hov)*Math.min(1,dt*12);
   const e=(now-hit)/1000,bn=e>=0&&e<1?-.1*Math.exp(-e*6)*Math.cos(e*24):0,ls=W*.255*(1+.04*hov+bn),F=W*2.2,c0=W/2,bob=Math.sin(now/1000*Math.PI/2)*W*.012,pit=-.44;
   const D=img.data;D.fill(0);ID.fill(0);const vw=P.M.cube.v.map(p=>{const q=P.rX(P.rY([p[0]*ls,p[1]*ls,p[2]*ls],yaw),pit);return[q[0],q[1]+bob,q[2]]}),pr=q=>{const k=F/(F-q[2]);return[c0+q[0]*k,c0+q[1]*k]};
   for(const L of P.LF){const Q=L.fc.map(i=>vw[i]),a=Q[0],b=Q[1],c=Q[2],u=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],v=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const nl=Math.hypot(...n)||1;n=n.map(x=>x/nl);
