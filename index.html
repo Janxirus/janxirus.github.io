@@ -195,6 +195,9 @@ html[lang="ar"] .mo-note,html[lang="ar"] .mo-grid figcaption span{font-family:"N
 /* about */
 .about{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center}
 .avatar{width:180px;height:180px;border:2px solid var(--line2);border-radius:6px;background:var(--bg2);padding:10px}
+.av3d{position:relative;padding:0;overflow:hidden;flex:none;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;background:radial-gradient(closest-side,rgba(110,60,210,.28),transparent),var(--bg2)}
+.av3d img{width:100%;height:100%;padding:10px;display:block}.av3d canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;display:none}
+.av3d.live canvas{display:block}.av3d.live img{visibility:hidden}.av3d.live{cursor:grab}.av3d.live.grab{cursor:grabbing}
 .about p{margin:0 0 12px;color:var(--muted);max-width:60ch}
 .about p b{color:var(--fg)}
 .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
@@ -277,7 +280,7 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px;display:flex;ju
   .stage{max-width:300px}
   .chips{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));max-height:none}
   .steps{grid-template-columns:1fr 1fr;row-gap:28px}.steps::before{display:none}
-  .avatar{width:120px;height:120px}
+  .avatar{width:140px;height:140px}
   .pkgs{grid-template-columns:1fr}
 }
 @media (max-width:560px){
@@ -914,7 +917,7 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
 
 <section id="about">
   <div class="wrap about reveal">
-    <img class="avatar px" src="cube.png" alt="Janxirus pixel logo">
+    <div class="avatar av3d"><canvas id="aboutCube" aria-hidden="true"></canvas><img class="px" src="cube.png" alt="Janxirus pixel logo"></div>
     <div>
       <span data-i18n="t62" class="eyebrow">About me</span>
       <h2 data-i18n="t63" style="font-family:var(--display);font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:8px 0 14px">Hi, I'm Janxirus</h2>
@@ -1241,7 +1244,7 @@ function frame(now){
  cb.putImageData(ib,0,0);cf.putImageData(iF,0,0);if(TG.length>2)co.putImageData(io,0,0)}
 size();addEventListener('resize',()=>{size();frame(performance.now())});
 let vis=true,run=false;const loop=n=>{if(!vis){run=false;return}run=true;frame(n);if(window.__orbTick)window.__orbTick();requestAnimationFrame(loop)};
-window.__px3d={M,R,rX,rY,LIGHT,deco,tone};
+window.__px3d={M,R,rX,rY,LIGHT,deco,tone,LF,TX,TS,lcol,setLT:t=>{LT=t;buildTex(t)}};
 const ALL=[...inner,...outer],cubeEl=document.querySelector('.stage .cube');if(cubeEl)cubeEl.style.visibility='hidden';
 function pick(cx,cy){const r=back.getBoundingClientRect();if(cx<r.left||cy<r.top||cx>r.right||cy>r.bottom||!W)return -1;
  const x=Math.floor((cx-r.left)/r.width*W),y=Math.floor((cy-r.top)/r.height*H),k=y*W+x;
@@ -1274,6 +1277,36 @@ addEventListener('pointerup',endDrag);addEventListener('pointercancel',endDrag);
 if(reduce){frame(0)}else{new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!run)requestAnimationFrame(loop)}).observe(back)}
 })();
 
+/* about: the same 3D code-block cube, slowly turning so every side shows; drag to spin it, click to tap it */
+(function(){const box=document.querySelector('.av3d'),cv=document.getElementById('aboutCube'),P=window.__px3d;if(!box||!cv||!P)return;
+ const cx=cv.getContext('2d');let W=0,img,ID,yaw=Math.PI/4,uo=0,kv=0,hov=0,hit=-9,last=0,vis=false,run=false,drag=null;
+ function size(){const r=box.getBoundingClientRect();W=Math.max(64,Math.round(r.width/1.5));cv.width=cv.height=W;img=cx.createImageData(W,W);ID=new Uint8Array(W*W)}
+ function draw(now){const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;P.setLT(now/1000);
+  /* turns one side at a time, clockwise seen from above: hold 2.4 s, then a smooth quarter turn */
+  const ph=(now/1000)%3.3,st=Math.floor(now/1000/3.3),ez=ph<2.4?0:(q=>q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2)((ph-2.4)/.9);
+  if(!drag){const tg=Math.round(uo/(Math.PI/2))*Math.PI/2;kv+=(-(uo-tg)*30-kv*4.5)*dt;uo+=kv*dt}yaw=Math.PI/4-(st+ez)*Math.PI/2+uo;hov+=((box.matches(':hover')||drag?1:0)-hov)*Math.min(1,dt*12);
+  const e=(now-hit)/1000,bn=e>=0&&e<1?-.1*Math.exp(-e*6)*Math.cos(e*24):0,ls=W*.255*(1+.04*hov+bn),F=W*2.2,c0=W/2,bob=Math.sin(now/1000*Math.PI/2)*W*.012,pit=-.44;
+  const D=img.data;D.fill(0);ID.fill(0);const vw=P.M.cube.v.map(p=>{const q=P.rX(P.rY([p[0]*ls,p[1]*ls,p[2]*ls],yaw),pit);return[q[0],q[1]+bob,q[2]]}),pr=q=>{const k=F/(F-q[2]);return[c0+q[0]*k,c0+q[1]*k]};
+  for(const L of P.LF){const Q=L.fc.map(i=>vw[i]),a=Q[0],b=Q[1],c=Q[2],u=[b[0]-a[0],b[1]-a[1],b[2]-a[2]],v=[c[0]-a[0],c[1]-a[1],c[2]-a[2]];let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const nl=Math.hypot(...n)||1;n=n.map(x=>x/nl);
+   const cen=Q.reduce((s,p)=>[s[0]+p[0]/4,s[1]+p[1]/4,s[2]+p[2]/4],[0,0,0]);if(n[0]*-cen[0]+n[1]*-cen[1]+n[2]*(F-cen[2])<=0)continue;const d=n[0]*P.LIGHT[0]+n[1]*P.LIGHT[1]+n[2]*P.LIGHT[2],S=Q.map(pr),UV=L.uv,tx=P.TX[L.ty],hv=hov>.5;
+   for(const [i0,i1,i2] of [[0,1,2],[0,2,3]]){const A=S[i0],B=S[i1],C=S[i2],den=(B[1]-C[1])*(A[0]-C[0])+(C[0]-B[0])*(A[1]-C[1]);if(Math.abs(den)<1e-6)continue;
+    const x0=Math.max(0,Math.floor(Math.min(A[0],B[0],C[0]))),x1=Math.min(W-1,Math.ceil(Math.max(A[0],B[0],C[0]))),y0=Math.max(0,Math.floor(Math.min(A[1],B[1],C[1]))),y1=Math.min(W-1,Math.ceil(Math.max(A[1],B[1],C[1])));
+    for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const px=x+.5,py=y+.5,w0=((B[1]-C[1])*(px-C[0])+(C[0]-B[0])*(py-C[1]))/den,w1=((C[1]-A[1])*(px-C[0])+(A[0]-C[0])*(py-C[1]))/den,w2=1-w0-w1;if(w0<-1e-4||w1<-1e-4||w2<-1e-4)continue;
+     const uu=Math.min(P.TS-1,Math.max(0,Math.floor(w0*UV[i0][0]+w1*UV[i1][0]+w2*UV[i2][0]))),vv=Math.min(P.TS-1,Math.max(0,Math.floor(w0*UV[i0][1]+w1*UV[i1][1]+w2*UV[i2][1]))),col=P.lcol(L.ty,tx[vv*P.TS+uu],d,hv,uu,vv),k=(y*W+x)*4;
+     D[k]=col[0];D[k+1]=col[1];D[k+2]=col[2];D[k+3]=255;ID[y*W+x]=1}}}
+  for(let y=0;y<W;y++)for(let x=0;x<W;x++){if(!ID[y*W+x])continue;if(x===0||y===0||x===W-1||y===W-1||!ID[y*W+x-1]||!ID[y*W+x+1]||!ID[(y-1)*W+x]||!ID[(y+1)*W+x]){const k=(y*W+x)*4;D[k]=22;D[k+1]=12;D[k+2]=52}}
+  cx.putImageData(img,0,0)}
+ const loop=n=>{if(!vis){run=false;return}run=true;draw(n);requestAnimationFrame(loop)};
+ size();box.classList.add('live');addEventListener('resize',()=>{size();draw(performance.now())});
+ const SX=(a,b)=>{if(window.sfx3d)window.sfx3d(a,b)};
+ box.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')SX('hover','logo')});
+ box.addEventListener('pointerdown',e=>{e.preventDefault();drag={x:e.clientX,y0:uo,lx:e.clientX,lt:performance.now(),v:0,moved:false,rk:Math.floor(uo/(Math.PI/12))};box.classList.add('grab');try{box.setPointerCapture(e.pointerId)}catch(_){}});
+ box.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;if(Math.abs(dx)>4)drag.moved=true;if(!drag.moved)return;const n=performance.now();drag.v=drag.v*.5+.5*(e.clientX-drag.lx)/Math.max(1,n-drag.lt)*1000;drag.lx=e.clientX;drag.lt=n;
+  uo=drag.y0+dx*.02;const rk=Math.floor(uo/(Math.PI/12));if(rk!==drag.rk){drag.rk=rk;SX('ratchet','logo')}if(reduce)draw(n)});
+ const end=()=>{if(!drag)return;box.classList.remove('grab');if(drag.moved){kv=Math.max(-14,Math.min(14,drag.v*.02));SX('home','logo')}else{hit=performance.now();kv-=12;SX('tap','logo')}drag=null;if(reduce)draw(performance.now())};
+ box.addEventListener('pointerup',end);box.addEventListener('pointercancel',end);box.addEventListener('dblclick',e=>e.preventDefault());
+ if(reduce)draw(0);else new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!run)requestAnimationFrame(loop)}).observe(box);
+})();
 
 /* background: voxel cubes + theme particles */
 const bg=document.getElementById('bgfx'),bx=bg.getContext('2d');
@@ -1377,7 +1410,7 @@ function achieve(id,title,text){if(got.has(id))return;got.add(id);
 function updAch(){let n=0;try{n=JSON.parse(localStorage.getItem('jx-ach')||'[]').length}catch(e){n=got.size}const el=document.getElementById('ach');if(el)el.textContent=Math.max(n,got.size)+' / 5 secrets found'}
 let mined=0;
 document.addEventListener('pointerdown',e=>{
-  if(e.target.closest('a,button,input,select,textarea,label,summary,img,.chip,.viewer,.frame,.brief,nav'))return;
+  if(e.target.closest('a,button,input,select,textarea,label,summary,img,.chip,.viewer,.frame,.brief,nav,.av3d'))return;
   const x=e.clientX,y=e.clientY;if(window.__orbPick&&window.__orbPick(x,y)>=0)return;let hit=-1,best=40*40;
   cubes.forEach((c,i)=>{const dx=c.sx-x,dy=(c.sy+c.s)-y,d=dx*dx+dy*dy;if(d<best){best=d;hit=i}});
   if(hit>=0){const c=cubes[hit];burst(c.sx,c.sy,c.c,26);cubes[hit]=newCube(false);mined++;
