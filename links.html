@@ -10,95 +10,247 @@
 <meta property="og:image" content="https://janxirus.github.io/og.png">
 <meta property="og:url" content="https://janxirus.github.io/links">
 <meta name="theme-color" content="#07070c">
+<meta name="author" content="Janxirus">
+<meta name="copyright" content="© 2026 Janxirus. All rights reserved.">
 <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=Outfit:wght@400;500;600&display=swap">
+<script>
+/* ============================================================
+   SOCIAL ACCOUNTS: the one list to edit.
+   url:null  -> shown greyed out under "Coming soon"
+   url:"..." -> moves into the live icon row at the top
+   icon: a key from ICONS below (brand paths from simpleicons.org, CC0)
+   ============================================================ */
+const SOCIALS = [
+  {name:"Discord",    url:"https://discord.gg/FJQhr2YEAe",     icon:"discord",    color:"#5865F2"},
+  {name:"Fiverr",     url:"https://www.fiverr.com/janxirus",    icon:"fiverr",     color:"#1DBF73"},
+  {name:"Patreon",    url:"https://www.patreon.com/Janxirus",   icon:"patreon",    color:"#F96854"},
+  {name:"GitHub",     url:"https://github.com/Janxirus",        icon:"github",     color:"#24292f"},
+  {name:"Email",      copy:"janxirus.dev@gmail.com",            icon:"email",      color:"#4f8cff"},
+  {name:"Website",    url:"https://janxirus.github.io",         icon:"website",    color:"#6e3cd2"},
+  {name:"Instagram",  url:null, icon:"instagram",  color:"#FF0069"},
+  {name:"TikTok",     url:null, icon:"tiktok",     color:"#111111"},
+  {name:"X",          url:null, icon:"x",          color:"#111111"},
+  {name:"YouTube",    url:null, icon:"youtube",    color:"#FF0000"},
+  {name:"Reddit",     url:null, icon:"reddit",     color:"#FF4500"},
+  {name:"Modrinth",   url:null, icon:"modrinth",   color:"#00AF5C"},
+  {name:"CurseForge", url:null, icon:"curseforge", color:"#F16436"},
+  {name:"Twitch",     url:null, icon:"twitch",     color:"#9146FF"}
+];
+</script>
 <style>
 :root{
-  --bg:#07070c; --bg2:#0d0c18; --card:rgba(255,255,255,.035); --hair:rgba(255,255,255,.08); --hair2:rgba(255,255,255,.16);
-  --fg:#f4f4fb; --muted:#a3a2c0; --blue2:#8fb4ff; --purple:#9b6bff; --ok:#6fe0b0;
+  --void:#07070c; --night:#0d0c18; --panel:#1a1730; --line:#24223a; --line2:#34305a;
+  --ink:#f4f4fb; --muted:#a3a2c0; --blue:#4f8cff; --violet:#6e3cd2; --lilac:#aa7dff; --glint:#d7c3ff;
+  --accent:#9b6bff; --link:#8fb4ff; --ok:#6fe0b0;
   --display:"Pixelify Sans","Courier New",monospace; --body:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{min-height:100vh;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(155,107,255,.22),transparent 70%),var(--bg);color:var(--fg);font:16px/1.5 var(--body);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:max(40px,env(safe-area-inset-top,0px)) 40px}
-main{max-width:440px;margin:0 auto;display:grid;gap:26px}
-header{display:grid;justify-items:center;text-align:center;gap:10px}
-.logo{width:84px;height:84px;image-rendering:pixelated;border-radius:18px;border:1px solid var(--hair2);background:var(--bg2);padding:10px}
-h1{margin:4px 0 0;font:700 34px/1 var(--display);letter-spacing:.02em}
+body{min-height:100vh;color:var(--ink);font:16px/1.5 var(--body);overflow-x:hidden;
+  background:
+    radial-gradient(ellipse 70% 42% at 50% 0%,rgba(110,60,210,.30),transparent 72%),
+    var(--void);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:max(28px,env(safe-area-inset-top,0px)) 32px}
+/* single-pixel stars, kept away from the logo */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.55;
+  background-image:
+    radial-gradient(1px 1px at 8% 22%,#d7c3ff 50%,transparent 51%),radial-gradient(1px 1px at 91% 14%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 14% 68%,#8fb4ff 50%,transparent 51%),radial-gradient(1px 1px at 86% 58%,#d7c3ff 50%,transparent 51%),
+    radial-gradient(1px 1px at 5% 92%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 95% 86%,#8fb4ff 50%,transparent 51%),
+    radial-gradient(1px 1px at 22% 40%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 79% 34%,#fff 50%,transparent 51%)}
+main{max-width:440px;margin:0 auto;display:grid;gap:22px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* header */
+header{display:grid;justify-items:center;text-align:center;gap:8px}
+.cube{width:112px;height:112px;display:grid;place-items:center;position:relative}
+.cube canvas{width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+.cube img{width:84px;height:84px;image-rendering:pixelated}
+h1{margin:2px 0 0;font:700 34px/1 var(--display);letter-spacing:.02em}
 .tag{margin:0;color:var(--muted);font-size:15px;max-width:34ch}
-.status{display:inline-flex;align-items:center;gap:8px;font:500 13px var(--body);color:var(--ok);border:1px solid var(--hair2);border-radius:999px;padding:5px 12px}
-.status i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
-.socials{display:flex;gap:6px;margin-top:4px}
-.socials a{width:38px;height:38px;display:grid;place-items:center;color:var(--muted);border-radius:10px;transition:color .15s,background .15s}
-.socials a:hover{color:var(--fg);background:rgba(255,255,255,.06)}
-.socials svg{width:20px;height:20px}
-.strip{display:grid;grid-template-columns:repeat(15,1fr);gap:3px;width:100%}
+.status{display:inline-flex;align-items:center;gap:8px;font:500 13px var(--body);color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 35%,transparent);background:color-mix(in srgb,var(--ok) 8%,transparent);border-radius:999px;padding:4px 12px}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+/* app-icon row */
+.apps{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 8px;margin:0;padding:0;list-style:none}
+.app{display:grid;justify-items:center;gap:5px;width:52px;text-decoration:none;color:var(--muted);font:500 11px/1.2 var(--body);background:none;border:0;padding:0;cursor:pointer}
+.tile{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--c);color:#fff;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .22s var(--ease)}
+.tile svg{width:22px;height:22px}
+.app:hover .tile{transform:translateY(-3px)}
+.app:hover{color:var(--ink)}
+.app[aria-disabled]{cursor:default}
+.app[aria-disabled] .tile{background:var(--panel);color:#5d5a7e;box-shadow:inset 0 0 0 1px var(--line)}
+.app[aria-disabled]:hover .tile{transform:none}
+.app[aria-disabled]:hover{color:var(--muted)}
+.app[aria-disabled] b{font:600 9px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:#76739a;border:1px solid var(--line2);border-radius:999px;padding:2px 6px}
+.app span.n{max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* theme strip */
+.strip{display:grid;grid-template-columns:repeat(15,1fr);gap:2px;width:min(210px,70%);margin:0 auto}
 .strip span{aspect-ratio:1;border-radius:2px}
-section{display:grid;gap:10px}
-section h2{margin:6px 0 0;font:600 13px var(--body);text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
-.sp{margin:-6px 0 2px;font-size:13px;color:var(--muted)}
-.email button{font:500 13px var(--body);color:var(--fg);background:transparent;border:1px solid var(--hair2);border-radius:999px;padding:5px 12px;cursor:pointer}
-#mail{user-select:all;overflow-wrap:anywhere}
-.link{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--hair);border-radius:12px;background:var(--card);color:var(--fg);text-decoration:none;transition:transform .18s,border-color .18s}
-a.link:hover{transform:translateY(-2px);border-color:var(--hair2)}
-a.link:focus-visible,button:focus-visible{outline:2px solid var(--blue2);outline-offset:3px}
-.ic{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;color:var(--c);background:color-mix(in srgb,var(--c) 15%,transparent);border:1px solid color-mix(in srgb,var(--c) 30%,transparent)}
-.ic svg{width:21px;height:21px}
+
+/* links dropdown */
+.drop{border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--night) 80%,transparent);transition:border-color .2s}
+.drop.open{border-color:var(--line2)}
+.toggle{width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:none;border:0;color:var(--ink);font:600 16px var(--body);cursor:pointer;border-radius:14px;text-align:left}
+.toggle .ti{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--lilac);background:color-mix(in srgb,var(--violet) 22%,transparent);border:1px solid color-mix(in srgb,var(--violet) 40%,transparent)}
+.toggle .ti svg{width:18px;height:18px}
+.toggle small{display:block;color:var(--muted);font:400 13px var(--body)}
+.toggle .chev{margin-left:auto;color:var(--muted);transition:transform .35s var(--ease)}
+.toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.drop.open .panel{grid-template-rows:1fr}
+.panel>div{overflow:hidden;min-height:0}
+.inner{display:grid;gap:10px;padding:2px 12px 14px;opacity:0;transform:translateY(-6px);transition:opacity .3s,transform .4s var(--ease)}
+.drop.open .inner{opacity:1;transform:none;transition-delay:.06s}
+.grp{margin:8px 4px 0;font:600 12px var(--body);text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
+
+.link{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025);color:var(--ink);text-decoration:none;transition:transform .2s var(--ease),border-color .2s}
+a.link:hover{transform:translateY(-2px);border-color:var(--line2)}
+.ic{width:40px;height:40px;display:grid;place-items:center;border-radius:9px;color:var(--c);background:color-mix(in srgb,var(--c) 15%,transparent);border:1px solid color-mix(in srgb,var(--c) 30%,transparent);overflow:hidden}
+.ic svg{width:20px;height:20px}
+.ic.img{background:var(--panel) center/cover no-repeat;border-color:var(--line2);image-rendering:pixelated}
 .txt{min-width:0;display:grid}
-.txt b{font:600 16px var(--body)}
-.txt small{color:var(--muted);font-size:13px}
-.go{color:var(--muted);font-size:15px}
-.main{border-color:color-mix(in srgb,#1dbf73 45%,transparent);background:color-mix(in srgb,#1dbf73 9%,transparent)}
-.soon{opacity:.55}
-.soon .go{font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--hair2);border-radius:999px;padding:2px 8px}
-.mail{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:14px}
-.mail .mi{display:inline-grid;color:var(--muted)}.mail .mi svg{width:18px;height:18px}
-.mail code{font:500 14px var(--body);color:var(--fg);user-select:all}
-.mail button{font:500 13px var(--body);color:var(--fg);background:transparent;border:1px solid var(--hair2);border-radius:999px;padding:5px 12px;cursor:pointer}
+.txt b{font:600 15px var(--body)}
+.txt small{color:var(--muted);font-size:13px;line-height:1.35}
+.go{color:var(--muted);font-size:14px}
+.fiverr{border-color:color-mix(in srgb,#1dbf73 45%,transparent);background:color-mix(in srgb,#1dbf73 9%,transparent)}
+.fiverr .ic{background:#1dbf73;color:#fff;border-color:transparent}
+a.fiverr:hover{border-color:color-mix(in srgb,#1dbf73 75%,transparent)}
+.link button{font:500 13px var(--body);color:var(--ink);background:transparent;border:1px solid var(--line2);border-radius:999px;padding:5px 12px;cursor:pointer;transition:border-color .2s,color .2s}
+.link button:hover{border-color:var(--muted)}
+.link button.done{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent)}
+#mail{overflow-wrap:anywhere}
+
+/* coming soon */
+.soon .apps{max-width:280px;margin:0 auto}
+.soon .app{width:62px}.soon .app span.n{max-width:66px}
+.soon h2{margin:0 0 12px;text-align:center;font:600 12px var(--body);text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
+
+/* toast for the email icon */
+.toast{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);opacity:0;pointer-events:none;
+  background:var(--panel);border:1px solid var(--line2);color:var(--ink);font:500 14px var(--body);padding:8px 14px;border-radius:999px;transition:opacity .25s,transform .3s var(--ease)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
 footer{text-align:center;color:var(--muted);font-size:12px}
-@media (prefers-reduced-motion:reduce){.link{transition:none}a.link:hover{transform:none}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <main>
   <header>
-    <img class="logo" src="logo-256.png" alt="Janxirus logo" width="84" height="84">
+    <div class="cube" id="cubeBox">
+      <canvas id="cube" role="img" aria-label="Janxirus logo: a pixel-art code block cube"></canvas>
+      <noscript><img src="logo-256.png" alt="Janxirus logo" width="84" height="84"></noscript>
+    </div>
     <h1>Janxirus</h1>
     <p class="tag">Minecraft mods, game UI and Roblox games. Solo dev from Sweden.</p>
     <span class="status"><i></i>Commissions open</span>
   </header>
 
+  <nav aria-label="Social accounts"><ul class="apps" id="live"></ul></nav>
+
   <div class="strip" aria-hidden="true">
     <span style="background:#FF7A2F"></span><span style="background:#E0283A"></span><span style="background:#3EC9E6"></span><span style="background:#C9C9C9"></span><span style="background:#45C25A"></span><span style="background:#A463FF"></span><span style="background:#FF8FB8"></span><span style="background:#6F8CFF"></span><span style="background:#E8C76A"></span><span style="background:#FF4FD8"></span><span style="background:#C0504A"></span><span style="background:#9FE3FF"></span><span style="background:#C9A15A"></span><span style="background:#F0A23A"></span><span style="background:#B57CFF"></span>
   </div>
 
-  <section aria-labelledby="h-h">
-    <h2 id="h-h">Hire me</h2><p class="sp">Minecraft GUIs, Fabric mods and Roblox scripts</p>
-    <a class="link main" href="https://www.fiverr.com/janxirus" target="_blank" rel="noopener" style="--c:#1dbf73"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="17.6" text-anchor="middle" font-family="Outfit,Arial,sans-serif" font-weight="800" font-size="17" fill="currentColor">fi</text></svg></span><span class="txt"><b>Hire me on Fiverr</b><small>Packages from $20 · 2–10 day delivery</small></span><span class="go">↗</span></a>
-    <div class="link email" style="--c:#8fb4ff"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><span class="txt"><b>Email</b><small id="mail">janxirus.dev@gmail.com</small></span><button type="button" id="copy">Copy</button></div>
-    <a class="link" href="https://janxirus.github.io/#contact" style="--c:#9b6bff"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="txt"><b>Project brief</b><small>Describe your idea, get a price estimate</small></span><span class="go">→</span></a>
-  </section>
-  <section aria-labelledby="h-c">
-    <h2 id="h-c">Community</h2>
-    <a class="link" href="https://discord.gg/FJQhr2YEAe" target="_blank" rel="noopener" style="--c:#5865F2"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></span><span class="txt"><b>Janxirus Studio Discord</b><small>Sneak peeks, theme votes, help · ask about commissions too</small></span><span class="go">↗</span></a>
-  </section>
-  <section aria-labelledby="h-m">
-    <h2 id="h-m">My projects</h2>
-    <a class="link" href="https://janxirus.github.io" style="--c:#9b6bff"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.6 5.6 3.6 9s-1 6.4-3.6 9M12 3c-2.6 2.6-3.6 5.6-3.6 9s1 6.4 3.6 9"/></svg></span><span class="txt"><b>Website</b><small>Portfolio, theme lab and my apps</small></span><span class="go">→</span></a>
-    <a class="link" href="https://www.patreon.com/Janxirus" target="_blank" rel="noopener" style="--c:#F96854"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z"/></svg></span><span class="txt"><b>Patreon</b><small>8 exclusive Shardlight theme packs</small></span><span class="go">↗</span></a>
-    <a class="link" href="https://github.com/Janxirus" target="_blank" rel="noopener" style="--c:#c9c9d6"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span><span class="txt"><b>GitHub</b><small>Shardlight Client launcher and source</small></span><span class="go">↗</span></a>
-    <div class="link soon" style="--c:#1bd96a"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0 .5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z"/></svg></span><span class="txt"><b>Modrinth</b><small>4 mods + 7 free theme packs</small></span><span class="go">Soon</span></div>
+  <section class="drop" id="drop">
+    <button class="toggle" id="toggle" type="button" aria-expanded="false" aria-controls="panel">
+      <span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13.5a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1.2 1.2"/><path d="M14 10.5a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1.2-1.2"/></svg></span>
+      <span>Links<small>Hire me, Discord, Patreon and more</small></span>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="panel" id="panel" role="region" aria-labelledby="toggle" inert><div><div class="inner">
+      <h2 class="grp">Hire me</h2>
+      <a class="link fiverr" href="https://www.fiverr.com/janxirus" target="_blank" rel="noopener" style="--c:#1dbf73"><span class="ic" data-icon="fiverr"></span><span class="txt"><b>Hire me on Fiverr</b><small>Packages from $20 · 2–10 day delivery</small></span><span class="go" aria-hidden="true">↗</span></a>
+      <div class="link" style="--c:#8fb4ff"><span class="ic" data-icon="email"></span><span class="txt"><b>Email</b><small id="mail">janxirus.dev@gmail.com</small></span><button type="button" id="copy" aria-label="Copy email address">Copy</button></div>
+      <a class="link" href="https://janxirus.github.io/#contact" style="--c:#9b6bff"><span class="ic" data-icon="brief"></span><span class="txt"><b>Project brief</b><small>Describe your idea, get a price estimate</small></span><span class="go" aria-hidden="true">→</span></a>
+
+      <h2 class="grp">Community</h2>
+      <a class="link" href="https://discord.gg/FJQhr2YEAe" target="_blank" rel="noopener"><span class="ic img" style="background-image:url(discord-icon.png)"></span><span class="txt"><b>Janxirus Studio Discord</b><small>Sneak peeks, theme votes, help · ask about commissions too</small></span><span class="go" aria-hidden="true">↗</span></a>
+
+      <h2 class="grp">My projects</h2>
+      <a class="link" href="https://janxirus.github.io" style="--c:#6e3cd2"><span class="ic img" style="background-image:url(og.png);background-size:auto 240%;background-position:12.5% 47%"></span><span class="txt"><b>Website</b><small>Portfolio, theme lab and my apps</small></span><span class="go" aria-hidden="true">→</span></a>
+      <a class="link" href="https://www.patreon.com/Janxirus" target="_blank" rel="noopener"><span class="ic img" style="background-image:url(tiers/tier-forge.png);background-size:auto 150%;background-position:5% 48%"></span><span class="txt"><b>Patreon</b><small>8 exclusive Shardlight theme packs</small></span><span class="go" aria-hidden="true">↗</span></a>
+      <a class="link" href="https://github.com/Janxirus" target="_blank" rel="noopener"><span class="ic img" style="background-image:url(client-home.jpg);background-size:auto 100%;background-position:28% 0"></span><span class="txt"><b>GitHub</b><small>Shardlight Client launcher and source</small></span><span class="go" aria-hidden="true">↗</span></a>
+    </div></div></div>
   </section>
 
+  <section class="soon" aria-labelledby="h-soon">
+    <h2 id="h-soon">Coming soon</h2>
+    <ul class="apps" id="soon"></ul>
+  </section>
 
-  <footer>© 2026 Janxirus · Karlskrona, Sweden</footer>
+  <footer>© 2026 Janxirus · Karlskrona, Sweden · All rights reserved</footer>
 </main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="cube3d.js"></script>
 <script>
-document.getElementById('copy').addEventListener('click',async e=>{const b=e.currentTarget;try{await navigator.clipboard.writeText('janxirus.dev@gmail.com');b.textContent='Copied'}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById('mail'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Press Ctrl+C'}setTimeout(()=>b.textContent='Copy',2000)});
+/* icons: brand paths are Simple Icons (CC0); email, website and brief are drawn to match */
+const ICONS={
+ discord:"M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z",
+ fiverr:"M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-.85c-.546 0-.84.41-.84 1.092v2.466h-1.61v-3.558h-.684c-.547 0-.84.41-.84 1.092v2.466h-1.61v-4.874h1.61v.74c.264-.574.626-.74 1.163-.74h1.972v.74c.264-.574.625-.74 1.162-.74h.527v1.316zm-6.786 1.501h-3.359c.088.546.43.858 1.006.858.43 0 .732-.175.83-.487l1.425.4c-.351.848-1.22 1.364-2.255 1.364-1.748 0-2.549-1.355-2.549-2.515 0-1.14.703-2.505 2.45-2.505 1.856 0 2.471 1.384 2.471 2.408 0 .224-.01.37-.02.477zm-1.562-.945c-.04-.42-.342-.81-.889-.81-.508 0-.81.225-.908.81h1.797zM7.508 15.44h1.416l1.767-4.874h-1.62l-.86 2.837-.878-2.837H5.72l1.787 4.874zm-6.6 0H2.51v-3.558h1.524v3.558h1.591v-4.874H2.51v-.302c0-.332.235-.536.606-.536h.918V8.412H2.85c-1.162 0-1.943.712-1.943 1.755v.4H0v1.316h.908v3.558z",
+ patreon:"M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z",
+ github:"M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12",
+ instagram:"M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077",
+ tiktok:"M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z",
+ x:"M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z",
+ youtube:"M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z",
+ reddit:"M12 0C5.373 0 0 5.373 0 12c0 3.314 1.343 6.314 3.515 8.485l-2.286 2.286C.775 23.225 1.097 24 1.738 24H12c6.627 0 12-5.373 12-12S18.627 0 12 0Zm4.388 3.199c1.104 0 1.999.895 1.999 1.999 0 1.105-.895 2-1.999 2-.946 0-1.739-.657-1.947-1.539v.002c-1.147.162-2.032 1.15-2.032 2.341v.007c1.776.067 3.4.567 4.686 1.363.473-.363 1.064-.58 1.707-.58 1.547 0 2.802 1.254 2.802 2.802 0 1.117-.655 2.081-1.601 2.531-.088 3.256-3.637 5.876-7.997 5.876-4.361 0-7.905-2.617-7.998-5.87-.954-.447-1.614-1.415-1.614-2.538 0-1.548 1.255-2.802 2.803-2.802.645 0 1.239.218 1.712.585 1.275-.79 2.881-1.291 4.64-1.365v-.01c0-1.663 1.263-3.034 2.88-3.207.188-.911.993-1.595 1.959-1.595Zm-8.085 8.376c-.784 0-1.459.78-1.506 1.797-.047 1.016.64 1.429 1.426 1.429.786 0 1.371-.369 1.418-1.385.047-1.017-.553-1.841-1.338-1.841Zm7.406 0c-.786 0-1.385.824-1.338 1.841.047 1.017.634 1.385 1.418 1.385.785 0 1.473-.413 1.426-1.429-.046-1.017-.721-1.797-1.506-1.797Zm-3.703 4.013c-.974 0-1.907.048-2.77.135-.147.015-.241.168-.183.305.483 1.154 1.622 1.964 2.953 1.964 1.33 0 2.47-.81 2.953-1.964.057-.137-.037-.29-.184-.305-.863-.087-1.795-.135-2.769-.135Z",
+ modrinth:"M12.252.004a11.78 11.768 0 0 0-8.92 3.73 11 10.999 0 0 0-2.17 3.11 11.37 11.359 0 0 0-1.16 5.169c0 1.42.17 2.5.6 3.77.24.759.77 1.899 1.17 2.529a12.3 12.298 0 0 0 8.85 5.639c.44.05 2.54.07 2.76.02.2-.04.22.1-.26-1.7l-.36-1.37-1.01-.06a8.5 8.489 0 0 1-5.18-1.8 5.34 5.34 0 0 1-1.3-1.26c0-.05.34-.28.74-.5a37.572 37.545 0 0 1 2.88-1.629c.03 0 .5.45 1.06.98l1 .97 2.07-.43 2.06-.43 1.47-1.47c.8-.8 1.48-1.5 1.48-1.52 0-.09-.42-1.63-.46-1.7-.04-.06-.2-.03-1.02.18-.53.13-1.2.3-1.45.4l-.48.15-.53.53-.53.53-.93.1-.93.07-.52-.5a2.7 2.7 0 0 1-.96-1.7l-.13-.6.43-.57c.68-.9.68-.9 1.46-1.1.4-.1.65-.2.83-.33.13-.099.65-.579 1.14-1.069l.9-.9-.7-.7-.7-.7-1.95.54c-1.07.3-1.96.53-1.97.53-.03 0-2.23 2.48-2.63 2.97l-.29.35.28 1.03c.16.56.3 1.16.31 1.34l.03.3-.34.23c-.37.23-2.22 1.3-2.84 1.63-.36.2-.37.2-.44.1-.08-.1-.23-.6-.32-1.03-.18-.86-.17-2.75.02-3.73a8.84 8.839 0 0 1 7.9-6.93c.43-.03.77-.08.78-.1.06-.17.5-2.999.47-3.039-.01-.02-.1-.02-.2-.03Zm3.68.67c-.2 0-.3.1-.37.38-.06.23-.46 2.42-.46 2.52 0 .04.1.11.22.16a8.51 8.499 0 0 1 2.99 2 8.38 8.379 0 0 1 2.16 3.449 6.9 6.9 0 0 1 .4 2.8c0 1.07 0 1.27-.1 1.73a9.37 9.369 0 0 1-1.76 3.769c-.32.4-.98 1.06-1.37 1.38-.38.32-1.54 1.1-1.7 1.14-.1.03-.1.06-.07.26.03.18.64 2.56.7 2.78l.06.06a12.07 12.058 0 0 0 7.27-9.4c.13-.77.13-2.58 0-3.4a11.96 11.948 0 0 0-5.73-8.578c-.7-.42-2.05-1.06-2.25-1.06Z",
+ curseforge:"M18.326 9.2145S23.2261 8.4418 24 6.1882h-7.5066V4.4H0l2.0318 2.3576V9.173s5.1267-.2665 7.1098 1.2372c2.7146 2.516-3.053 5.917-3.053 5.917L5.0995 19.6c1.5465-1.4726 4.494-3.3775 9.8983-3.2857-2.0565.65-4.1245 1.6651-5.7344 3.2857h10.9248l-1.0288-3.2726s-7.918-4.6688-.8336-7.1127z",
+ twitch:"M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z",
+ email:{s:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 5.5 8-5.5"/>'},
+ website:{s:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.6 5.6 3.6 9s-1 6.4-3.6 9M12 3c-2.6 2.6-3.6 5.6-3.6 9s1 6.4 3.6 9"/>'},
+ brief:{s:'<path d="M14 3H6.5A2.5 2.5 0 0 0 4 5.5v13A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>'}
+};
+const svg=k=>{const i=ICONS[k];if(!i)return'';return typeof i==='string'
+  ?'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="'+i+'"/></svg>'
+  :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+i.s+'</svg>'};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* build the live row and the coming-soon row from SOCIALS */
+const live=document.getElementById('live'),soon=document.getElementById('soon');
+for(const s of SOCIALS){const li=document.createElement('li'),tile='<span class="tile" style="--c:'+esc(s.color)+'">'+svg(s.icon)+'</span>';
+  if(s.copy){li.innerHTML='<button class="app" type="button" data-copy="'+esc(s.copy)+'" aria-label="Copy email address '+esc(s.copy)+'">'+tile+'<span class="n">'+esc(s.name)+'</span></button>';live.append(li)}
+  else if(s.url){const ext=!/^https:\/\/janxirus\.github\.io/.test(s.url);li.innerHTML='<a class="app" href="'+esc(s.url)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+tile+'<span class="n">'+esc(s.name)+'</span></a>';live.append(li)}
+  else{li.innerHTML='<div class="app" aria-disabled="true">'+tile+'<span class="n">'+esc(s.name)+'</span><b>Soon</b></div>';soon.append(li)}}
+if(!soon.children.length)soon.closest('section').hidden=true;
+document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=svg(el.dataset.icon));
+
+/* copy email (icon + card button) */
+const toast=document.getElementById('toast');let tt;
+const say=m=>{toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),1800)};
+async function copyMail(text){try{await navigator.clipboard.writeText(text);return true}catch(_){
+  const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;opacity:0';document.body.append(ta);ta.select();
+  let ok=false;try{ok=document.execCommand('copy')}catch(_){}ta.remove();return ok}}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-copy]');if(!b)return;say(await copyMail(b.dataset.copy)?'Email copied':'janxirus.dev@gmail.com')});
+const cb=document.getElementById('copy');
+cb.addEventListener('click',async()=>{const ok=await copyMail('janxirus.dev@gmail.com');cb.textContent=ok?'Copied':'Select it';cb.classList.toggle('done',ok);
+  if(!ok){const r=document.createRange();r.selectNodeContents(document.getElementById('mail'));const s=getSelection();s.removeAllRanges();s.addRange(r)}
+  setTimeout(()=>{cb.textContent='Copy';cb.classList.remove('done')},2000)});
+
+/* links dropdown: closed by default, smooth open/close */
+const drop=document.getElementById('drop'),tg=document.getElementById('toggle'),panel=document.getElementById('panel');
+tg.addEventListener('click',()=>{const open=tg.getAttribute('aria-expanded')!=='true';tg.setAttribute('aria-expanded',open);drop.classList.toggle('open',open);
+  if(open)panel.removeAttribute('inert');else panel.setAttribute('inert','')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&tg.getAttribute('aria-expanded')==='true'){tg.click();tg.focus()}});
+
+/* the 3D code-block cube: one clockwise turn every 12 s */
+if(window.Cube3D)Cube3D.mount(document.getElementById('cube'),{period:12,scale:1.5});
+else{const b=document.getElementById('cubeBox');b.innerHTML='<img src="logo-256.png" alt="Janxirus logo" width="84" height="84">'}
+
 if(location.protocol!=='file:'){const sc=document.createElement('script');sc.async=true;sc.src='https://gc.zgo.at/count.js';sc.dataset.goatcounter='https://janxirus.goatcounter.com/count';document.body.appendChild(sc)}
 </script>
 </body>

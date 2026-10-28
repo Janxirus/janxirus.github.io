@@ -1,0 +1,35 @@
+Copyright (c) 2026 Janxirus. All rights reserved.
+
+This repository holds the source of janxirus.github.io. Everything in it is
+the property of Janxirus and is protected by copyright, including but not
+limited to:
+
+  - the HTML, CSS and JavaScript (including the pixel-art 3D renderer,
+    cube3d.js, and the sound design code)
+  - the Janxirus name, the "code block" cube logo and all brand art
+  - the Shardlight name, theme screenshots, tier art and other images
+  - all written text and translations
+
+The code is public only so that GitHub Pages can host the website. Being
+able to view it does not give you permission to use it.
+
+You MAY:
+  - view the website and read the source to learn how it works
+  - link to the website or to its pages
+
+You MAY NOT, without written permission from Janxirus:
+  - copy, reuse, modify or redistribute any code, art, text or other files
+    from this repository, in whole or in part
+  - host this website, or a copy or close imitation of it, anywhere else
+  - use the Janxirus or Shardlight names or logos for your own projects
+
+For permission or commission requests: janxirus.dev@gmail.com
+
+Third-party parts keep their own licences:
+  - brand icons (Discord, Fiverr, Patreon, GitHub and others) come from
+    Simple Icons (https://simpleicons.org), CC0 1.0; the logos themselves
+    are trademarks of their owners
+  - Pixelify Sans and Outfit are loaded from Google Fonts under the SIL Open
+    Font License 1.1
+  - Minecraft is a trademark of Mojang/Microsoft; Roblox is a trademark of
+    Roblox Corporation. This site is not affiliated with either.
