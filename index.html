@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Janxirus: Minecraft mod and game UI developer from Sweden. Creator of Shardlight (4 Fabric mods, 15 themes) and Shardlight Client. Commissions open.">
+<meta name="description" content="Janxirus: Minecraft mod and game UI developer from Sweden. Creator of Shardlight (4 Fabric mods, 62 themes), Shardlight Client and Notch X. Commissions open.">
 <meta name="keywords" content="Minecraft mod developer, Fabric mod, Minecraft UI, resource pack, custom GUI, Minecraft launcher, Shardlight, Roblox scripter, Sweden">
 <meta name="author" content="Janxirus">
 <link rel="canonical" href="https://janxirus.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://janxirus.github.io/">
 <meta property="og:title" content="Janxirus · Minecraft mods, game UI and apps">
-<meta property="og:description" content="Creator of Shardlight: 4 Fabric mods and 15 themes. Commissions open.">
+<meta property="og:description" content="Creator of Shardlight: 4 Fabric mods and 62 themes. Commissions open.">
 <meta property="og:image" content="https://janxirus.github.io/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -19,7 +19,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
 <link rel="apple-touch-icon" href="logo-256.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://janxirus.github.io/#me", "name": "Janxirus", "url": "https://janxirus.github.io/", "jobTitle": "Minecraft mod and game UI developer", "email": "mailto:janxirus.dev@gmail.com", "address": {"@type": "PostalAddress", "addressLocality": "Karlskrona", "addressCountry": "SE"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "Blekinge Institute of Technology"}, "knowsAbout": ["Minecraft modding", "Fabric", "Java", "JavaFX", "Resource packs", "Game UI design", "Pixel art", "Roblox Luau", "Python"], "sameAs": ["https://github.com/Janxirus", "https://www.patreon.com/Janxirus", "https://www.fiverr.com/janxirus", "https://discord.gg/FJQhr2YEAe"]}, {"@type": "SoftwareApplication", "name": "Shardlight Client", "applicationCategory": "GameApplication", "operatingSystem": "Windows, macOS, Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@id": "https://janxirus.github.io/#me"}, "url": "https://github.com/Janxirus/Shardlight_Client"}, {"@type": "CreativeWork", "name": "Shardlight UI", "about": "Themed UI overhaul mod for Minecraft (Fabric) with 15 themes", "author": {"@id": "https://janxirus.github.io/#me"}}, {"@type": "ProfessionalService", "name": "Janxirus commissions", "url": "https://janxirus.github.io/#services", "areaServed": "Worldwide", "provider": {"@id": "https://janxirus.github.io/#me"}, "serviceType": ["Minecraft GUI and resource packs", "Fabric mods and plugins", "Custom server themes", "Roblox scripting", "Desktop apps"]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://janxirus.github.io/#me", "name": "Janxirus", "url": "https://janxirus.github.io/", "jobTitle": "Minecraft mod and game UI developer", "email": "mailto:janxirus.dev@gmail.com", "address": {"@type": "PostalAddress", "addressLocality": "Karlskrona", "addressCountry": "SE"}, "alumniOf": {"@type": "CollegeOrUniversity", "name": "Blekinge Institute of Technology"}, "knowsAbout": ["Minecraft modding", "Fabric", "Java", "JavaFX", "Resource packs", "Game UI design", "Pixel art", "Roblox Luau", "Python"], "sameAs": ["https://github.com/Janxirus", "https://www.patreon.com/Janxirus", "https://www.fiverr.com/janxirus", "https://discord.gg/FJQhr2YEAe"]}, {"@type": "SoftwareApplication", "name": "Shardlight Client", "applicationCategory": "GameApplication", "operatingSystem": "Windows, macOS, Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "author": {"@id": "https://janxirus.github.io/#me"}, "url": "https://github.com/Janxirus/Shardlight_Client"}, {"@type": "CreativeWork", "name": "Shardlight UI", "about": "Themed UI overhaul mod for Minecraft (Fabric) with 62 themes", "author": {"@id": "https://janxirus.github.io/#me"}}, {"@type": "ProfessionalService", "name": "Janxirus commissions", "url": "https://janxirus.github.io/#services", "areaServed": "Worldwide", "provider": {"@id": "https://janxirus.github.io/#me"}, "serviceType": ["Minecraft GUI and resource packs", "Fabric mods and plugins", "Custom server themes", "Roblox scripting", "Desktop apps"]}]}</script>
 <title>Janxirus · Minecraft mods, game UI and apps</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap">
 <style>
@@ -667,13 +667,183 @@ html.day .llist li:hover{background:rgba(23,20,46,.05)}
 html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,46,.06)}
 @media (max-width:560px){section{padding-block:56px}.mo-head{margin-top:28px}}
 .support-cta p{margin:0;color:var(--muted);font-size:14px}
+
+/* ===== app shell: one view at a time + menu on the right ===== */
+.shell{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 224px;gap:32px;align-items:start;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.views{min-width:0}
+.views .wrap{max-width:none;padding-left:0;padding-right:0}
+.view{display:none}
+.view.on{display:block;animation:vin .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes vin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.views section{padding-block:56px}
+.view>section:first-child{padding-top:40px}
+.views [id]{scroll-margin-top:84px}
+.views .hero{padding-block:56px 44px}
+.views .stats,.views .marquee{border-radius:var(--r)}
+.views .stats{border:1px solid var(--hair)}
+.views .marquee{border-bottom:0}
+
+/* the menu */
+.rail{position:sticky;top:76px;padding:30px 0 40px;max-height:calc(100vh - 76px);overflow:auto;scrollbar-width:thin}
+.rail h4{margin:20px 0 8px;padding:0 12px;font:600 11px var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+.rail h4::before{content:"";width:14px;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple))}
+.rail a.ri-l{display:flex;align-items:center;gap:11px;padding:8px 12px;border-radius:10px;color:var(--fg);text-decoration:none;font:500 14.5px var(--body);border:1px solid transparent;transition:background .15s,border-color .15s}
+.rail a.ri-l svg,.rail a.ri-l img{width:20px;height:20px;flex:none;color:var(--purple2)}
+.rail a.ri-l img{border-radius:4px;image-rendering:pixelated}
+.rail a.ri-l:hover{background:var(--card2)}
+.rail a.ri-l[aria-current="page"]{background:var(--card2);border-color:var(--hair2)}
+.rail a.ri-l[aria-current="page"]::after{content:"";margin-inline-start:auto;width:6px;height:6px;border-radius:1px;background:linear-gradient(135deg,var(--blue),var(--purple))}
+.rail .subs{margin:2px 0 6px 21px;padding-inline-start:12px;border-inline-start:1px solid var(--hair2);display:grid}
+.rail .subs a{display:flex;align-items:center;gap:8px;font:500 13px var(--body);color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:8px}
+.rail .subs a:hover,.rail .subs a.cur{color:var(--fg)}
+.rail .subs a.cur{background:var(--card)}
+.rail .new{font:700 9px var(--body);letter-spacing:.12em;text-transform:uppercase;color:#ffd27a;border:1px solid rgba(255,210,122,.45);border-radius:999px;padding:1px 6px;font-style:normal}
+.rail .btn{display:block;text-align:center;margin:22px 4px 0;padding:11px 16px;font-size:14px}
+.rail-x{display:none}
+.mbtn{display:none;align-items:center;gap:8px;font:600 13px var(--body);color:var(--fg);background:var(--card2);border:1px solid var(--hair2);border-radius:999px;padding:7px 14px;cursor:pointer;margin-inline-start:8px}
+.mbtn svg{width:16px;height:16px}
+.scrim{position:fixed;inset:0;background:rgba(4,4,10,.55);z-index:89;backdrop-filter:blur(2px)}
+.scrim[hidden]{display:none}
+html.day .rail a.ri-l svg{color:#6b3fd8}
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .rail{position:fixed;top:0;right:0;bottom:0;width:min(300px,86vw);max-height:none;z-index:90;background:var(--bg2);border-left:1px solid var(--line);padding:64px 16px 30px;transform:translateX(105%);transition:transform .3s cubic-bezier(.2,.7,.2,1);visibility:hidden}
+  .rail.open{transform:none;visibility:visible}
+  html[dir="rtl"] .rail{right:auto;left:0;border-left:0;border-right:1px solid var(--line);transform:translateX(-105%)}
+  html[dir="rtl"] .rail.open{transform:none}
+  .rail-x{display:block;position:absolute;top:14px;right:14px;font:26px/1 var(--body);background:none;border:0;color:var(--fg);cursor:pointer;padding:6px 10px}
+  html[dir="rtl"] .rail-x{right:auto;left:14px}
+  .mbtn{display:inline-flex}
+}
+@media (max-width:560px){.views section{padding-block:40px}.status{display:none}.mbtn{padding:8px 10px;margin-inline-start:2px}.mbtn span{display:none}nav .wrap{gap:8px}}
+@media (max-width:360px){.mark{font-size:17px}.mark img{width:22px;height:24px}}
+
+/* home: explore tiles */
+.xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.xcard{display:grid;grid-template-rows:auto 1fr;border:1px solid var(--hair);background:var(--card);border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;transition:transform .2s,border-color .2s}
+.xcard:hover{transform:translateY(-4px);border-color:var(--purple)}
+.xcard .xi{aspect-ratio:2/1;overflow:hidden;background:#0d0c18;border-bottom:1px solid var(--hair)}
+.xcard .xi img{width:100%;height:100%;object-fit:cover;display:block}
+.xcard .xi.c{display:grid;place-items:center;background:radial-gradient(ellipse at 50% 60%,rgba(155,107,255,.35),transparent 60%),#0d0c18}
+.xcard .xi.c img{width:24%;height:auto;object-fit:contain}
+.xcard .xi.apps{display:flex;align-items:center;justify-content:center;gap:6%;background:radial-gradient(ellipse at 30% 100%,#3b1d6e,transparent 60%),radial-gradient(ellipse at 90% 0%,#123a7a,transparent 55%),#0d0c18}
+.xcard .xi.apps img{width:21%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:18%;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.xcard .xb{padding:16px 18px 18px;display:grid;gap:6px;align-content:start}
+.xk{font:600 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--blue2)}
+.xcard h3{margin:0;font:600 22px var(--display)}
+.xcard p{margin:0;color:var(--muted);font-size:14.5px}
+.xcard .go{font:600 13px var(--body);color:var(--blue2);margin-top:2px}
+html.day .xcard{background:#fff;box-shadow:0 1px 2px rgba(23,20,46,.05),0 8px 24px -12px rgba(23,20,46,.18)}
+@media (max-width:640px){.xgrid{grid-template-columns:1fr}}
+
+/* Crescentbound */
+.cb-hero{margin:0 0 16px;position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--hair2);background:#0d0a18}
+.cb-hero img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.cb-hero figcaption{position:absolute;inset:auto 0 0 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:30px 16px 12px;background:linear-gradient(180deg,transparent,rgba(7,7,12,.85));font:500 13px var(--body);color:rgba(244,244,251,.82);pointer-events:none}
+.cb-tag{font:600 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:#d7c3ff;border:1px solid rgba(215,195,255,.4);padding:3px 9px;border-radius:999px;background:rgba(40,20,70,.55)}
+.cb-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:28px}
+.cb-stats div{border:1px solid var(--hair);background:var(--card);border-radius:var(--r);padding:14px 16px;min-width:0}
+.cb-stats b{display:block;font:600 24px var(--display);color:var(--fg);white-space:nowrap}
+.cb-stats span{font-size:13px;color:var(--muted)}
+.cb-gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cb-gal figure{margin:0;border:1px solid var(--hair);background:#120f1e;border-radius:var(--r);padding:12px;display:grid;gap:8px;align-content:start;min-width:0}
+.cb-gal img{width:100%;height:auto;display:block}
+.cb-gal figcaption{font:500 12.5px var(--body);color:#b9b6d8}
+.cb-gal .w{grid-column:1/-1}
+.cb-body{display:grid;grid-template-columns:1.25fr 1fr;gap:30px;margin-top:30px;align-items:start}
+.cb-side{border:1px solid var(--hair);background:var(--card);border-radius:var(--r);padding:20px}
+.cb-side h3{margin:0 0 6px;font:600 18px var(--display)}
+.cb-side p{margin:0;color:var(--muted);font-size:14.5px}
+html.day .cb-stats div,html.day .cb-side{background:#fff}
+@media (max-width:760px){.cb-stats{grid-template-columns:1fr 1fr}.cb-body{grid-template-columns:1fr}}
+@media (max-width:480px){.cb-gal{grid-template-columns:1fr}}
+
+/* theme packs */
+.tp-fig{margin:0 0 18px;border:1px solid var(--hair2);border-radius:var(--r);overflow:hidden;background:#0d0c18}
+.tp-fig img{display:block;width:100%;height:auto}
+.get.new{border-color:color-mix(in srgb,#ffd27a 40%,transparent)}
+.gtag.new{color:#ffd27a;border-color:color-mix(in srgb,#ffd27a 45%,transparent)}
+html.day .gtag.new{color:#9a6a00}
+
+/* apps intro */
+.apps-jump{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.aj{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--hair);background:var(--card);border-radius:var(--r);text-decoration:none;color:var(--fg);transition:transform .2s,border-color .2s;min-width:0}
+.aj:hover{transform:translateY(-3px);border-color:var(--purple)}
+.aj img{width:46px;height:46px;border-radius:11px;object-fit:cover;object-position:left top;flex:none}
+.aj b{display:block;font:600 15px var(--body)}
+.aj small{display:block;font-size:12px;color:var(--muted)}
+.aj span{min-width:0}
+html.day .aj{background:#fff}
+@media (max-width:700px){.apps-jump{grid-template-columns:1fr}}
+
+/* Notch X sneak peek */
+.nx{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:36px;align-items:center}
+.nx-title{display:flex;align-items:center;gap:14px;margin:10px 0 12px;flex-wrap:wrap}
+.nx-title img{width:58px;height:58px;border-radius:14px}
+.nx-title h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:0}
+.nx-badge{font:600 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:#ffd27a;border:1px solid rgba(255,210,122,.45);padding:4px 10px;border-radius:999px}
+html.day .nx-badge{color:#9a6a00}
+.nx-copy>p{color:var(--muted);margin:0}
+.nx-stage{min-width:0}
+.nx-screen,.nx-mats{direction:ltr}
+.nx-screen{position:relative;aspect-ratio:16/10;border-radius:var(--r);border:1px solid var(--hair2);overflow:hidden;container-type:inline-size;background:radial-gradient(ellipse at 18% 115%,#4a1f8a 0,transparent 55%),radial-gradient(ellipse at 95% -10%,#16488f 0,transparent 55%),linear-gradient(160deg,#15102a,#07070c);box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.nx-screen::after{content:"";position:absolute;left:0;right:0;bottom:0;height:7cqw;background:rgba(8,8,16,.72);border-top:1px solid rgba(255,255,255,.07);backdrop-filter:blur(8px)}
+.nx-blob{position:absolute;border-radius:50%;filter:blur(1px)}
+.nx-blob.b1{width:26cqw;height:26cqw;left:24cqw;top:-8cqw;background:radial-gradient(circle at 35% 35%,#ff7ad9,#7a3cff 60%,transparent 70%);opacity:.75}
+.nx-blob.b2{width:20cqw;height:20cqw;right:20cqw;top:2cqw;background:radial-gradient(circle at 40% 40%,#4fd2ff,#2b5bff 60%,transparent 70%);opacity:.6}
+.nx-win{position:absolute;left:8cqw;right:8cqw;top:40cqw;height:11cqw;border-radius:1.6cqw;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.nx-island{position:absolute;top:2.6cqw;left:50%;transform:translateX(-50%);width:30cqw;height:5.6cqw;border-radius:5cqw;background:#000;color:#fff;overflow:hidden;cursor:pointer;z-index:2;box-shadow:0 1.5cqw 4cqw rgba(0,0,0,.5);transition:width .55s cubic-bezier(.3,1.25,.5,1),height .55s cubic-bezier(.3,1.25,.5,1),border-radius .5s,background .4s,box-shadow .4s}
+.nx-island.open{width:66cqw;height:31cqw;border-radius:4.4cqw}
+.nx-island:focus-visible{outline:2px solid var(--blue2);outline-offset:3px}
+.nx-island[data-mat="glass"]{background:rgba(14,12,26,.5);backdrop-filter:blur(14px) saturate(1.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 1.5cqw 4cqw rgba(0,0,0,.4)}
+.nx-island[data-mat="frosted"]{background:rgba(225,225,255,.16);backdrop-filter:blur(24px) saturate(1.2);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28),0 1.5cqw 4cqw rgba(0,0,0,.35)}
+.nx-island[data-mat="aurora"]{background:linear-gradient(115deg,#1d0f45,#0c4a5e,#3a0f55,#0f2d6b);background-size:300% 300%;animation:nxau 9s ease-in-out infinite alternate}
+.nx-island[data-mat="neon"]{background:#06050c;box-shadow:inset 0 0 0 1.5px #b48cff,0 0 2.4cqw rgba(180,140,255,.5)}
+.nx-island[data-mat="metal"]{background:linear-gradient(180deg,#6a6e7c,#2c2e37 46%,#18191f);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 1.5cqw 4cqw rgba(0,0,0,.5)}
+@keyframes nxau{from{background-position:0% 50%}to{background-position:100% 50%}}
+.nx-pill{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 1.3cqw;transition:opacity .2s}
+.nx-island.open .nx-pill{opacity:0}
+.nx-cover,.nx-art{display:block;background:linear-gradient(135deg,#ff6ad5,#7a4ae0 55%,#2bd2ff)}
+.nx-cover{width:3.6cqw;height:3.6cqw;border-radius:1cqw}
+.nx-bars{display:flex;align-items:center;gap:.45cqw;height:2.8cqw}
+.nx-bars i{display:block;width:.55cqw;height:100%;border-radius:1cqw;background:#ff8ad8;animation:nxb .8s ease-in-out infinite alternate;transform:scaleY(.4)}
+.nx-bars i:nth-child(2){animation-duration:.55s;background:#e58aff}.nx-bars i:nth-child(3){animation-duration:.95s;background:#c49aff}
+.nx-bars i:nth-child(4){animation-duration:.65s;background:#a6a6ff}.nx-bars i:nth-child(5){animation-duration:.75s;background:#8ab8ff}
+.nx-bars i:nth-child(6){animation-duration:.5s;background:#74c8ff}.nx-bars i:nth-child(7){animation-duration:.9s;background:#5ad6ff}
+@keyframes nxb{from{transform:scaleY(.22)}to{transform:scaleY(1)}}
+.nx-card{position:absolute;inset:0;padding:3cqw 3.6cqw;display:grid;align-content:center;gap:1.8cqw;opacity:0;transition:opacity .25s;pointer-events:none}
+.nx-island.open .nx-card{opacity:1;transition-delay:.2s}
+.nx-row{display:grid;grid-template-columns:9cqw minmax(0,1fr) auto;gap:2.2cqw;align-items:center}
+.nx-art{width:9cqw;height:9cqw;border-radius:1.8cqw;position:relative;overflow:hidden}
+.nx-art::after{content:"";position:absolute;width:5cqw;height:5cqw;left:2cqw;top:2cqw;border-radius:50%;border:.6cqw solid rgba(255,255,255,.7);box-sizing:border-box}
+.nx-row b{display:block;font:600 2.6cqw/1.25 var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nx-row small{display:block;font:500 2cqw/1.3 var(--body);color:rgba(255,255,255,.6)}
+.nx-row .nx-bars{height:4.4cqw;gap:.6cqw}.nx-row .nx-bars i{width:.8cqw}
+.nx-lyric{margin:0;font:600 3cqw/1.25 var(--body);color:rgba(255,255,255,.32);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nx-lyric span{transition:color .25s}.nx-lyric span.on{color:#ff9ae0}
+.nx-prog{display:grid;grid-template-columns:auto 1fr auto;gap:1.4cqw;align-items:center;font:500 1.7cqw var(--body);color:rgba(255,255,255,.55)}
+.nx-prog div{height:.6cqw;border-radius:1cqw;background:rgba(255,255,255,.16);overflow:hidden}
+.nx-prog div i{display:block;height:100%;width:0;background:#fff;animation:nxp 26s linear infinite}
+@keyframes nxp{to{width:100%}}
+.nx-ctl{display:flex;justify-content:center;align-items:center;gap:6cqw}
+.nx-ctl svg{width:2.8cqw;height:2.8cqw;fill:#fff}.nx-ctl svg.pp{width:3.6cqw;height:3.6cqw}
+.nx-hint{position:absolute;left:0;right:0;top:12cqw;text-align:center;font:500 1.9cqw var(--body);color:rgba(255,255,255,.45);transition:opacity .3s;pointer-events:none}
+.nx-island.open~.nx-hint{opacity:0}
+.nx-mats{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:12px;font:500 13px var(--body);color:var(--muted)}
+.nx-mats button{font:500 12.5px var(--body);color:var(--muted);background:transparent;border:1px solid var(--hair2);border-radius:999px;padding:5px 12px;cursor:pointer}
+.nx-mats button[aria-pressed="true"]{color:var(--fg);border-color:var(--purple);background:var(--card2)}
+@media (max-width:900px){.nx{grid-template-columns:minmax(0,1fr)}.nx-stage{order:-1}}
+@media (prefers-reduced-motion:reduce){.nx-bars i{animation:none;transform:scaleY(.7)}.nx-prog div i{animation:none;width:40%}.nx-island[data-mat="aurora"]{animation:none}}
+.lb img.px{image-rendering:pixelated}
+html[lang="ar"] .rail,html[lang="ar"] .xcard,html[lang="ar"] .cb-stats,html[lang="ar"] .aj{font-family:"Noto Sans Arabic","Outfit",sans-serif}
+
 </style>
 
 <style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
 <body>
 <div class="loader" id="loader" aria-hidden="true"><div class="ld-in"><img class="px" src="cube.png" alt=""><b>Loading world</b><div class="ld-bar"><i id="ld-fill"></i></div><span id="ld-tip">Generating terrain…</span></div></div>
-<a class="totop" id="totop" href="#top" aria-label="Back to top">↑</a>
+<a class="totop" id="totop" href="#" aria-label="Back to top">↑</a>
 
 <canvas id="bgfx" aria-hidden="true"></canvas>
 <div id="cur-sh" aria-hidden="true"></div><div id="cur-gl" aria-hidden="true"></div>
@@ -683,14 +853,6 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
 <nav>
   <div class="wrap">
     <a class="mark" href="#top"><img class="px" src="logo-nav.png" alt="" width="26" height="28">Janxirus</a>
-    <ul>
-      <li><a data-i18n="t0" href="#shardlight">Shardlight</a></li>
-      <li><a data-i18n="t1" href="#client">Work</a></li>
-      <li><a data-i18n="g0" href="#get">Downloads</a></li>
-      <li><a data-i18n="t2" href="#services">Services</a></li>
-      <li><a data-i18n="t3" href="#about">About</a></li>
-      <li><a data-i18n="t4" href="#support">Support</a></li>
-    </ul>
     <div class="navr"><span class="status" id="booking">Open for commissions</span>
       <div class="ctrls" role="group" aria-label="Page settings">
         <div class="lmenu" id="lmenu">
@@ -704,17 +866,20 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
         </div>
         <button type="button" class="ic" id="day" aria-pressed="false" title="Day / night">☾ <span>Night</span></button>
         <button type="button" class="ic" id="snd" aria-pressed="false" title="Sound effects">♪ <span>Sound off</span></button>
-      </div></div>
+      </div><button type="button" class="mbtn" id="mbtn" aria-controls="rail" aria-expanded="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><span data-i18n="r13">Menu</span></button></div>
   </div>
 </nav>
 
+<div class="shell">
+<main class="views" id="views">
+<div class="view on" data-view="home">
 <header class="hero" id="top">
   <div class="wrap">
     <div>
       <span data-i18n="t5" class="eyebrow intro">Developer &amp; designer · Karlskrona, Sweden</span>
       <h1 class="intro">I build<br><span class="rot" id="rot" aria-label="Minecraft mods, game UI, resource packs, desktop apps, Roblox games"><span class="on">Minecraft mods.</span><span>game UI.</span><span>resource packs.</span><span>desktop apps.</span><span>Roblox games.</span></span></h1>
       <p data-i18n="t6" class="intro">Minecraft mods and resource packs, desktop apps and Roblox games. I design the look and write the code, so it ships fast and runs fast.</p>
-      <div class="nowbox intro"><span class="dot"></span><b data-i18n="now">Now:</b> <span id="now-text">updating Shardlight to Minecraft 26.3</span></div>
+      <div class="nowbox intro"><span class="dot"></span><b data-i18n="now">Now:</b> <span id="now-text">painting Crescentbound and polishing Notch X</span></div>
       <div class="cta intro"><a data-i18n="t7" class="btn" href="#contact">Start a project</a><a data-i18n="t8" class="btn ghost" href="#shardlight">See my work</a></div>
     </div>
     <div class="stage" aria-hidden="true">
@@ -728,20 +893,42 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
 <div class="stats">
   <div class="wrap">
     <div class="stat"><b data-count="4">4</b><span data-i18n="t9">Fabric mods</span></div>
-    <div class="stat"><b data-count="15">15</b><span data-i18n="t10">UI themes</span></div>
+    <div class="stat"><b data-count="62">62</b><span data-i18n="t10">UI themes</span></div>
     <div class="stat"><b data-count="590" data-prefix="~">~590</b><span data-i18n="t11">launcher tests</span></div>
-    <div class="stat"><b data-count="2">2</b><span data-i18n="t12">desktop apps</span></div>
+    <div class="stat"><b data-count="3">3</b><span data-i18n="t12">desktop apps</span></div>
   </div>
 </div>
 
 <div class="marquee" aria-hidden="true"><div class="track"><span>Fabric mods</span><span>Resource packs</span><span>Sound design</span><span>Pixel art</span><span>HUD & UI</span><span>JavaFX apps</span><span>Roblox Luau</span><span>Python tools</span><span>Minecraft launcher</span><span>Fabric mods</span><span>Resource packs</span><span>Sound design</span><span>Pixel art</span><span>HUD & UI</span><span>JavaFX apps</span><span>Roblox Luau</span><span>Python tools</span><span>Minecraft launcher</span></div></div>
 
+<section id="explore">
+  <div class="wrap">
+    <div class="head reveal">
+      <span data-i18n="x0" class="eyebrow">Explore</span>
+      <h2 data-i18n="x1">Pick where to start</h2>
+    </div>
+    <div class="xgrid reveal stag">
+      <a class="xcard fx" href="#shardlight"><div class="xi"><img class="px" src="themes/ember-inv.png" alt="" loading="lazy"></div>
+        <div class="xb"><span class="xk" data-i18n="x2">Minecraft · Mods</span><h3>Shardlight</h3><p data-i18n="x3">A full UI overhaul with 62 themes, plus a map, a companion and a party mod.</p><span class="go" data-i18n="xo">Open →</span></div></a>
+      <a class="xcard fx" href="#packs"><div class="xi"><img class="px" src="crescentbound/loading.png" alt="" loading="lazy"></div>
+        <div class="xb"><span class="xk" data-i18n="x4">Minecraft · Resource packs</span><h3 data-i18n="x10">Resource packs</h3><p data-i18n="x5">Crescentbound, a hand-painted medieval GUI, and a pack for every Shardlight theme.</p><span class="go" data-i18n="xo">Open →</span></div></a>
+      <a class="xcard fx" href="#apps"><div class="xi apps"><img src="notchx/icon.png" alt="" loading="lazy"><img src="client-home.jpg" alt="" loading="lazy"><img src="mediavault-home.jpg" alt="" loading="lazy"></div>
+        <div class="xb"><span class="xk" data-i18n="x6">Software · Apps</span><h3 data-i18n="x11">Apps</h3><p data-i18n="x7">Notch X, Shardlight Client and MediaVault. Desktop apps I design and code myself.</p><span class="go" data-i18n="xo">Open →</span></div></a>
+      <a class="xcard fx" href="#services"><div class="xi c"><img class="px" src="cube.png" alt="" loading="lazy"></div>
+        <div class="xb"><span class="xk" data-i18n="x8">Commissions · Open</span><h3 data-i18n="x12">Work with me</h3><p data-i18n="x9">Custom GUIs, mods, server themes, Roblox scripts and apps, made for you.</p><span class="go" data-i18n="xo">Open →</span></div></a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="view" data-view="mods" data-title="Shardlight mods" hidden>
 <section id="shardlight">
   <div class="wrap">
     <div class="head reveal">
       <span data-i18n="t13" class="eyebrow">Featured · Minecraft 26.3</span>
-      <h2 data-i18n="t14">Shardlight: one mod, fifteen worlds</h2>
-      <p data-i18n="t15">A full UI overhaul with a matching resource and sound pack for every theme. Pick a theme to see how it restyles each screen.</p>
+      <h2 data-i18n="t14">Shardlight: one mod, sixty-two worlds</h2>
+      <p data-i18n="t15">A full UI overhaul with a matching resource and sound pack for every theme. Fifteen of them are below: pick one to see how it restyles each screen.</p>
     </div>
     <div class="lab reveal">
       <div class="chips" id="chips" role="group" aria-label="Themes"></div>
@@ -780,7 +967,7 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
     </div>
 
     <div class="mods reveal stag">
-      <div class="mod fx"><h3>Shardlight UI</h3><span class="v">v4.1.0</span><p data-i18n="t20">Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, profiles.</p></div>
+      <div class="mod fx"><h3>Shardlight UI</h3><span class="v">v4.3.0</span><p data-i18n="t20">Glass HUD you can rearrange, chat tabs and search, inventory sorting, shulker previews, profiles.</p></div>
       <div class="mod fx"><h3>Shardlight Map</h3><span class="v">v1.5.0</span><p data-i18n="t21">Minimap and world map with cave layers, radar, grouped waypoints and map sharing.</p></div>
       <div class="mod fx"><h3>Shardlight Companion</h3><span class="v">v1.2.1</span><p data-i18n="t22">Notes pinned to places, self-ticking to-do lists, photo mode, measuring tape, timers.</p></div>
       <div class="mod fx"><h3>Shardlight Party</h3><span class="v">v1.2.1</span><p data-i18n="t23">Friends list and party panel that finds friends anywhere, with no server plugin.</p></div>
@@ -788,14 +975,130 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
     <div class="news reveal">
       <h3 class="sub" data-i18n="nw0">What's new</h3>
       <div class="news-grid">
+        <article><header><b>Shardlight UI</b><span>v4.3.0</span></header><ul><li data-i18n="nw7">A new Kawaii group: Cotton Cloud and Strawberry Milk, each with its own little mascot.</li><li data-i18n="nw8">Two new frame effects, bounce and hearts, with matching click bursts.</li></ul></article>
+        <article><header><b>Shardlight UI</b><span>v4.2.0</span></header><ul><li data-i18n="nw9">45 new themes in six groups: Sea &amp; Sky, Wilds, Legends, Tech, Blocky and Seasons.</li><li data-i18n="nw10">Living ornaments, click bursts and menu particles for every theme.</li><li data-i18n="nw11">Also built for Minecraft 1.21.11.</li></ul></article>
         <article><header><b>Shardlight Party</b><span>v1.2.1</span></header><ul><li data-i18n="nw1">The HUD layout editor now shows party panels in their real spot and size.</li></ul></article>
-        <article><header><b>Shardlight Party</b><span>v1.2.0</span></header><ul><li data-i18n="nw2">Eight new themes, and the party panel takes your theme's frame shape.</li><li data-i18n="nw3">Smarter position updates: friends never get an out-of-date location.</li></ul></article>
         <article><header><b>Shardlight Client</b><span data-i18n="nw4">v0.1.0 out now</span></header><ul><li data-i18n="nw5">New artwork, a splash screen and installers for Windows, macOS and Linux.</li><li data-i18n="nw6">3D skin viewer, Discord status and a language picker.</li></ul></article>
       </div>
     </div>
   </div>
 </section>
-<div class="hills" aria-hidden="true"></div>
+</div>
+
+<div class="view" id="packs" data-view="packs" data-title="Resource packs" hidden>
+<section id="crescentbound">
+  <div class="wrap">
+    <div class="head reveal">
+      <span data-i18n="cb0" class="eyebrow">In development · Resource pack + companion mod</span>
+      <h2>Crescentbound</h2>
+      <p data-i18n="cb1">A hand-painted dark fantasy GUI for Minecraft. Steel, black and night purple, crescent moons instead of crosses, and a rune alphabet running through every bar. It still feels like Minecraft, just after dark.</p>
+    </div>
+    <figure class="cb-hero reveal"><img class="px zoom" src="crescentbound/loading.png" alt="Crescentbound loading screen: a silver crescent logo and a rune progress bar under a starry night sky"><figcaption><span class="cb-tag" data-i18n="cb2">Work in progress</span><span data-i18n="cb3">The loading screen, with the companion mod</span></figcaption></figure>
+    <div class="cb-stats reveal stag">
+      <div><b>~690</b><span data-i18n="cb4">hand-painted textures</span></div>
+      <div><b>42</b><span data-i18n="cb5">animated sprites</span></div>
+      <div><b>1.21–26.3</b><span data-i18n="cb6">Minecraft versions</span></div>
+      <div><b>13</b><span data-i18n="cb7">wood types, each with its own sign</span></div>
+    </div>
+    <div class="cb-gal reveal stag">
+      <figure class="w"><img class="px zoom" src="crescentbound/hud.png" alt="Crescentbound HUD with rune boss bar, rune XP bar, a bracket crosshair and a steel hotbar" loading="lazy"><figcaption data-i18n="cbg5">HUD: rune bars for XP and bosses, the ( . ) crosshair and a steel hotbar</figcaption></figure>
+      <figure><img class="px zoom" src="crescentbound/inventory.png" alt="Crescentbound glassy player inventory" loading="lazy"><figcaption data-i18n="cbg1">Player inventory</figcaption></figure>
+      <figure><img class="px zoom" src="crescentbound/creative.png" alt="Crescentbound creative inventory under a night sky with a crescent moon" loading="lazy"><figcaption data-i18n="cbg2">Creative inventory</figcaption></figure>
+      <figure><img class="px zoom" src="crescentbound/crafting.png" alt="Crescentbound crafting table on dark oak with tools on the wall" loading="lazy"><figcaption data-i18n="cbg3">Crafting table</figcaption></figure>
+      <figure><img class="px zoom" src="crescentbound/dispenser.png" alt="Crescentbound dispenser on a stone wall with a bow and arrows" loading="lazy"><figcaption data-i18n="cbg4">Dispenser</figcaption></figure>
+    </div>
+    <div class="cb-body reveal">
+      <ul class="feat" style="margin:0">
+        <li data-i18n="cb8"><span><b>Every screen redrawn by hand</b>: containers, villagers, menus, the book, signs, the map and the HUD</span></li>
+        <li data-i18n="cb9"><span><b>Runes and crescents</b>: rune bars for XP and bosses, crescent hearts and moon-phase enchanting levels</span></li>
+        <li data-i18n="cb10"><span><b>Looks right on its own.</b> The companion mod adds a unique screen for every chest, shulker and villager, a living night sky and epic tooltips</span></li>
+        <li data-i18n="cb11"><span><b>Made to sit next to Shardlight</b>, with the Shardlight font and glass chat</span></li>
+      </ul>
+      <div class="cb-side">
+        <h3 data-i18n="cb12">Coming soon</h3>
+        <p data-i18n="cb13">The art is done and the pack is being built and tested in game. New screens show up first in the Discord's sneak peeks.</p>
+        <div class="tagrow"><span data-i18n="cb14">Resource pack</span><span data-i18n="cb15">Fabric companion mod</span><span>Java 1.21 – 26.3</span><span data-i18n="cb16">16x pixel art</span></div>
+        <div class="dl"><a class="btn ghost" href="https://discord.gg/FJQhr2YEAe" data-i18n="cb17">Follow it on Discord</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="themepacks">
+  <div class="wrap">
+    <div class="head reveal">
+      <span data-i18n="tp0" class="eyebrow">Shardlight theme packs</span>
+      <h2 data-i18n="tp1">A pack for every theme</h2>
+      <p data-i18n="tp2">Each Shardlight theme comes with a UI resource pack and a matching sound pack. They work on their own and look their best next to the Shardlight UI mod.</p>
+    </div>
+    <figure class="tp-fig reveal"><img class="zoom" src="themes-grid.png" alt="Inventory screens from fifteen Shardlight theme packs, from Ember to Voidborn" loading="lazy"></figure>
+    <div class="gets reveal stag">
+      <article class="get fx"><span class="gtag free" data-i18n="g4">Free · coming soon to Modrinth</span><h3 data-i18n="tp7">Seven classic packs</h3><p data-i18n="g7">Seven themes (v1.0.1), each one resource pack with UI textures and matching sounds: Ember, Blood Moon, Soul Fire, Ashen, Dark Green, Purple Flame and Pink Blossom.</p>
+        <div class="glinks"><span class="soon" data-i18n="g8">Coming soon to Modrinth</span></div></article>
+      <article class="get fx pat"><span class="gtag" data-i18n="g12">Patreon · Ember tier</span><h3 data-i18n="g13">Exclusive theme packs</h3><p data-i18n="g14">Arcane Academy, Celestial, Cyberpunk, Dark Fantasy, Frostbound, Medieval, Steampunk and Voidborn (v1.0.1). Textures and sounds in one pack each.</p>
+        <div class="glinks"><a href="https://www.patreon.com/Janxirus/membership" data-i18n="g15">Join from 35 kr / month</a></div></article>
+      <article class="get fx new"><span class="gtag new" data-i18n="tp3">New · with Shardlight UI 4.3</span><h3 data-i18n="tp4">47 more themes</h3><p data-i18n="tp5">Seven new groups: Sea &amp; Sky, Wilds, Legends, Tech, Blocky, Seasons and Kawaii. From Abyssal Tide and Dragon Hoard to Lo-fi Cafe and Strawberry Milk, each with its own frames, living ornaments and sounds.</p>
+        <div class="glinks"><a href="#shardlight" data-i18n="tp6">See Shardlight</a></div></article>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="view" id="apps" data-view="apps" data-title="Apps" hidden>
+<section id="apps-intro">
+  <div class="wrap">
+    <div class="head reveal">
+      <span data-i18n="ap0" class="eyebrow">Software</span>
+      <h2 data-i18n="ap1">Apps I design and build</h2>
+      <p data-i18n="ap2">Desktop software, from a music island for Windows to a Minecraft launcher. I design the interface and write the code.</p>
+    </div>
+    <div class="apps-jump reveal stag">
+      <a class="aj fx" href="#notchx"><img src="notchx/icon.png" alt=""><span><b>Notch X</b><small data-i18n="ap3">Sneak peek · Windows</small></span></a>
+      <a class="aj fx" href="#client"><img src="client-home.jpg" alt=""><span><b>Shardlight Client</b><small data-i18n="ap4">Free · Windows, macOS, Linux</small></span></a>
+      <a class="aj fx" href="#mediavault"><img src="mediavault-home.jpg" alt=""><span><b>MediaVault</b><small data-i18n="ap5">Patreon · Windows</small></span></a>
+    </div>
+  </div>
+</section>
+
+<section id="notchx">
+  <div class="wrap nx">
+    <div class="nx-copy reveal">
+      <span data-i18n="nx0" class="eyebrow">New · Sneak peek</span>
+      <div class="nx-title"><img src="notchx/icon.png" alt="Notch X icon" width="58" height="58"><h2>Notch X</h2><span class="nx-badge" data-i18n="nx1">Coming soon</span></div>
+      <p data-i18n="nx2">A Dynamic Island for Windows. Your music, lyrics and quick actions live in one small island at the top of the screen, and it gets out of the way when you play.</p>
+      <ul class="feat">
+        <li data-i18n="nx3"><span><b>Bars that follow the real sound</b>: 14 visualizer designs that only listen to your music player</span></li>
+        <li data-i18n="nx4"><span><b>Synced lyrics</b> that light up word by word in the song's colour</span></li>
+        <li data-i18n="nx5"><span><b>Game mode</b>: a slim strip above your HUD that ignores the mouse while you aim</span></li>
+        <li data-i18n="nx6"><span><b>One hover away</b>: notes, a file shelf, clipboard history, quick settings and widgets</span></li>
+      </ul>
+      <div class="tagrow"><span>C#</span><span>WPF</span><span>.NET 8</span><span>v2.2.0</span><span>Windows 10 · 11</span><span data-i18n="nx7">No account, no tracking</span></div>
+      <p class="dl-note" data-i18n="nx8">First public release soon. Join the Discord to hear when it's out.</p>
+      <div class="dl"><a class="btn ghost" href="https://discord.gg/FJQhr2YEAe" data-i18n="nx9">Get notified on Discord</a></div>
+    </div>
+    <div class="nx-stage reveal">
+      <div class="nx-screen">
+        <i class="nx-blob b1"></i><i class="nx-blob b2"></i><i class="nx-win"></i>
+        <div class="nx-island" id="nxIsland" data-mat="solid" role="button" tabindex="0" aria-expanded="false" aria-label="Notch X island preview. Press to open or close">
+          <div class="nx-pill" aria-hidden="true"><i class="nx-cover"></i><div class="nx-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="nx-card" aria-hidden="true">
+            <div class="nx-row"><i class="nx-art"></i><div style="min-width:0"><b>Midnight Drive</b><small>Neon Coast</small></div><div class="nx-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <p class="nx-lyric" id="nxLyric"></p>
+            <div class="nx-prog"><span>1:12</span><div><i></i></div><span>3:48</span></div>
+            <div class="nx-ctl"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg><svg class="pp" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></div>
+          </div>
+        </div>
+        <div class="nx-hint" data-i18n="nx10">Hover or tap the island</div>
+      </div>
+      <div class="nx-mats" id="nxMats" role="group" aria-label="Island material"><span data-i18n="nx11">Material:</span>
+        <button type="button" data-m="solid" aria-pressed="true">Solid</button><button type="button" data-m="glass" aria-pressed="false">Glass</button><button type="button" data-m="frosted" aria-pressed="false">Frosted</button><button type="button" data-m="aurora" aria-pressed="false">Aurora</button><button type="button" data-m="neon" aria-pressed="false">Neon</button><button type="button" data-m="metal" aria-pressed="false">Metal</button>
+      </div>
+      <p class="dl-note" data-i18n="nx12">A live mockup of the island. The real app's song, cover and colours come from your music player.</p>
+    </div>
+  </div>
+</section>
+
 <section id="client">
   <div class="wrap client">
     <div class="reveal">
@@ -825,12 +1128,8 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
   </div>
 </section>
 
-<section id="work">
+<section id="mediavault">
   <div class="wrap">
-    <div class="head reveal">
-      <span data-i18n="t30" class="eyebrow">More work</span>
-      <h2 data-i18n="t31">Desktop apps</h2>
-    </div>
     <div class="grid2 reveal stag" style="grid-template-columns:1fr">
       <article class="card fx wide">
         <div class="img"><img class="zoom" src="mediavault-home.jpg" alt="MediaVault home screen with library overview, folders and recently added videos" loading="lazy"></div>
@@ -845,7 +1144,9 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
     </div>
   </div>
 </section>
+</div>
 
+<div class="view" data-view="get" data-title="Downloads" hidden>
 <section id="get">
   <div class="wrap">
     <div class="head reveal">
@@ -854,7 +1155,7 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
       <p data-i18n="g3">The mods and seven theme packs are coming soon to Modrinth, and the launcher is free on GitHub. Patreon members also get eight exclusive theme packs and MediaVault.</p>
     </div>
     <div class="gets reveal stag">
-      <article class="get fx"><span class="gtag free" data-i18n="g4">Free · coming soon to Modrinth</span><h3>Shardlight mods</h3><p data-i18n="g5">The UI overhaul and its three add-ons for Fabric, Minecraft 26.2 and 26.3.</p>
+      <article class="get fx"><span class="gtag free" data-i18n="g4">Free · coming soon to Modrinth</span><h3>Shardlight mods</h3><p data-i18n="g5">The UI overhaul and its three add-ons for Fabric, Minecraft 26.2 and 26.3. Shardlight UI also runs on 1.21.11.</p>
         <div class="glinks"><span class="soon" data-i18n="g8">Coming soon to Modrinth</span></div></article>
       <article class="get fx"><span class="gtag free" data-i18n="g4">Free · coming soon to Modrinth</span><h3 data-i18n="g6">Theme packs</h3><p data-i18n="g7">Seven themes (v1.0.1), each one resource pack with UI textures and matching sounds: Ember, Blood Moon, Soul Fire, Ashen, Dark Green, Purple Flame and Pink Blossom.</p>
         <div class="glinks"><span class="soon" data-i18n="g8">Coming soon to Modrinth</span></div></article>
@@ -867,8 +1168,9 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
     </div>
   </div>
 </section>
+</div>
 
-<div class="hills" aria-hidden="true"></div>
+<div class="view" data-view="services" data-title="Commissions" hidden>
 <section id="services">
   <div class="wrap">
     <div class="head reveal">
@@ -914,22 +1216,24 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
     </div>
   </div>
 </section>
+</div>
 
+<div class="view" data-view="about" data-title="About" hidden>
 <section id="about">
   <div class="wrap about reveal">
     <div class="avatar av3d"><canvas id="aboutCube" aria-hidden="true"></canvas><img class="px" src="cube.png" alt="Janxirus pixel logo"></div>
     <div>
       <span data-i18n="t62" class="eyebrow">About me</span>
       <h2 data-i18n="t63" style="font-family:var(--display);font-size:clamp(30px,4.5vw,46px);line-height:1.05;margin:8px 0 14px">Hi, I'm Janxirus</h2>
-      <p data-i18n="t64">I study <b>Software Engineering at Blekinge Institute of Technology</b> in Karlskrona. Outside class I build the tools and games I want to use myself, from a Minecraft launcher to a full UI overhaul with fifteen themes.</p>
+      <p data-i18n="t64">I study <b>Software Engineering at Blekinge Institute of Technology</b> in Karlskrona. Outside class I build the tools and games I want to use myself, from a Minecraft launcher to a full UI overhaul with sixty-two themes.</p>
       <p data-i18n="t65">I care about two things: it has to look good, and it has to run fast.</p>
       <div class="stack"><span>Java</span><span>Fabric</span><span>Mixins</span><span>JavaFX</span><span>Gradle</span><span>Python</span><span>Luau</span><span>Roblox Studio</span><span>Pixel art</span><span>UI/UX</span><span>Git</span></div>
     </div>
   </div>
 </section>
+</div>
 
-
-<div class="hills" aria-hidden="true"></div>
+<div class="view" data-view="support" data-title="Support" hidden>
 <section id="support">
   <div class="wrap">
     <div class="head reveal">
@@ -945,8 +1249,10 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
         <div class="support-cta reveal"><a data-i18n="t69" class="btn" href="https://www.patreon.com/Janxirus">Join on Patreon</a><a data-i18n="dc1" class="btn ghost" href="https://discord.gg/FJQhr2YEAe">Join the Discord</a><p data-i18n="t70">Prices are shown in your own currency on Patreon.</p></div>
   </div>
 </section>
+</div>
 
-<section id="contact" style="padding-top:20px">
+<div class="view" data-view="contact" data-title="Contact" hidden>
+<section id="contact">
   <div class="wrap">
     <div class="contact reveal">
       <span data-i18n="t71" class="eyebrow">Commissions open</span>
@@ -976,15 +1282,40 @@ html.day .lbtn:hover,html.day .lbtn[aria-expanded="true"]{background:rgba(23,20,
       </form>
       <div class="handles">
         <a href="https://github.com/Janxirus" class="hi"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>github.com/Janxirus</a>
-        <a href="https://www.fiverr.com/janxirus" class="hi"><svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="17.6" text-anchor="middle" font-family="Outfit,Arial,sans-serif" font-weight="800" font-size="17" fill="currentColor">fi</text></svg>fiverr.com/janxirus</a>
+        <a href="https://www.fiverr.com/janxirus" class="hi"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-.85c-.546 0-.84.41-.84 1.092v2.466h-1.61v-3.558h-.684c-.547 0-.84.41-.84 1.092v2.466h-1.61v-4.874h1.61v.74c.264-.574.626-.74 1.163-.74h1.972v.74c.264-.574.625-.74 1.162-.74h.527v1.316zm-6.786 1.501h-3.359c.088.546.43.858 1.006.858.43 0 .732-.175.83-.487l1.425.4c-.351.848-1.22 1.364-2.255 1.364-1.748 0-2.549-1.355-2.549-2.515 0-1.14.703-2.505 2.45-2.505 1.856 0 2.471 1.384 2.471 2.408 0 .224-.01.37-.02.477zm-1.562-.945c-.04-.42-.342-.81-.889-.81-.508 0-.81.225-.908.81h1.797zM7.508 15.44h1.416l1.767-4.874h-1.62l-.86 2.837-.878-2.837H5.72l1.787 4.874zm-6.6 0H2.51v-3.558h1.524v3.558h1.591v-4.874H2.51v-.302c0-.332.235-.536.606-.536h.918V8.412H2.85c-1.162 0-1.943.712-1.943 1.755v.4H0v1.316h.908v3.558z"/></svg>fiverr.com/janxirus</a>
         <a href="https://www.patreon.com/Janxirus" class="hi"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z"/></svg>patreon.com/Janxirus</a>
         <a href="https://discord.gg/FJQhr2YEAe" class="hi"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>discord.gg/FJQhr2YEAe</a>
-        <code id="mail" class="hi" style="user-select:all"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>janxirus.dev@gmail.com</code>
+        <a id="mail" class="hi" href="mailto:janxirus.dev@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>janxirus.dev@gmail.com</a>
       </div>
     </div>
-    <footer><span data-i18n="t81">© 2026 Janxirus · Karlskrona, Sweden · All rights reserved</span><nav class="flinks" aria-label="Elsewhere"><a href="https://github.com/Janxirus" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a href="https://www.patreon.com/Janxirus" aria-label="Patreon" title="Patreon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z"/></svg></a><a href="https://www.fiverr.com/janxirus" aria-label="Fiverr" title="Fiverr"><svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="17.6" text-anchor="middle" font-family="Outfit,Arial,sans-serif" font-weight="800" font-size="17" fill="currentColor">fi</text></svg></a><a href="https://discord.gg/FJQhr2YEAe" aria-label="Discord" title="Discord"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></a><a href="links.html">Links</a><a href="#contact">Contact</a></nav><span class="secrets" id="ach" title="There are hidden things on this page">0 / 5 secrets found</span></footer>
   </div>
 </section>
+</div>
+</main>
+<aside class="rail" id="rail" aria-label="Site menu">
+  <button type="button" class="rail-x" id="railx" aria-label="Close menu">×</button>
+  <div role="navigation" aria-label="Sections">
+    <a class="ri-l" href="#top"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 9.5 10 3l7 6.5V17h-4.5v-4.5h-5V17H3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span data-i18n="r0">Home</span></a>
+    <h4 data-i18n="r1">Minecraft</h4>
+    <a class="ri-l" href="#shardlight"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5 17 6v8l-7 3.5L3 14V6zM3 6l7 3.5L17 6M10 9.5v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span data-i18n="r2">Shardlight mods</span></a>
+    <a class="ri-l" href="#packs"><img src="crescentbound/icon.png" alt=""><span data-i18n="r3">Resource packs</span></a>
+    <div class="subs"><a href="#crescentbound">Crescentbound</a><a href="#themepacks" data-i18n="r4">Theme packs</a></div>
+    <h4 data-i18n="r5">Software</h4>
+    <a class="ri-l" href="#apps"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 17.5h6M10 14.5v3" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span data-i18n="r6">Apps</span></a>
+    <div class="subs"><a href="#notchx">Notch X <em class="new" data-i18n="rnew">new</em></a><a href="#client">Shardlight Client</a><a href="#mediavault">MediaVault</a></div>
+    <h4 data-i18n="r7">Studio</h4>
+    <a class="ri-l" href="#services"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="6" width="15" height="10.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 6V4.5h6V6M2.5 10.5h15" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span data-i18n="r8">Commissions</span></a>
+    <a class="ri-l" href="#get"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9.5M6 9l4 4 4-4M3.5 16.5h13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="r9">Downloads</span></a>
+    <a class="ri-l" href="#support"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16.5S3 12.3 3 7.6A3.6 3.6 0 0 1 10 6a3.6 3.6 0 0 1 7 1.6c0 4.7-7 8.9-7 8.9z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span data-i18n="r10">Support</span></a>
+    <a class="ri-l" href="#about"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="7" r="3.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.8 17c.8-3.2 3.3-5 6.2-5s5.4 1.8 6.2 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span data-i18n="r11">About</span></a>
+    <a class="ri-l" href="#contact"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m3.5 6 6.5 5 6.5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span data-i18n="r14">Contact</span></a>
+    <a class="btn" href="#contact" data-i18n="r12">Start a project</a>
+  </div>
+</aside>
+
+</div>
+<div class="scrim" id="scrim" hidden></div>
+<div class="wrap"><footer><span data-i18n="t81">© 2026 Janxirus · Karlskrona, Sweden · All rights reserved</span><nav class="flinks" aria-label="Elsewhere"><a href="https://github.com/Janxirus" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a href="https://www.patreon.com/Janxirus" aria-label="Patreon" title="Patreon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22.957 7.21c-.004-3.064-2.391-5.576-5.191-6.482-3.478-1.125-8.064-.962-11.384.604C2.357 3.231 1.093 7.391 1.046 11.54c-.039 3.411.302 12.396 5.369 12.46 3.765.047 4.326-4.804 6.068-7.141 1.24-1.662 2.836-2.132 4.801-2.618 3.376-.836 5.678-3.501 5.673-7.031Z"/></svg></a><a href="https://www.fiverr.com/janxirus" aria-label="Fiverr" title="Fiverr"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-.85c-.546 0-.84.41-.84 1.092v2.466h-1.61v-3.558h-.684c-.547 0-.84.41-.84 1.092v2.466h-1.61v-4.874h1.61v.74c.264-.574.626-.74 1.163-.74h1.972v.74c.264-.574.625-.74 1.162-.74h.527v1.316zm-6.786 1.501h-3.359c.088.546.43.858 1.006.858.43 0 .732-.175.83-.487l1.425.4c-.351.848-1.22 1.364-2.255 1.364-1.748 0-2.549-1.355-2.549-2.515 0-1.14.703-2.505 2.45-2.505 1.856 0 2.471 1.384 2.471 2.408 0 .224-.01.37-.02.477zm-1.562-.945c-.04-.42-.342-.81-.889-.81-.508 0-.81.225-.908.81h1.797zM7.508 15.44h1.416l1.767-4.874h-1.62l-.86 2.837-.878-2.837H5.72l1.787 4.874zm-6.6 0H2.51v-3.558h1.524v3.558h1.591v-4.874H2.51v-.302c0-.332.235-.536.606-.536h.918V8.412H2.85c-1.162 0-1.943.712-1.943 1.755v.4H0v1.316h.908v3.558z"/></svg></a><a href="https://discord.gg/FJQhr2YEAe" aria-label="Discord" title="Discord"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></a><a href="links.html">Links</a><a href="#contact">Contact</a></nav><span class="secrets" id="ach" title="There are hidden things on this page">0 / 5 secrets found</span></footer></div>
 
 <script>
 (function(){
@@ -1066,7 +1397,7 @@ g('b-copy').onclick=()=>{
 
 /* lightbox */
 const lb=g('lb'),lbi=g('lb-img');
-document.addEventListener('click',e=>{const im=e.target.closest('img.zoom');if(im){lbi.src=im.src;lbi.alt=im.alt;lb.hidden=false}});
+document.addEventListener('click',e=>{const im=e.target.closest('img.zoom');if(im){lbi.src=im.src;lbi.alt=im.alt;lbi.classList.toggle('px',im.classList.contains('px'));lb.hidden=false}});
 lb.onclick=e=>{if(e.target!==lbi)lb.hidden=true};
 addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true});
 
@@ -1539,7 +1870,7 @@ const SITE={
   formspree:'mnpppgyq',      // Formspree form ID, e.g. 'xyzabcde' -> the brief is sent straight to your inbox
   goatcounter:'janxirus',    // GoatCounter code, e.g. 'janxirus' -> privacy-friendly visitor stats
   discordServer:'1564370494814289980',  // Discord server ID (enable the widget in Server Settings > Widget)
-  now:'updating Shardlight to Minecraft 26.3', nowSv:'uppdaterar Shardlight till Minecraft 26.3'
+  now:'painting Crescentbound and polishing Notch X', nowSv:'målar Crescentbound och finslipar Notch X'
 };
 /* ===== quote estimator ===== */
 (function(){const map=['gui','mod','theme','roblox','app',null];const t=document.getElementById('b-type'),pk=document.getElementById('b-pkg'),ru=document.getElementById('b-rush');
@@ -1561,10 +1892,10 @@ if(SITE.goatcounter&&location.protocol!=='file:'){const sc=document.createElemen
 document.getElementById('now-text').textContent=SITE.now;
 /* ===== language: EN / SV / AR ===== */
 const L10N={
-  sv:{dict:{"t0": "Shardlight", "t1": "Projekt", "t2": "Tjänster", "t3": "Om mig", "t4": "Stöd", "t5": "Utvecklare &amp; designer · Karlskrona", "t6": "Minecraft-moddar och resurspaket, datorappar och Roblox-spel. Jag designar utseendet och skriver koden, så det blir klart snabbt och går snabbt.", "t7": "Starta ett projekt", "t8": "Se mina projekt", "t9": "Fabric-moddar", "t10": "UI-teman", "t11": "launcher-tester", "t12": "datorappar", "t13": "Utvalt · Minecraft 26.3", "t14": "Shardlight: en mod, femton världar", "t15": "Ett helt nytt gränssnitt med matchande resurs- och ljudpaket för varje tema. Välj ett tema och se hur det ändrar varje skärm.", "t16": "Inventory", "t17": "Kista", "t18": "Ugn", "t19": "<i></i>Jämför med vanilla", "t20": "Glas-HUD som du kan flytta runt, chattflikar och sök, sortering, förhandsvisning av shulker-lådor och profiler.", "t21": "Minikarta och världskarta med grottlager, radar, grupperade waypoints och kartdelning.", "t22": "Anteckningar på platser, att göra-listor som bockar av sig själva, fotoläge, måttband och timers.", "t23": "Vänlista och gruppanel som hittar dina vänner var som helst, utan serverplugin.", "t24": "Datorapp · JavaFX", "t25": "Min egen Minecraft-launcher. Varje uppsättning har ett eget projekt, och bildfrekvensen kommer först.", "t26": "<span><b>Projekt</b> med egen version, loader, moddar och Java</span>", "t27": "<span><b>Modrinth och CurseForge</b>-sök med kontroll av beroenden och konflikter</span>", "t28": "<span><b>Sex prestandalägen</b> som visar varje ändring först</span>", "t29": "<span><b>Krasch-hjälp</b> på vanlig svenska, plus säkerhetskopior av världar</span>", "t30": "Fler projekt", "t31": "Datorappar", "t32": "En Windows-app som samlar mappar och externa diskar i ett privat, lokalt mediebibliotek. Inbyggd spelare, snabbsortering, hittar dubbletter och liknande bilder, jämförelse sida vid sida, städning av lagring och valfri lokal AI. Inget molnkonto behövs.", "t33": "Uppdrag", "t34": "Vad jag kan bygga åt dig", "t35": "Välj en tjänst för att se paketen. Varje jobb får ett fast pris innan arbetet börjar.", "t36": "<b>30 % rabatt för mina 3 första kunder</b> i utbyte mot en ärlig recension. <span id=\"slots\">3 av 3 platser kvar.</span>", "t37": "GUI &amp; paket", "t38": "Moddar &amp; plugins", "t39": "Serverteman", "t40": "Datorappar", "t41": "Priser i US-dollar, samma som på Fiverr · 50 % i förskott, 50 % vid leverans · två ändringsrundor ingår · expressleverans under 3 dagar +30 % · fakturering via Frilans Finans", "t42": "Så går det till", "t43": "<b>Brief</b><span>Berätta vad du behöver och dela referenser.</span>", "t44": "<b>Offert</b><span>Fast pris och leveransdatum.</span>", "t45": "<b>Förhandsvisning</b><span>Du ser arbetet under tiden och kan be om ändringar.</span>", "t46": "<b>Leverans</b><span>Färdiga filer, källkod och installationsinstruktioner.</span>", "t47": "Frågor om betalning, ändringar eller versioner? <a href=\"#faq\">Läs vanliga frågor</a>", "t48": "Bra att veta", "t49": "Vanliga frågor", "t50": "Hur betalar jag?", "t51": "50 % i förskott innan jag börjar och 50 % innan de färdiga filerna levereras. Jobb på 20 dollar eller mindre betalas helt i förskott. Jag fakturerar via Frilans Finans, så du får en riktig faktura.", "t52": "Hur många ändringar ingår?", "t53": "Två ändringsrundor ingår i varje paket. Extra rundor kostar 10 dollar styck. Nya funktioner utanför det avtalade får en egen offert.", "t54": "Vilka Minecraft-versioner jobbar du med?", "t55": "Främst Fabric på de senaste versionerna (26.x). Berätta din version och loader så bekräftar jag innan offerten. Forge och NeoForge går att ordna på begäran.", "t56": "Får jag källkoden?", "t57": "Full-paketen inkluderar källkod. För Starter och Standard kostar källkoden +50 % om inget annat avtalats. Du får alltid använda det färdiga arbetet på din server eller i ditt spel.", "t58": "Får du visa mitt projekt i din portfolio?", "t59": "Som standard kan jag visa färdigt arbete i min portfolio. Säg bara till så håller jag det privat.", "t60": "Vad händer om jag måste avbryta?", "t61": "Om du avbryter efter att arbetet har börjat återbetalas inte förskottet. Om jag avbryter får du allt tillbaka.", "t62": "Om mig", "t63": "Hej, jag heter Janxirus", "t64": "Jag pluggar <b>Software Engineering på Blekinge Tekniska Högskola</b> i Karlskrona. Vid sidan av studierna bygger jag verktyg och spel som jag själv vill använda, från en Minecraft-launcher till ett helt nytt gränssnitt med femton teman.", "t65": "Jag bryr mig om två saker: det ska se bra ut, och det ska gå snabbt.", "t66": "Stöd mitt arbete", "t67": "Håll Shardlight gratis", "t68": "Moddarna kommer alltid vara gratis. Medlemmar på Patreon får tidig tillgång, röstar på vad som kommer härnäst och får exklusiva teman.", "t69": "Gå med på Patreon", "dc1": "Gå med i Discord", "t70": "Priserna visas i din egen valuta på Patreon.", "t71": "Tar emot uppdrag", "t72": "Låt oss bygga något", "t73": "Berätta vad du behöver, din spelversion och en deadline. Jag svarar inom 24 timmar.", "t74": "Projekt", "t75": "Spelversion / plattform", "t76": "Deadline", "t77": "Vad behöver du?", "t78": "Budget", "t79": "Kopiera min brief", "t80": "Kopiera briefen och klistra in den i ett mejl till janxirus.dev@gmail.com eller ett Fiverr-meddelande.", "t81": "© 2026 Janxirus · Karlskrona · Alla rättigheter förbehållna", "now": "Just nu:", "dl1": "Ladda ner Shardlight Client", "dl2": "Se källkoden", "dl3": "Gratis · Windows, macOS och Linux · släpps på GitHub med checksummor", "nw0": "Nyheter", "mo1": "I rörelse", "mo2": "Pausa", "mo2b": "Spela", "mo3": "Temapaket", "mo4": "Samma kista, alla teman", "mo5": "Formbyggare", "mo7": "Världskarta", "mo9": "Inspelat i spelet på Minecraft 26.3.", "nw1": "HUD-layoutredigeraren visar nu gruppanelerna på rätt plats och i rätt storlek.", "nw2": "Åtta nya teman, och gruppanelen får ditt temas ramform.", "nw3": "Smartare positionsuppdateringar: vänner får aldrig en gammal position.", "nw4": "v0.1.0 ute nu", "nw5": "Ny grafik, startskärm och installationsprogram för Windows, macOS och Linux.", "nw6": "3D-skinvisning, Discord-status och språkväljare.", "e1": "Paket", "e2": "Expressleverans (under 3 dagar)", "e3": "Uppskattning", "e4": "Skicka till Janxirus", "fv1": "Vill du hellre beställa via Fiverr?", "fv2": "Se mina Fiverr-tjänster", "g0": "Nedladdningar", "g1": "Nedladdningar", "g2": "Hämta mina grejer", "g3": "Moddarna och sju temapaket kommer snart till Modrinth, och launchern är gratis på GitHub. Medlemmar på Patreon får dessutom åtta exklusiva temapaket och MediaVault.", "g4": "Gratis · snart på Modrinth", "g5": "Gränssnittsmodden och dess tre tillägg för Fabric, Minecraft 26.2 och 26.3.", "g6": "Temapaket", "g7": "Sju teman (v1.0.1), var och ett ett resurspaket med UI-texturer och matchande ljud: Ember, Blood Moon, Soul Fire, Ashen, Dark Green, Purple Flame och Pink Blossom.", "g8": "Kommer snart till Modrinth", "g9": "Gratis · GitHub", "g10": "Min Minecraft-launcher för Windows, macOS och Linux.", "g11": "Senaste versionen", "g12": "Patreon · Ember-nivån", "g13": "Exklusiva temapaket", "g14": "Arcane Academy, Celestial, Cyberpunk, Dark Fantasy, Frostbound, Medieval, Steampunk och Voidborn (v1.0.1). Texturer och ljud i ett paket var.", "g15": "Gå med från 35 kr / månad", "g16": "Patreon · Shard-nivån", "g17": "Min privata mediebiblioteksapp för Windows.", "g18": "Gå med från 69 kr / månad", "g20": "Hämta MediaVault på Patreon", "g21": "Exklusivt på Patreon · Shard-nivån (69 kr / månad) och uppåt", "g30": "8 exklusiva Shardlight-temapaket", "g31": "MediaVault för Windows"},rot:['Minecraft-moddar.','spel-UI.','resurspaket.','datorappar.','Roblox-spel.'],build:'Jag bygger',
+  sv:{dict:{"t0": "Shardlight", "t1": "Projekt", "t2": "Tjänster", "t3": "Om mig", "t4": "Stöd", "t5": "Utvecklare &amp; designer · Karlskrona", "t6": "Minecraft-moddar och resurspaket, datorappar och Roblox-spel. Jag designar utseendet och skriver koden, så det blir klart snabbt och går snabbt.", "t7": "Starta ett projekt", "t8": "Se mina projekt", "t9": "Fabric-moddar", "t10": "UI-teman", "t11": "launcher-tester", "t12": "datorappar", "t13": "Utvalt · Minecraft 26.3", "t14": "Shardlight: en mod, sextiotvå världar", "t15": "Ett helt nytt gränssnitt med matchande resurs- och ljudpaket för varje tema. Femton av dem finns här nedanför: välj ett och se hur det ändrar varje skärm.", "t16": "Inventory", "t17": "Kista", "t18": "Ugn", "t19": "<i></i>Jämför med vanilla", "t20": "Glas-HUD som du kan flytta runt, chattflikar och sök, sortering, förhandsvisning av shulker-lådor och profiler.", "t21": "Minikarta och världskarta med grottlager, radar, grupperade waypoints och kartdelning.", "t22": "Anteckningar på platser, att göra-listor som bockar av sig själva, fotoläge, måttband och timers.", "t23": "Vänlista och gruppanel som hittar dina vänner var som helst, utan serverplugin.", "t24": "Datorapp · JavaFX", "t25": "Min egen Minecraft-launcher. Varje uppsättning har ett eget projekt, och bildfrekvensen kommer först.", "t26": "<span><b>Projekt</b> med egen version, loader, moddar och Java</span>", "t27": "<span><b>Modrinth och CurseForge</b>-sök med kontroll av beroenden och konflikter</span>", "t28": "<span><b>Sex prestandalägen</b> som visar varje ändring först</span>", "t29": "<span><b>Krasch-hjälp</b> på vanlig svenska, plus säkerhetskopior av världar</span>", "t30": "Fler projekt", "t31": "Datorappar", "t32": "En Windows-app som samlar mappar och externa diskar i ett privat, lokalt mediebibliotek. Inbyggd spelare, snabbsortering, hittar dubbletter och liknande bilder, jämförelse sida vid sida, städning av lagring och valfri lokal AI. Inget molnkonto behövs.", "t33": "Uppdrag", "t34": "Vad jag kan bygga åt dig", "t35": "Välj en tjänst för att se paketen. Varje jobb får ett fast pris innan arbetet börjar.", "t36": "<b>30 % rabatt för mina 3 första kunder</b> i utbyte mot en ärlig recension. <span id=\"slots\">3 av 3 platser kvar.</span>", "t37": "GUI &amp; paket", "t38": "Moddar &amp; plugins", "t39": "Serverteman", "t40": "Datorappar", "t41": "Priser i US-dollar, samma som på Fiverr · 50 % i förskott, 50 % vid leverans · två ändringsrundor ingår · expressleverans under 3 dagar +30 % · fakturering via Frilans Finans", "t42": "Så går det till", "t43": "<b>Brief</b><span>Berätta vad du behöver och dela referenser.</span>", "t44": "<b>Offert</b><span>Fast pris och leveransdatum.</span>", "t45": "<b>Förhandsvisning</b><span>Du ser arbetet under tiden och kan be om ändringar.</span>", "t46": "<b>Leverans</b><span>Färdiga filer, källkod och installationsinstruktioner.</span>", "t47": "Frågor om betalning, ändringar eller versioner? <a href=\"#faq\">Läs vanliga frågor</a>", "t48": "Bra att veta", "t49": "Vanliga frågor", "t50": "Hur betalar jag?", "t51": "50 % i förskott innan jag börjar och 50 % innan de färdiga filerna levereras. Jobb på 20 dollar eller mindre betalas helt i förskott. Jag fakturerar via Frilans Finans, så du får en riktig faktura.", "t52": "Hur många ändringar ingår?", "t53": "Två ändringsrundor ingår i varje paket. Extra rundor kostar 10 dollar styck. Nya funktioner utanför det avtalade får en egen offert.", "t54": "Vilka Minecraft-versioner jobbar du med?", "t55": "Främst Fabric på de senaste versionerna (26.x). Berätta din version och loader så bekräftar jag innan offerten. Forge och NeoForge går att ordna på begäran.", "t56": "Får jag källkoden?", "t57": "Full-paketen inkluderar källkod. För Starter och Standard kostar källkoden +50 % om inget annat avtalats. Du får alltid använda det färdiga arbetet på din server eller i ditt spel.", "t58": "Får du visa mitt projekt i din portfolio?", "t59": "Som standard kan jag visa färdigt arbete i min portfolio. Säg bara till så håller jag det privat.", "t60": "Vad händer om jag måste avbryta?", "t61": "Om du avbryter efter att arbetet har börjat återbetalas inte förskottet. Om jag avbryter får du allt tillbaka.", "t62": "Om mig", "t63": "Hej, jag heter Janxirus", "t64": "Jag pluggar <b>Software Engineering på Blekinge Tekniska Högskola</b> i Karlskrona. Vid sidan av studierna bygger jag verktyg och spel som jag själv vill använda, från en Minecraft-launcher till ett helt nytt gränssnitt med sextiotvå teman.", "t65": "Jag bryr mig om två saker: det ska se bra ut, och det ska gå snabbt.", "t66": "Stöd mitt arbete", "t67": "Håll Shardlight gratis", "t68": "Moddarna kommer alltid vara gratis. Medlemmar på Patreon får tidig tillgång, röstar på vad som kommer härnäst och får exklusiva teman.", "t69": "Gå med på Patreon", "dc1": "Gå med i Discord", "t70": "Priserna visas i din egen valuta på Patreon.", "t71": "Tar emot uppdrag", "t72": "Låt oss bygga något", "t73": "Berätta vad du behöver, din spelversion och en deadline. Jag svarar inom 24 timmar.", "t74": "Projekt", "t75": "Spelversion / plattform", "t76": "Deadline", "t77": "Vad behöver du?", "t78": "Budget", "t79": "Kopiera min brief", "t80": "Kopiera briefen och klistra in den i ett mejl till janxirus.dev@gmail.com eller ett Fiverr-meddelande.", "t81": "© 2026 Janxirus · Karlskrona · Alla rättigheter förbehållna", "now": "Just nu:", "dl1": "Ladda ner Shardlight Client", "dl2": "Se källkoden", "dl3": "Gratis · Windows, macOS och Linux · släpps på GitHub med checksummor", "nw0": "Nyheter", "mo1": "I rörelse", "mo2": "Pausa", "mo2b": "Spela", "mo3": "Temapaket", "mo4": "Samma kista, alla teman", "mo5": "Formbyggare", "mo7": "Världskarta", "mo9": "Inspelat i spelet på Minecraft 26.3.", "nw1": "HUD-layoutredigeraren visar nu gruppanelerna på rätt plats och i rätt storlek.", "nw2": "Åtta nya teman, och gruppanelen får ditt temas ramform.", "nw3": "Smartare positionsuppdateringar: vänner får aldrig en gammal position.", "nw4": "v0.1.0 ute nu", "nw5": "Ny grafik, startskärm och installationsprogram för Windows, macOS och Linux.", "nw6": "3D-skinvisning, Discord-status och språkväljare.", "e1": "Paket", "e2": "Expressleverans (under 3 dagar)", "e3": "Uppskattning", "e4": "Skicka till Janxirus", "fv1": "Vill du hellre beställa via Fiverr?", "fv2": "Se mina Fiverr-tjänster", "g0": "Nedladdningar", "g1": "Nedladdningar", "g2": "Hämta mina grejer", "g3": "Moddarna och sju temapaket kommer snart till Modrinth, och launchern är gratis på GitHub. Medlemmar på Patreon får dessutom åtta exklusiva temapaket och MediaVault.", "g4": "Gratis · snart på Modrinth", "g5": "Gränssnittsmodden och dess tre tillägg för Fabric, Minecraft 26.2 och 26.3. Shardlight UI fungerar även på 1.21.11.", "g6": "Temapaket", "g7": "Sju teman (v1.0.1), var och ett ett resurspaket med UI-texturer och matchande ljud: Ember, Blood Moon, Soul Fire, Ashen, Dark Green, Purple Flame och Pink Blossom.", "g8": "Kommer snart till Modrinth", "g9": "Gratis · GitHub", "g10": "Min Minecraft-launcher för Windows, macOS och Linux.", "g11": "Senaste versionen", "g12": "Patreon · Ember-nivån", "g13": "Exklusiva temapaket", "g14": "Arcane Academy, Celestial, Cyberpunk, Dark Fantasy, Frostbound, Medieval, Steampunk och Voidborn (v1.0.1). Texturer och ljud i ett paket var.", "g15": "Gå med från 35 kr / månad", "g16": "Patreon · Shard-nivån", "g17": "Min privata mediebiblioteksapp för Windows.", "g18": "Gå med från 69 kr / månad", "g20": "Hämta MediaVault på Patreon", "g21": "Exklusivt på Patreon · Shard-nivån (69 kr / månad) och uppåt", "g30": "8 exklusiva Shardlight-temapaket", "g31": "MediaVault för Windows", "r0": "Hem", "r1": "Minecraft", "r2": "Shardlight-moddar", "r3": "Resurspaket", "r4": "Temapaket", "r5": "Mjukvara", "r6": "Appar", "r7": "Studio", "r8": "Uppdrag", "r9": "Nedladdningar", "r10": "Stöd", "r11": "Om mig", "r12": "Starta ett projekt", "r13": "Meny", "r14": "Kontakt", "rnew": "ny", "x0": "Utforska", "x1": "Välj var du vill börja", "x2": "Minecraft · Moddar", "x3": "Ett helt nytt gränssnitt med 62 teman, plus en kart-, en hjälpar- och en gruppmod.", "x4": "Minecraft · Resurspaket", "x5": "Crescentbound, ett handmålat medeltida gränssnitt, och ett paket för varje Shardlight-tema.", "x6": "Mjukvara · Appar", "x7": "Notch X, Shardlight Client och MediaVault. Datorappar som jag designar och kodar själv.", "x8": "Uppdrag · Öppet", "x9": "Egna gränssnitt, moddar, serverteman, Roblox-skript och appar, gjorda åt dig.", "x10": "Resurspaket", "x11": "Appar", "x12": "Jobba med mig", "xo": "Öppna →", "cb0": "Under utveckling · Resurspaket + följemod", "cb1": "Ett handmålat mörkt fantasy-gränssnitt för Minecraft. Stål, svart och nattlila, halvmånar i stället för kors och ett runalfabet som löper genom varje mätare. Det känns fortfarande som Minecraft, bara efter mörkrets inbrott.", "cb2": "Pågående arbete", "cb3": "Laddningsskärmen, med följemodden", "cb4": "handmålade texturer", "cb5": "animerade sprites", "cb6": "Minecraft-versioner", "cb7": "träslag, alla med egen skylt", "cbg1": "Spelarens inventory", "cbg2": "Kreativt inventory", "cbg3": "Arbetsbänk", "cbg4": "Utmatare", "cbg5": "HUD: runmätare för XP och bossar, ( . )-siktet och en hotbar i stål", "cb8": "<span><b>Varje skärm omritad för hand</b>: behållare, bybor, menyer, boken, skyltar, kartan och HUD:en</span>", "cb9": "<span><b>Runor och halvmånar</b>: runmätare för XP och bossar, halvmånehjärtan och månfaser på förtrollningsnivåerna</span>", "cb10": "<span><b>Ser rätt ut på egen hand.</b> Följemodden ger varje kista, shulker och bybo en egen skärm, en levande natthimmel och episka tooltips</span>", "cb11": "<span><b>Gjort för att passa ihop med Shardlight</b>, med Shardlight-typsnittet och glaschatten</span>", "cb12": "Kommer snart", "cb13": "Grafiken är klar och paketet byggs och testas i spelet. Nya skärmar visas först bland smygtittarna på Discord.", "cb14": "Resurspaket", "cb15": "Fabric-följemod", "cb16": "16x pixelgrafik", "cb17": "Följ det på Discord", "tp0": "Shardlight-temapaket", "tp1": "Ett paket för varje tema", "tp2": "Varje Shardlight-tema har ett UI-resurspaket och ett matchande ljudpaket. De fungerar på egen hand och gör sig bäst tillsammans med Shardlight UI-modden.", "tp3": "Nytt · med Shardlight UI 4.3", "tp4": "47 teman till", "tp5": "Sju nya grupper: Sea &amp; Sky, Wilds, Legends, Tech, Blocky, Seasons och Kawaii. Från Abyssal Tide och Dragon Hoard till Lo-fi Cafe och Strawberry Milk, alla med egna ramar, levande ornament och ljud.", "tp6": "Se Shardlight", "tp7": "Sju klassiska paket", "ap0": "Mjukvara", "ap1": "Appar som jag designar och bygger", "ap2": "Datorprogram, från en musik-ö för Windows till en Minecraft-launcher. Jag designar gränssnittet och skriver koden.", "ap3": "Smygtitt · Windows", "ap4": "Gratis · Windows, macOS, Linux", "ap5": "Patreon · Windows", "nx0": "Nytt · Smygtitt", "nx1": "Kommer snart", "nx2": "En Dynamic Island för Windows. Din musik, låttexter och snabbval bor i en liten ö högst upp på skärmen, och den håller sig undan när du spelar.", "nx3": "<span><b>Staplar som följer det riktiga ljudet</b>: 14 visualiserare som bara lyssnar på din musikspelare</span>", "nx4": "<span><b>Synkade låttexter</b> som lyser upp ord för ord i låtens färg</span>", "nx5": "<span><b>Spelläge</b>: en smal list ovanför din HUD som ignorerar musen när du siktar</span>", "nx6": "<span><b>Ett hovrande bort</b>: anteckningar, en filhylla, urklippshistorik, snabbinställningar och widgets</span>", "nx7": "Inget konto, ingen spårning", "nx8": "Första offentliga versionen kommer snart. Gå med i Discord så får du veta när den släpps.", "nx9": "Få besked på Discord", "nx10": "Hovra över eller tryck på ön", "nx11": "Material:", "nx12": "En levande mockup av ön. I den riktiga appen kommer låt, omslag och färger från din musikspelare.", "nw7": "En ny Kawaii-grupp: Cotton Cloud och Strawberry Milk, båda med en egen liten maskot.", "nw8": "Två nya rameffekter, studs och hjärtan, med matchande klickeffekter.", "nw9": "45 nya teman i sex grupper: Sea &amp; Sky, Wilds, Legends, Tech, Blocky och Seasons.", "nw10": "Levande ornament, klickeffekter och menypartiklar för varje tema.", "nw11": "Byggd även för Minecraft 1.21.11."},rot:['Minecraft-moddar.','spel-UI.','resurspaket.','datorappar.','Roblox-spel.'],build:'Jag bygger',
     months:['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'],booking:m=>'Bokar för '+m,
     andUp:' och uppåt',quote:'Offert',quoteChat:'Offert efter ett kort samtal',under3:'under 3 dagar',days:'dagar',week:'vecka',weeks:'veckor',scope:'efter omfattning',
-    soundOn:'Ljud på',soundOff:'Ljud av',day:'Dag',night:'Natt',now:'uppdaterar Shardlight till Minecraft 26.3',
+    soundOn:'Ljud på',soundOff:'Ljud av',day:'Dag',night:'Natt',now:'målar Crescentbound och finslipar Notch X',
     ph:{'b-ver':'t.ex. Minecraft 26.3, Fabric','b-date':'t.ex. om 2 veckor','b-desc':'Beskriv idén och länka referenser'},
     opt:{'b-type':['Minecraft-GUI / resurspaket','Fabric-mod eller plugin','Eget Shardlight-servertema','Roblox-skript','Datorapp','Något annat'],'b-budget':['Under 50 USD','50 – 100 USD','100 – 250 USD','250+ USD','Vet inte än']},
     pkg:{gui:['En egen skärm, t.ex. inventory eller kista, i din servers stil.','Upp till 5 matchande skärmar (inventory, kista, ugn, crafting, HUD) i ett resurspaket.','Upp till 10 skärmar plus HUD och ikoner i din servers stil.'],
@@ -1573,10 +1904,10 @@ const L10N={
      roblox:['Ett litet skript eller en buggfix i dina befintliga skript.','Ett komplett system, t.ex. butik, topplista eller datasparning, med UI.','2 sammankopplade system för en tycoon eller simulator, t.ex. pengar och uppgraderingar, med sparning.'],
      app:['Ett fokuserat datorverktyg i Java eller Python.','En komplett app med designat gränssnitt och installationsprogram.','Större projekt får en offert efter ett kort samtal.']},
     tabs:{gui:'GUI & paket',mod:'Moddar & plugins',theme:'Serverteman',roblox:'Roblox',app:'Datorappar'},lvl:['Starter','Standard','Full'],deliv:'Leverans'},
-  ar:{dict:{"t0": "Shardlight", "t1": "أعمالي", "t2": "خدماتي", "t3": "من أنا", "t4": "ادعمني", "t5": "مبرمج ومصمم · من كارلسكرونا، السويد", "t6": "أصنع مودات ماينكرافت وحزم موارد وبرامج كمبيوتر وألعاب روبلوكس. أصمم الشكل بنفسي وأبرمجه بنفسي، عشان يخلص بسرعة ويشتغل بسرعة.", "now": "حاليًا:", "t7": "خلّنا نبدأ مشروعك", "t8": "شوف أعمالي", "t9": "مودات Fabric", "t10": "ثيم للواجهة", "t11": "اختبار للّانشر", "t12": "برامج كمبيوتر", "t13": "المشروع الأبرز · Minecraft 26.3", "t14": "Shardlight: مود واحد و15 عالم", "t15": "واجهة ماينكرافت بتصميم جديد بالكامل، ولكل ثيم حزمة موارد وأصوات خاصة فيه. اختر ثيم وشوف كيف يتغير شكل كل شاشة.", "t16": "الحقيبة", "t17": "الصندوق", "t18": "الفرن", "t19": "<i></i>قارن مع اللعبة الأصلية", "t20": "واجهة HUD زجاجية ترتبها على كيفك، تبويبات وبحث في الشات، ترتيب الحقيبة تلقائيًا، معاينة صناديق الشلكر، وبروفايلات جاهزة.", "t21": "خريطة صغيرة وخريطة كاملة للعالم، فيها طبقات الكهوف ورادار ونقاط مُجمّعة وتقدر تشارك خريطتك.", "t22": "ملاحظات تثبّتها في أي مكان، قوائم مهام تتشطّب لحالها، وضع تصوير، مسطرة قياس ومؤقتات.", "t23": "قائمة أصدقاء ولوحة للفريق تلاقي فيها أصحابك وين ما كانوا، بدون أي إضافة على السيرفر.", "nw0": "آخر التحديثات", "mo1": "شوفها وهي شغّالة", "mo2": "إيقاف", "mo2b": "تشغيل", "mo3": "حزم الثيمات", "mo4": "نفس الصندوق، بكل الثيمات", "mo5": "أداة الأشكال", "mo7": "خريطة العالم", "mo9": "مصوّرة من داخل اللعبة على ماينكرافت 26.3.", "nw1": "محرر الواجهة صار يعرض لوحات الفريق بمكانها وحجمها الحقيقي.", "nw2": "ثمان ثيمات جديدة، ولوحة الفريق صارت تاخذ شكل إطار الثيم.", "nw3": "تحديث المواقع صار أذكى: ما يوصل لأصحابك موقع قديم أبدًا.", "nw4": "نزل v0.1.0", "nw5": "رسومات جديدة وشاشة بداية وملفات تثبيت لويندوز وماك ولينكس.", "nw6": "عرض السكن بشكل ثلاثي الأبعاد، حالة ديسكورد، واختيار اللغة.", "t24": "برنامج كمبيوتر · JavaFX", "t25": "لانشر ماينكرافت برمجته بنفسي. كل إعداد له مشروع خاص فيه، والأداء دائمًا أولًا.", "t26": "<span><b>مشاريع منفصلة</b> لكل واحد إصداره ولودره ومودّاته وجافا خاصة فيه</span>", "t27": "<span><b>بحث في Modrinth وCurseForge</b> مع فحص التعارضات والمتطلبات</span>", "t28": "<span><b>ستة أوضاع للأداء</b> تشوف كل تغيير قبل لا يتطبق</span>", "t29": "<span><b>مساعدة لما تكرش اللعبة</b> بكلام واضح، ونسخ احتياطي لعوالمك</span>", "dl1": "حمّل Shardlight Client", "dl2": "شوف الكود", "dl3": "مجاني · ويندوز وماك ولينكس · التحميل من GitHub", "t30": "أعمال ثانية", "t31": "برامج الكمبيوتر", "t32": "برنامج لويندوز يجمع صورك وفيديوهاتك من كل المجلدات والهاردات الخارجية في مكتبة وحدة على جهازك. فيه مشغّل، وفرز سريع، ويكتشف الصور المكررة والمتشابهة، ويقارن جنب بعض، وينظف المساحة، وفيه ذكاء اصطناعي محلي اختياري. وما يحتاج أي حساب سحابي.", "t33": "الطلبات", "t34": "وش أقدر أسوي لك", "t35": "اختر الخدمة وشوف الباقات. كل شغل له سعر ثابت نتفق عليه قبل ما أبدأ.", "t36": "<b>خصم 30% لأول 3 عملاء</b> مقابل تقييم صادق. <span id=\"slots\">باقي 3 أماكن من 3.</span>", "t37": "واجهات وحزم", "t38": "مودات وإضافات", "t39": "ثيمات للسيرفرات", "t40": "برامج كمبيوتر", "t41": "الأسعار بالدولار الأمريكي، نفس Fiverr · نص المبلغ مقدّم والباقي عند التسليم · تعديلين مجانًا · التسليم المستعجل (أقل من 3 أيام) +30% · الفاتورة عن طريق Frilans Finans", "t42": "كيف نشتغل", "t43": "<b>تشرح لي</b><span>قل لي وش تبي وأرسل لي أمثلة.</span>", "t44": "<b>السعر</b><span>سعر ثابت وموعد تسليم واضح.</span>", "t45": "<b>تشوف الشغل</b><span>تتابع الشغل أول بأول وتطلب التعديلات.</span>", "t46": "<b>التسليم</b><span>الملفات النهائية مع الكود وطريقة التركيب.</span>", "t47": "عندك سؤال عن الدفع أو التعديلات أو الإصدارات؟ <a href=\"#faq\">شوف الأسئلة الشائعة</a>", "t48": "قبل لا تبدأ", "t49": "أسئلة تتكرر كثير", "t50": "كيف أدفع؟", "t51": "تدفع النص قبل ما أبدأ، والنص الثاني قبل ما أسلمك الملفات. الشغل اللي سعره 20 دولار أو أقل يندفع كامل مقدّمًا. الفاتورة تكون رسمية عن طريق Frilans Finans.", "t52": "كم مرة أقدر أطلب تعديل؟", "t53": "كل باقة فيها جولتين تعديل. أي جولة زيادة بـ 10 دولار، وأي ميزة جديدة برا الاتفاق لها سعر لحالها.", "t54": "على أي إصدارات ماينكرافت تشتغل؟", "t55": "غالبًا Fabric على آخر الإصدارات (26.x). قل لي إصدارك واللودر وأأكد لك قبل السعر. وأقدر أشتغل على Forge وNeoForge لو تبي.", "t56": "هل أستلم الكود؟", "t57": "الباقة الكاملة فيها الكود. في باقة البداية والمتوسطة الكود بزيادة 50% إلا إذا اتفقنا غير كذا. وفي كل الأحوال تقدر تستخدم الشغل على سيرفرك أو لعبتك.", "t58": "بتعرض مشروعي في أعمالك؟", "t59": "عادةً أعرض الشغل بعد ما يخلص، بس لو تبيه يكون خاص قل لي وبس.", "t60": "ولو حبيت ألغي؟", "t61": "لو ألغيت بعد ما بدأت الشغل ما يرجع المبلغ المقدّم. ولو أنا اللي ألغيت، يرجع لك المبلغ كامل.", "t62": "من أنا", "t63": "هلا، أنا Janxirus", "t64": "أدرس <b>هندسة البرمجيات في جامعة BTH</b> في كارلسكرونا. وبوقت فراغي أبرمج الأدوات والألعاب اللي أبي أستخدمها أنا، من لانشر ماينكرافت إلى واجهة كاملة بـ15 ثيم.", "t65": "يهمني شيئين: يكون شكله حلو، ويكون سريع.", "t66": "ادعم شغلي", "t67": "ساعدني أخلّي Shardlight مجاني", "t68": "المودات بتظل مجانية دايمًا. واللي يدعمني على Patreon يحصل على التحديثات قبل الكل، ويصوّت على الجاي، وياخذ ثيمات خاصة.", "t69": "ادعمني على Patreon", "dc1": "ادخل سيرفر الديسكورد", "t70": "الأسعار تظهر بعملتك على Patreon.", "t71": "متاح للطلبات", "t72": "يلا نسوي شيء حلو", "t73": "قل لي وش تبي، وإصدار اللعبة، ومتى تحتاجه. أرد عليك خلال 24 ساعة.", "t74": "نوع المشروع", "t75": "إصدار اللعبة / المنصة", "t76": "متى تحتاجه", "t77": "وش تبي بالضبط؟", "t78": "ميزانيتك", "e1": "الباقة", "e2": "أبيه مستعجل (أقل من 3 أيام)", "e3": "السعر التقريبي", "t79": "انسخ الطلب", "e4": "أرسل الطلب لـ Janxirus", "fv1": "تفضّل تطلب عن طريق Fiverr؟", "fv2": "شوف خدماتي على Fiverr", "t80": "انسخ الطلب وأرسله بالإيميل على janxirus.dev@gmail.com أو برسالة في Fiverr.", "t81": "© 2026 Janxirus · كارلسكرونا، السويد · جميع الحقوق محفوظة", "g0": "التحميلات", "g1": "التحميلات", "g2": "حمّل شغلي", "g3": "المودات وسبع حزم ثيمات بتنزل قريب على Modrinth، واللانشر مجاني على GitHub. واللي يدعمني على Patreon ياخذ زيادة ثمان حزم ثيمات حصرية وبرنامج MediaVault.", "g4": "مجاني · قريب على Modrinth", "g5": "مود الواجهة مع إضافاته الثلاث لـ Fabric، على ماينكرافت 26.2 و26.3.", "g6": "حزم الثيمات", "g7": "سبع ثيمات (v1.0.1)، كل وحدة حزمة موارد فيها تصاميم الواجهة مع أصواتها: Ember وBlood Moon وSoul Fire وAshen وDark Green وPurple Flame وPink Blossom.", "g8": "بتنزل قريب على Modrinth", "g9": "مجاني · GitHub", "g10": "لانشر ماينكرافت حقي لويندوز وماك ولينكس.", "g11": "آخر إصدار", "g12": "Patreon · فئة Ember", "g13": "حزم ثيمات حصرية", "g14": "Arcane Academy وCelestial وCyberpunk وDark Fantasy وFrostbound وMedieval وSteampunk وVoidborn (v1.0.1). كل وحدة فيها التصاميم والأصوات مع بعض.", "g15": "اشترك من 35 كرونة بالشهر", "g16": "Patreon · فئة Shard", "g17": "برنامجي لمكتبة الصور والفيديو الخاصة على ويندوز.", "g18": "اشترك من 69 كرونة بالشهر", "g20": "خذ MediaVault من Patreon", "g21": "حصري على Patreon · فئة Shard (69 كرونة بالشهر) وفوق", "g30": "8 حزم ثيمات Shardlight حصرية", "g31": "برنامج MediaVault لويندوز"},rot:['مودات ماينكرافت.','واجهات ألعاب.','حزم موارد.','برامج كمبيوتر.','ألعاب روبلوكس.'],build:'أنا أبرمج',
+  ar:{dict:{"t0": "Shardlight", "t1": "أعمالي", "t2": "خدماتي", "t3": "من أنا", "t4": "ادعمني", "t5": "مبرمج ومصمم · من كارلسكرونا، السويد", "t6": "أصنع مودات ماينكرافت وحزم موارد وبرامج كمبيوتر وألعاب روبلوكس. أصمم الشكل بنفسي وأبرمجه بنفسي، عشان يخلص بسرعة ويشتغل بسرعة.", "now": "حاليًا:", "t7": "خلّنا نبدأ مشروعك", "t8": "شوف أعمالي", "t9": "مودات Fabric", "t10": "ثيم للواجهة", "t11": "اختبار للّانشر", "t12": "برامج كمبيوتر", "t13": "المشروع الأبرز · Minecraft 26.3", "t14": "Shardlight: مود واحد و62 عالم", "t15": "واجهة ماينكرافت بتصميم جديد بالكامل، ولكل ثيم حزمة موارد وأصوات خاصة فيه. تحت تلاقي 15 منها: اختر وحدة وشوف كيف يتغير شكل كل شاشة.", "t16": "الحقيبة", "t17": "الصندوق", "t18": "الفرن", "t19": "<i></i>قارن مع اللعبة الأصلية", "t20": "واجهة HUD زجاجية ترتبها على كيفك، تبويبات وبحث في الشات، ترتيب الحقيبة تلقائيًا، معاينة صناديق الشلكر، وبروفايلات جاهزة.", "t21": "خريطة صغيرة وخريطة كاملة للعالم، فيها طبقات الكهوف ورادار ونقاط مُجمّعة وتقدر تشارك خريطتك.", "t22": "ملاحظات تثبّتها في أي مكان، قوائم مهام تتشطّب لحالها، وضع تصوير، مسطرة قياس ومؤقتات.", "t23": "قائمة أصدقاء ولوحة للفريق تلاقي فيها أصحابك وين ما كانوا، بدون أي إضافة على السيرفر.", "nw0": "آخر التحديثات", "mo1": "شوفها وهي شغّالة", "mo2": "إيقاف", "mo2b": "تشغيل", "mo3": "حزم الثيمات", "mo4": "نفس الصندوق، بكل الثيمات", "mo5": "أداة الأشكال", "mo7": "خريطة العالم", "mo9": "مصوّرة من داخل اللعبة على ماينكرافت 26.3.", "nw1": "محرر الواجهة صار يعرض لوحات الفريق بمكانها وحجمها الحقيقي.", "nw2": "ثمان ثيمات جديدة، ولوحة الفريق صارت تاخذ شكل إطار الثيم.", "nw3": "تحديث المواقع صار أذكى: ما يوصل لأصحابك موقع قديم أبدًا.", "nw4": "نزل v0.1.0", "nw5": "رسومات جديدة وشاشة بداية وملفات تثبيت لويندوز وماك ولينكس.", "nw6": "عرض السكن بشكل ثلاثي الأبعاد، حالة ديسكورد، واختيار اللغة.", "t24": "برنامج كمبيوتر · JavaFX", "t25": "لانشر ماينكرافت برمجته بنفسي. كل إعداد له مشروع خاص فيه، والأداء دائمًا أولًا.", "t26": "<span><b>مشاريع منفصلة</b> لكل واحد إصداره ولودره ومودّاته وجافا خاصة فيه</span>", "t27": "<span><b>بحث في Modrinth وCurseForge</b> مع فحص التعارضات والمتطلبات</span>", "t28": "<span><b>ستة أوضاع للأداء</b> تشوف كل تغيير قبل لا يتطبق</span>", "t29": "<span><b>مساعدة لما تكرش اللعبة</b> بكلام واضح، ونسخ احتياطي لعوالمك</span>", "dl1": "حمّل Shardlight Client", "dl2": "شوف الكود", "dl3": "مجاني · ويندوز وماك ولينكس · التحميل من GitHub", "t30": "أعمال ثانية", "t31": "برامج الكمبيوتر", "t32": "برنامج لويندوز يجمع صورك وفيديوهاتك من كل المجلدات والهاردات الخارجية في مكتبة وحدة على جهازك. فيه مشغّل، وفرز سريع، ويكتشف الصور المكررة والمتشابهة، ويقارن جنب بعض، وينظف المساحة، وفيه ذكاء اصطناعي محلي اختياري. وما يحتاج أي حساب سحابي.", "t33": "الطلبات", "t34": "وش أقدر أسوي لك", "t35": "اختر الخدمة وشوف الباقات. كل شغل له سعر ثابت نتفق عليه قبل ما أبدأ.", "t36": "<b>خصم 30% لأول 3 عملاء</b> مقابل تقييم صادق. <span id=\"slots\">باقي 3 أماكن من 3.</span>", "t37": "واجهات وحزم", "t38": "مودات وإضافات", "t39": "ثيمات للسيرفرات", "t40": "برامج كمبيوتر", "t41": "الأسعار بالدولار الأمريكي، نفس Fiverr · نص المبلغ مقدّم والباقي عند التسليم · تعديلين مجانًا · التسليم المستعجل (أقل من 3 أيام) +30% · الفاتورة عن طريق Frilans Finans", "t42": "كيف نشتغل", "t43": "<b>تشرح لي</b><span>قل لي وش تبي وأرسل لي أمثلة.</span>", "t44": "<b>السعر</b><span>سعر ثابت وموعد تسليم واضح.</span>", "t45": "<b>تشوف الشغل</b><span>تتابع الشغل أول بأول وتطلب التعديلات.</span>", "t46": "<b>التسليم</b><span>الملفات النهائية مع الكود وطريقة التركيب.</span>", "t47": "عندك سؤال عن الدفع أو التعديلات أو الإصدارات؟ <a href=\"#faq\">شوف الأسئلة الشائعة</a>", "t48": "قبل لا تبدأ", "t49": "أسئلة تتكرر كثير", "t50": "كيف أدفع؟", "t51": "تدفع النص قبل ما أبدأ، والنص الثاني قبل ما أسلمك الملفات. الشغل اللي سعره 20 دولار أو أقل يندفع كامل مقدّمًا. الفاتورة تكون رسمية عن طريق Frilans Finans.", "t52": "كم مرة أقدر أطلب تعديل؟", "t53": "كل باقة فيها جولتين تعديل. أي جولة زيادة بـ 10 دولار، وأي ميزة جديدة برا الاتفاق لها سعر لحالها.", "t54": "على أي إصدارات ماينكرافت تشتغل؟", "t55": "غالبًا Fabric على آخر الإصدارات (26.x). قل لي إصدارك واللودر وأأكد لك قبل السعر. وأقدر أشتغل على Forge وNeoForge لو تبي.", "t56": "هل أستلم الكود؟", "t57": "الباقة الكاملة فيها الكود. في باقة البداية والمتوسطة الكود بزيادة 50% إلا إذا اتفقنا غير كذا. وفي كل الأحوال تقدر تستخدم الشغل على سيرفرك أو لعبتك.", "t58": "بتعرض مشروعي في أعمالك؟", "t59": "عادةً أعرض الشغل بعد ما يخلص، بس لو تبيه يكون خاص قل لي وبس.", "t60": "ولو حبيت ألغي؟", "t61": "لو ألغيت بعد ما بدأت الشغل ما يرجع المبلغ المقدّم. ولو أنا اللي ألغيت، يرجع لك المبلغ كامل.", "t62": "من أنا", "t63": "هلا، أنا Janxirus", "t64": "أدرس <b>هندسة البرمجيات في جامعة BTH</b> في كارلسكرونا. وبوقت فراغي أبرمج الأدوات والألعاب اللي أبي أستخدمها أنا، من لانشر ماينكرافت إلى واجهة كاملة بـ62 ثيم.", "t65": "يهمني شيئين: يكون شكله حلو، ويكون سريع.", "t66": "ادعم شغلي", "t67": "ساعدني أخلّي Shardlight مجاني", "t68": "المودات بتظل مجانية دايمًا. واللي يدعمني على Patreon يحصل على التحديثات قبل الكل، ويصوّت على الجاي، وياخذ ثيمات خاصة.", "t69": "ادعمني على Patreon", "dc1": "ادخل سيرفر الديسكورد", "t70": "الأسعار تظهر بعملتك على Patreon.", "t71": "متاح للطلبات", "t72": "يلا نسوي شيء حلو", "t73": "قل لي وش تبي، وإصدار اللعبة، ومتى تحتاجه. أرد عليك خلال 24 ساعة.", "t74": "نوع المشروع", "t75": "إصدار اللعبة / المنصة", "t76": "متى تحتاجه", "t77": "وش تبي بالضبط؟", "t78": "ميزانيتك", "e1": "الباقة", "e2": "أبيه مستعجل (أقل من 3 أيام)", "e3": "السعر التقريبي", "t79": "انسخ الطلب", "e4": "أرسل الطلب لـ Janxirus", "fv1": "تفضّل تطلب عن طريق Fiverr؟", "fv2": "شوف خدماتي على Fiverr", "t80": "انسخ الطلب وأرسله بالإيميل على janxirus.dev@gmail.com أو برسالة في Fiverr.", "t81": "© 2026 Janxirus · كارلسكرونا، السويد · جميع الحقوق محفوظة", "g0": "التحميلات", "g1": "التحميلات", "g2": "حمّل شغلي", "g3": "المودات وسبع حزم ثيمات بتنزل قريب على Modrinth، واللانشر مجاني على GitHub. واللي يدعمني على Patreon ياخذ زيادة ثمان حزم ثيمات حصرية وبرنامج MediaVault.", "g4": "مجاني · قريب على Modrinth", "g5": "مود الواجهة مع إضافاته الثلاث لـ Fabric، على ماينكرافت 26.2 و26.3. وShardlight UI يشتغل بعد على 1.21.11.", "g6": "حزم الثيمات", "g7": "سبع ثيمات (v1.0.1)، كل وحدة حزمة موارد فيها تصاميم الواجهة مع أصواتها: Ember وBlood Moon وSoul Fire وAshen وDark Green وPurple Flame وPink Blossom.", "g8": "بتنزل قريب على Modrinth", "g9": "مجاني · GitHub", "g10": "لانشر ماينكرافت حقي لويندوز وماك ولينكس.", "g11": "آخر إصدار", "g12": "Patreon · فئة Ember", "g13": "حزم ثيمات حصرية", "g14": "Arcane Academy وCelestial وCyberpunk وDark Fantasy وFrostbound وMedieval وSteampunk وVoidborn (v1.0.1). كل وحدة فيها التصاميم والأصوات مع بعض.", "g15": "اشترك من 35 كرونة بالشهر", "g16": "Patreon · فئة Shard", "g17": "برنامجي لمكتبة الصور والفيديو الخاصة على ويندوز.", "g18": "اشترك من 69 كرونة بالشهر", "g20": "خذ MediaVault من Patreon", "g21": "حصري على Patreon · فئة Shard (69 كرونة بالشهر) وفوق", "g30": "8 حزم ثيمات Shardlight حصرية", "g31": "برنامج MediaVault لويندوز", "r0": "الرئيسية", "r1": "ماينكرافت", "r2": "مودات Shardlight", "r3": "حزم الموارد", "r4": "حزم الثيمات", "r5": "البرامج", "r6": "التطبيقات", "r7": "الاستوديو", "r8": "الطلبات", "r9": "التحميلات", "r10": "ادعمني", "r11": "من أنا", "r12": "خلّنا نبدأ مشروعك", "r13": "القائمة", "r14": "تواصل معي", "rnew": "جديد", "x0": "استكشف", "x1": "من وين تبي تبدأ؟", "x2": "ماينكرافت · مودات", "x3": "واجهة جديدة بالكامل فيها 62 ثيم، ومعها مود خريطة ومود مساعد ومود للفريق.", "x4": "ماينكرافت · حزم موارد", "x5": "Crescentbound، واجهة قروسطية مرسومة باليد، وحزمة لكل ثيم من Shardlight.", "x6": "برامج · تطبيقات", "x7": "Notch X وShardlight Client وMediaVault. برامج كمبيوتر أصممها وأبرمجها بنفسي.", "x8": "الطلبات · مفتوحة", "x9": "واجهات ومودات وثيمات سيرفرات وسكربتات روبلوكس وبرامج، مسوّاة لك خصيصًا.", "x10": "حزم الموارد", "x11": "التطبيقات", "x12": "اشتغل معي", "xo": "افتح ←", "cb0": "قيد التطوير · حزمة موارد + مود مرافق", "cb1": "واجهة فانتازيا مظلمة لماينكرافت مرسومة باليد. حديد وأسود وبنفسجي ليلي، أهلّة بدال الصلبان، وحروف رونية تمشي في كل شريط. وتظل تحس إنها ماينكرافت، بس بالليل.", "cb2": "شغل مستمر", "cb3": "شاشة التحميل، مع المود المرافق", "cb4": "تكستشر مرسوم باليد", "cb5": "صورة متحركة", "cb6": "إصدارات ماينكرافت", "cb7": "نوع خشب، كل واحد له لوحة خاصة", "cbg1": "حقيبة اللاعب", "cbg2": "حقيبة الكرييتف", "cbg3": "طاولة الصناعة", "cbg4": "الموزّع", "cbg5": "الواجهة: أشرطة رونية للخبرة والبوسات، علامة التصويب ( . ) وشريط أدوات من حديد", "cb8": "<span><b>كل شاشة انرسمت من جديد باليد</b>: الصناديق والقرويين والقوائم والكتاب واللوحات والخريطة والواجهة</span>", "cb9": "<span><b>رونيات وأهلّة</b>: أشرطة رونية للخبرة والبوسات، قلوب على شكل هلال، ومستويات السحر بأطوار القمر</span>", "cb10": "<span><b>شكلها مضبوط لحالها.</b> والمود المرافق يعطي كل صندوق وشلكر وقروي شاشة خاصة، وسماء ليل حيّة، وتولتيبات فخمة</span>", "cb11": "<span><b>مسوّاة عشان تركب مع Shardlight</b>، بخط Shardlight والشات الزجاجي</span>", "cb12": "قريب", "cb13": "الرسم خلص، والحزمة الحين تنبني وتنجرّب داخل اللعبة. الشاشات الجديدة تنزل أول شي في قسم اللمحات بالديسكورد.", "cb14": "حزمة موارد", "cb15": "مود مرافق لـ Fabric", "cb16": "بكسل آرت 16x", "cb17": "تابعها في الديسكورد", "tp0": "حزم ثيمات Shardlight", "tp1": "حزمة لكل ثيم", "tp2": "كل ثيم في Shardlight معه حزمة موارد للواجهة وحزمة أصوات تناسبها. تشتغل لحالها، وتطلع أحلى مع مود Shardlight UI.", "tp3": "جديد · مع Shardlight UI 4.3", "tp4": "47 ثيم زيادة", "tp5": "سبع مجموعات جديدة: Sea &amp; Sky وWilds وLegends وTech وBlocky وSeasons وKawaii. من Abyssal Tide وDragon Hoard إلى Lo-fi Cafe وStrawberry Milk، وكل واحد له إطارات وزخارف حيّة وأصوات خاصة فيه.", "tp6": "شوف Shardlight", "tp7": "سبع حزم كلاسيكية", "ap0": "البرامج", "ap1": "تطبيقات أصممها وأبرمجها", "ap2": "برامج كمبيوتر، من جزيرة موسيقى لويندوز إلى لانشر ماينكرافت. أصمم الواجهة وأكتب الكود بنفسي.", "ap3": "لمحة · ويندوز", "ap4": "مجاني · ويندوز وماك ولينكس", "ap5": "Patreon · ويندوز", "nx0": "جديد · لمحة", "nx1": "قريب", "nx2": "Dynamic Island لويندوز. موسيقاك وكلمات الأغاني والاختصارات كلها في جزيرة صغيرة فوق الشاشة، وتبعد عن طريقك وقت اللعب.", "nx3": "<span><b>أشرطة تمشي مع الصوت الحقيقي</b>: 14 شكل للمؤثرات، وتسمع بس لمشغّل الموسيقى حقك</span>", "nx4": "<span><b>كلمات متزامنة</b> تنوّر كلمة كلمة بلون الأغنية</span>", "nx5": "<span><b>وضع الألعاب</b>: شريط نحيف فوق الواجهة، وما يتأثر بالماوس وأنت تصوّب</span>", "nx6": "<span><b>كلها بمرور الماوس</b>: ملاحظات، رف للملفات، سجل الحافظة، إعدادات سريعة وويدجتات</span>", "nx7": "بدون حساب وبدون تتبّع", "nx8": "أول إصدار عام قريب. ادخل الديسكورد عشان تدري أول ما ينزل.", "nx9": "خلّني أدري في الديسكورد", "nx10": "مرّر الماوس أو اضغط على الجزيرة", "nx11": "الخامة:", "nx12": "نموذج حي للجزيرة. في البرنامج الحقيقي الأغنية والغلاف والألوان تجي من مشغّل الموسيقى حقك.", "nw7": "مجموعة Kawaii جديدة: Cotton Cloud وStrawberry Milk، وكل وحدة معها ماسكوت صغير.", "nw8": "تأثيرين جديدين للإطارات، القفز والقلوب، مع تأثيرات ضغط تناسبها.", "nw9": "45 ثيم جديد في ست مجموعات: Sea &amp; Sky وWilds وLegends وTech وBlocky وSeasons.", "nw10": "زخارف حيّة وتأثيرات ضغط وجزيئات للقوائم في كل ثيم.", "nw11": "وصار يشتغل بعد على ماينكرافت 1.21.11."},rot:['مودات ماينكرافت.','واجهات ألعاب.','حزم موارد.','برامج كمبيوتر.','ألعاب روبلوكس.'],build:'أنا أبرمج',
     months:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],booking:m=>'متاح لطلبات '+m,
     andUp:' وفوق',quote:'حسب الطلب',quoteChat:'نتفاهم على السعر بعد ما نتكلم',under3:'أقل من 3 أيام',days:'أيام',week:'أسبوع',weeks:'أسابيع',scope:'حسب حجم الشغل',
-    soundOn:'الصوت شغّال',soundOff:'الصوت مطفي',day:'الوضع الفاتح',night:'الوضع الداكن',now:'أحدّث Shardlight لـ Minecraft 26.3',
+    soundOn:'الصوت شغّال',soundOff:'الصوت مطفي',day:'الوضع الفاتح',night:'الوضع الداكن',now:'أرسم Crescentbound وأضبط Notch X',
     ph:{'b-ver':'مثلًا: Minecraft 26.3، Fabric','b-date':'مثلًا: خلال أسبوعين','b-desc':'اشرح فكرتك وحط روابط لأمثلة لو عندك'},
     opt:{'b-type':['واجهة ماينكرافت / حزمة موارد','مود Fabric أو إضافة','ثيم Shardlight خاص بسيرفرك','سكربتات روبلوكس','برنامج كمبيوتر','شيء ثاني'],'b-budget':['أقل من 50 $','50 – 100 $','100 – 250 $','أكثر من 250 $','ما أدري للحين']},
     pkg:{gui:['شاشة وحدة على كيفك، مثل الحقيبة أو الصندوق، بستايل سيرفرك.','لين 5 شاشات متناسقة (الحقيبة والصندوق والفرن والكرافتنق والـHUD) في حزمة موارد وحدة.','لين 10 شاشات مع الـHUD والأيقونات بهوية سيرفرك.'],
@@ -1587,7 +1918,7 @@ const L10N={
     tabs:{gui:'واجهات وحزم',mod:'مودات وإضافات',theme:'ثيمات للسيرفرات',roblox:'روبلوكس',app:'برامج كمبيوتر'},lvl:['البداية','المتوسطة','الكاملة'],deliv:'مدة التسليم'}
 };
 L10N.en={rot:null,build:'I build',months:['January','February','March','April','May','June','July','August','September','October','November','December'],booking:m=>'Booking for '+m,
-  andUp:' and up',quote:'Quote',quoteChat:'Quote after a short chat',under3:'under 3 days',days:'days',week:'week',weeks:'weeks',scope:'by scope',soundOn:'Sound on',soundOff:'Sound off',day:'Day',night:'Night',now:'updating Shardlight to Minecraft 26.3',lvl:['Starter','Standard','Full'],deliv:'Delivery'};
+  andUp:' and up',quote:'Quote',quoteChat:'Quote after a short chat',under3:'under 3 days',days:'days',week:'week',weeks:'weeks',scope:'by scope',soundOn:'Sound on',soundOff:'Sound off',day:'Day',night:'Night',now:'painting Crescentbound and polishing Notch X',lvl:['Starter','Standard','Full'],deliv:'Delivery'};
 window.LC=()=>L10N[document.documentElement.lang]||L10N.en;
 window.locDur=function(t){const c=LC();return t.replace('weeks',c.weeks).replace('week',c.week).replace('days',c.days).replace('by scope',c.scope)};
 (function(){
@@ -1650,6 +1981,62 @@ window.locDur=function(t){const c=LC();return t.replace('weeks',c.weeks).replace
     btn.setAttribute('aria-pressed',String(paused));btn.querySelectorAll('span').forEach((s,i)=>{s.hidden=(i===0)===paused})}
   if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{e.target._vis=e.isIntersecting});sync()},{rootMargin:'150px'});vs.forEach(v=>io.observe(v))}else vs.forEach(v=>{v._vis=true});
   btn.addEventListener('click',()=>{paused=!paused;sync()});document.addEventListener('visibilitychange',sync);sync()})();
+</script>
+<script>
+/* ===== views + right-side menu ===== */
+(function(){
+  const views=[...document.querySelectorAll('.view')];if(!views.length)return;
+  const rail=document.getElementById('rail'),mb=document.getElementById('mbtn'),scrim=document.getElementById('scrim'),rx=document.getElementById('railx');
+  const mains=[...rail.querySelectorAll('a.ri-l')],subs=[...rail.querySelectorAll('.subs a')];
+  const base=document.title;
+  const find=id=>{const el=id?document.getElementById(id):null;const v=el&&el.closest('.view');return v?[v,el]:[views[0],null]};
+  function openRail(o){rail.classList.toggle('open',o);scrim.hidden=!o;mb.setAttribute('aria-expanded',o);if(o){const a=rail.querySelector('a[aria-current]')||mains[0];a.focus({preventScroll:true})}}
+  function go(hash,from){
+    const id=decodeURIComponent((hash||'').replace(/^#/,''));const [v,el]=find(id);
+    const changed=!v.classList.contains('on');
+    views.forEach(x=>{const on=x===v;x.classList.toggle('on',on);x.hidden=!on});
+    mains.forEach(a=>{const [lv]=find(a.hash.slice(1));if(lv===v&&!a.classList.contains('btn'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    subs.forEach(a=>a.classList.toggle('cur',a.hash==='#'+id));
+    document.title=v.dataset.title?v.dataset.title+' · Janxirus':base;
+    openRail(false);
+    if(changed){dispatchEvent(new Event('resize'));if(from&&window.sfx)sfx('tab')}
+    const first=v.querySelector('section,header');
+    if(!el||el===v||el===first)scrollTo({top:0,behavior:changed?'instant':'smooth'});
+    else requestAnimationFrame(()=>el.scrollIntoView({behavior:changed?'instant':'smooth',block:'start'}));
+  }
+  addEventListener('hashchange',()=>go(location.hash,true));
+  document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;
+    if(a.id==='totop'){e.preventDefault();scrollTo({top:0,behavior:'smooth'});return}
+    if(a.getAttribute('href')===location.hash){e.preventDefault();go(location.hash,true)}});
+  mb.addEventListener('click',()=>openRail(!rail.classList.contains('open')));
+  rx.addEventListener('click',()=>{openRail(false);mb.focus()});
+  scrim.addEventListener('click',()=>openRail(false));
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&rail.classList.contains('open')){openRail(false);mb.focus()}});
+  go(location.hash,false);
+})();
+
+/* ===== Notch X sneak peek ===== */
+(function(){const isl=document.getElementById('nxIsland');if(!isl)return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,hover=matchMedia('(hover:hover)').matches;
+  const ly=document.getElementById('nxLyric');
+  const L=['Headlights on the empty road','Every city hums in neon','Turn it up and let it glow','We were never going home'];
+  let li=0,wi=0,hold=false,open=false;
+  const line=()=>{ly.innerHTML=L[li].split(' ').map(w=>'<span>'+w+'</span>').join(' ');wi=0};
+  const set=o=>{open=o;isl.classList.toggle('open',o);isl.setAttribute('aria-expanded',o)};
+  line();
+  if(reduce){set(true);[...ly.children].forEach(s=>s.classList.add('on'))}
+  else{
+    setInterval(()=>{if(document.hidden||!open)return;const w=ly.children;if(wi<w.length){w[wi].classList.add('on');wi++}else{li=(li+1)%L.length;line()}},430);
+    setInterval(()=>{if(hold||document.hidden)return;set(!open)},open?6000:3600);
+    setTimeout(()=>{if(!hold)set(true)},1200);
+  }
+  isl.addEventListener('click',()=>{hold=true;set(!open);window.sfx&&sfx('tick')});
+  isl.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();isl.click()}});
+  if(hover){isl.addEventListener('pointerenter',()=>{hold=true;set(true)});isl.addEventListener('pointerleave',()=>{hold=false})}
+  const bs=[...document.querySelectorAll('#nxMats button')];
+  bs.forEach(b=>b.addEventListener('click',()=>{bs.forEach(x=>x.setAttribute('aria-pressed',x===b));isl.dataset.mat=b.dataset.m;if(!open){set(true)}window.sfx&&sfx('tick')}));
+})();
+
 </script>
 </body>
 </html>
