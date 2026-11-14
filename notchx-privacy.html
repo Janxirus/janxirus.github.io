@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notch X · Privacy policy</title>
+<meta name="description" content="Privacy policy for Notch X, the Dynamic Island app for Windows by Janxirus.">
+<link rel="icon" type="image/png" href="notchx/icon.png">
+<link rel="canonical" href="https://janxirus.github.io/notchx-privacy.html">
+<meta name="theme-color" content="#07070c">
+<style>
+:root{--bg:#07070c;--fg:#f4f4fb;--muted:#a3a2c0;--line:rgba(255,255,255,.12);--blue:#8fb4ff;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -10%,#2a1a55 0,transparent 55%),var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:760px;margin:0 auto;padding:48px 20px 64px}
+a{color:var(--blue)}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.top img{width:52px;height:52px;border-radius:13px}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.1;margin:0}
+.date{color:var(--muted);font-size:14px;margin:6px 0 30px}
+h2{font-size:20px;margin:34px 0 8px}
+p,li{color:#d6d5ea}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.box{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:rgba(255,255,255,.035)}
+footer{margin-top:44px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><img src="notchx/icon.png" alt=""><h1>Notch X privacy policy</h1></div>
+  <p class="date">Last updated: 14 November 2026</p>
+
+  <div class="box"><p style="margin:0"><b>Short version:</b> Notch X has no account and no telemetry. It doesn't collect, sell or share
+  anything about you. Everything stays on your PC, except the few optional lookups listed below.</p></div>
+
+  <h2>Who makes Notch X</h2>
+  <p>Notch X is made by Janxirus, an independent developer in Karlskrona, Sweden. Contact:
+  <a href="mailto:janxirus.dev@gmail.com">janxirus.dev@gmail.com</a>.</p>
+
+  <h2>What stays on your PC</h2>
+  <p>Your settings, notes, to-do lists, clipboard history, shelf files, app shortcuts and the notifications Notch X shows are
+  stored only on your PC, in the app's own data folder. Notch X reads what's playing from Windows' media controls and the
+  sound level of your music player to draw the visualizer. None of this is sent anywhere.</p>
+
+  <h2>What goes over the internet</h2>
+  <p>Only these, and only for the features you use:</p>
+  <table>
+    <thead><tr><th>Feature</th><th>Sent to</th><th>What's sent</th></tr></thead>
+    <tbody>
+      <tr><td>Synced lyrics</td><td>lrclib.net</td><td>The song's title, artist and length</td></tr>
+      <tr><td>Weather and rain alerts</td><td>Open-Meteo</td><td>The city you typed (only if you set one)</td></tr>
+      <tr><td>AI summary, Anthropic option</td><td>Anthropic</td><td>The titles and text of the notifications that waited, using your own API key</td></tr>
+      <tr><td>Notch X Pro purchase</td><td>Microsoft Store</td><td>Handled by Microsoft; Notch X only asks the Store whether Pro is owned</td></tr>
+      <tr><td>Settings sync (optional)</td><td>Your own OneDrive folder</td><td>Your settings file</td></tr>
+    </tbody>
+  </table>
+  <p>The AI summary's "On this PC" option runs entirely on your computer. Favourite sites open in your own browser.</p>
+
+  <h2>Windows notifications</h2>
+  <p>If you turn on "Windows notifications", Windows asks you to allow Notch X to read your notifications so it can show them
+  on the island. They are shown and kept on your PC only (and, if you choose the Anthropic AI summary, sent as described above).
+  You can turn this off in Notch X or in Windows' privacy settings at any time.</p>
+
+  <h2>Payments</h2>
+  <p>Notch X Pro is bought through the Microsoft Store. Microsoft handles the payment; Notch X never sees your payment details.
+  See <a href="https://privacy.microsoft.com/privacystatement">Microsoft's privacy statement</a>.</p>
+
+  <h2>Children</h2>
+  <p>Notch X doesn't knowingly collect any information from anyone, including children.</p>
+
+  <h2>Deleting your data</h2>
+  <p>Uninstalling Notch X removes its data folder. You can also open it from Settings › About › Open data folder and delete it.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the new version is posted on this page with a new date.</p>
+
+  <footer>© 2026 Janxirus · <a href="https://janxirus.github.io/">janxirus.github.io</a></footer>
+</main>
+</body>
+</html>
